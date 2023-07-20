@@ -36,12 +36,5 @@ namespace CookingMasterAPI.Controllers
             Random rnd = new Random();
             return rnd.Next(x, y);
         }
-
-        [HttpGet("RandomNumberWithQueryV2")]
-        public int VratiRandomBrojV2(int x, int y)
-        {
-            Random rnd = new Random();
-            return rnd.Next(x, y);
-        }
     }
 }
