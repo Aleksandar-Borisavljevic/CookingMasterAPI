@@ -29,5 +29,12 @@ namespace CookingMasterAPI.Controllers
         {
             return x + y;
         }
+
+        [HttpGet("RandomNumberWithQuery")]
+        public int VratiRandomBroj(int x, int y)
+        {
+            Random rnd = new Random();
+            return rnd.Next(x, y);
+        }
     }
 }
