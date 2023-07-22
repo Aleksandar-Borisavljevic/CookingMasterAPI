@@ -11,8 +11,9 @@ namespace CookingMasterAPI.Services
         public void SendEmail(string body)
         {
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("drpetar91@gmail.com"));
-            email.To.Add(MailboxAddress.Parse("napstericious@gmail.com"));
+            email.From.Add(MailboxAddress.Parse("cookingmasterinc@gmail.com"));
+            email.To.Add(MailboxAddress.Parse("drpetar91@gmail.com"));
+            //drpetar91@gmail.com
             email.Subject = "Test Email Subject";
             email.Body = new TextPart(TextFormat.Html)
             {
@@ -22,7 +23,7 @@ namespace CookingMasterAPI.Services
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
 
-            smtp.Authenticate("drpetar91@gmail.com", "axwdcmuefmdhzblp");
+            smtp.Authenticate("cookingmasterinc@gmail.com", "ypiqlovkjlnbqrqn");
             smtp.Send(email);
             smtp.Disconnect(true);
         }

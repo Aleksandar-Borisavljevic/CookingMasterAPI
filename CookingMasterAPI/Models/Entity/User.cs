@@ -6,6 +6,7 @@ namespace CookingMasterAPI.Models.Entity
 {
     public class User
     {
+        #region Properties
         [Key]
         public int UserId { get; set; }
         [Required]
@@ -31,5 +32,6 @@ namespace CookingMasterAPI.Models.Entity
         public string? PasswordResetToken { get; set; }
 
         public DateTime? ResetTokenExpires { get; set; }
+        #endregion
     }
 }

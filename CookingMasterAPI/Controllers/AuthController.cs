@@ -12,14 +12,17 @@ namespace CookingMasterAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        #region Variables
         private readonly APIDbContext _context;
         private readonly IEmailGenerateService _emailGenerateService;
+        #endregion
         public AuthController(APIDbContext context, IEmailGenerateService emailGenerateService)
         {
             _context = context;
             _emailGenerateService = emailGenerateService;
         }
 
+        #region PostMethods
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(UserRegisterRequest request)
         {
@@ -57,7 +60,9 @@ namespace CookingMasterAPI.Controllers
                 throw;
             }                
         }
+        #endregion
 
+        #region Methods
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
@@ -75,6 +80,7 @@ namespace CookingMasterAPI.Controllers
                 return computedHash.SequenceEqual(passwordHash);
             }
         }
+        #endregion
     }
 }
 
