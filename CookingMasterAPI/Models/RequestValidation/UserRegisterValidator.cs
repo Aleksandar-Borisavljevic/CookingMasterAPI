@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace CookingMasterAPI.Models.RequestValidation
 {
-    public class UserValidator : AbstractValidator<UserRegisterRequest>
+    public class UserRegisterValidator : AbstractValidator<UserRegisterRequest>
     {
-        public UserValidator()
+        public UserRegisterValidator()
         {
             RuleFor(user => user.Username)
                 .NotEmpty().WithMessage("Username is required.")

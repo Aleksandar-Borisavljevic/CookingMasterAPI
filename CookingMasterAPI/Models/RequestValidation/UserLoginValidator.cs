@@ -1,6 +1,19 @@
-﻿namespace CookingMasterAPI.Models.RequestValidation
+﻿using CookingMasterAPI.Models.Request;
+using FluentValidation;
+
+namespace CookingMasterAPI.Models.RequestValidation
 {
-    public class UserLoginValidator
+    //TODO: create validation for User Login request 
+    public class UserLoginValidator : AbstractValidator<UserLoginRequest>
     {
+        public UserLoginValidator()
+        {
+            RuleFor(user => user.EmailAddress)
+                .NotEmpty().WithMessage("Email is required.")
+                .EmailAddress().WithMessage("Email needs to follow a format of: example@mail.com");
+
+            RuleFor(user => user.Password)
+                .NotEmpty().WithMessage("Password is required.");
+        }
     }
 }
