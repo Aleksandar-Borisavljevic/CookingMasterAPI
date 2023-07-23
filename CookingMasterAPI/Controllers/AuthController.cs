@@ -3,7 +3,10 @@ using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Services.ServiceInterfaces;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace CookingMasterAPI.Controllers
@@ -15,11 +18,18 @@ namespace CookingMasterAPI.Controllers
         #region Variables
         private readonly APIDbContext _context;
         private readonly IEmailGenerateService _emailGenerateService;
+        private readonly IValidator<UserRegisterRequest> _validator;
         #endregion
-        public AuthController(APIDbContext context, IEmailGenerateService emailGenerateService)
+        public AuthController
+            (
+            APIDbContext context,
+            IEmailGenerateService emailGenerateService,
+            IValidator<UserRegisterRequest> validator
+            )
         {
             _context = context;
             _emailGenerateService = emailGenerateService;
+            _validator = validator;
         }
 
         #region PostMethods
@@ -31,6 +41,11 @@ namespace CookingMasterAPI.Controllers
                 if (request is null)
                 {
                     return BadRequest(ExceptionManager.requestIsNull);
+                }
+                ValidationResult result = _validator.Validate(request);
+                if (!result.IsValid)
+                {
+                    return BadRequest(String.Join('\n', result.Errors));
                 }
                 if (_context.Users.Any(u => u.EmailAddress == request.EmailAddress))
                 {
@@ -58,7 +73,39 @@ namespace CookingMasterAPI.Controllers
             catch (Exception)
             {
                 throw;
-            }                
+            }
+        }
+
+        [HttpPost("login")]
+
+        public async Task<ActionResult<User>> LoginAsync(UserLoginRequest request)
+        {
+            try
+            {
+                if (request is null)
+                {
+                    return BadRequest(ExceptionManager.requestIsNull);
+                }
+                if (_context.Users is null)
+                {
+                    return NotFound();
+                }
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == request.EmailAddress);
+                if (user is null)
+                {
+                    return BadRequest(ExceptionManager.userDoesNotExist);
+                }
+                if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+                {
+                    return BadRequest(ExceptionManager.invalidPassword);
+                }
+                return Ok(user);
+            }
+            //Change this in the future
+            catch (Exception)
+            {
+                throw;
+            }
         }
         #endregion
 

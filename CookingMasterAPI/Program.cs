@@ -1,11 +1,18 @@
 using CookingMasterAPI.Data;
+using CookingMasterAPI.Models.Request;
+using CookingMasterAPI.Models.RequestValidation;
 using CookingMasterAPI.Services;
 using CookingMasterAPI.Services.ServiceInterfaces;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region Dependency Injection Services
 builder.Services.AddScoped<IEmailGenerateService, EmailGenerateService>();
+builder.Services.AddSingleton<IValidator<UserRegisterRequest>, UserValidator>();
+#endregion
 
 // Add services to the container.
 
