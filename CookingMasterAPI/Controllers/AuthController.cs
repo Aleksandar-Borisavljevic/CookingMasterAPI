@@ -7,6 +7,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
 using System.Security.Cryptography;
 
 namespace CookingMasterAPI.Controllers
@@ -64,9 +65,11 @@ namespace CookingMasterAPI.Controllers
                 };
 
                 _context.Users.Add(user);
+
                 await _context.SaveChangesAsync();
 
                 _emailGenerateService.SendEmail(user.VerificationToken);
+
                 return Ok("User successfully created");
             }
             //Change this in the future
@@ -86,14 +89,14 @@ namespace CookingMasterAPI.Controllers
                 {
                     return BadRequest(ExceptionManager.requestIsNull);
                 }
-                if (_context.Users is null)
-                {
-                    return NotFound();
-                }
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == request.EmailAddress);
                 if (user is null)
                 {
                     return BadRequest(ExceptionManager.userDoesNotExist);
+                }
+                if (user.VerifiedAt is null)
+                {
+                    return BadRequest(ExceptionManager.userNotVerified);
                 }
                 if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
                 {
@@ -107,6 +110,81 @@ namespace CookingMasterAPI.Controllers
                 throw;
             }
         }
+
+        [HttpPost("verify")]
+        public async Task<IActionResult> VerifyAsync(string token)
+        {
+            try
+            {
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.VerificationToken == token);
+                if (user is null)
+                {
+                    return BadRequest(ExceptionManager.invalidVerificationToken);
+                }
+                user.VerifiedAt = DateTime.Now;
+                await _context.SaveChangesAsync();
+                return Ok("Registration successfuly verified.");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPasswordAsync(string emailAddress)
+        {
+            try
+            {
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == emailAddress);
+                if (user is null)
+                {
+                    return BadRequest(ExceptionManager.userDoesNotExist);
+                }
+                user.PasswordResetToken = _emailGenerateService.CreateRandomToken();
+                user.ResetTokenExpires = DateTime.Now.AddDays(1);
+
+                await _context.SaveChangesAsync();
+
+                _emailGenerateService.SendEmail(user.PasswordResetToken);
+
+                return Ok("Email with password reset token has been sent to you. Please check your email.");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
+        {
+            try
+            {
+                var user = await _context.Users.SingleOrDefaultAsync(u => 
+                u.EmailAddress == request.EmailAddress && 
+                u.PasswordResetToken == request.ResetPasswordToken);
+                if (user is null || user.ResetTokenExpires < DateTime.Now)
+                {
+                    return BadRequest(ExceptionManager.invalidResetPasswordToken);
+                }
+                CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+                user.PasswordSalt = passwordSalt;
+                user.PasswordHash = passwordHash;
+                user.PasswordResetToken = null;
+                user.ResetTokenExpires = null;
+
+                await _context.SaveChangesAsync();
+
+                return Ok("Password has succesfully been reset.");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         #endregion
 
         #region Methods

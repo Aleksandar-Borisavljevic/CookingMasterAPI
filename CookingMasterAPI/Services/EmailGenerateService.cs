@@ -27,7 +27,7 @@ namespace CookingMasterAPI.Services
             smtp.Send(email);
             smtp.Disconnect(true);
         }
-
+        //TODO: Future proof this
         public string CreateRandomToken()
         {
             Random rnd = new Random();
