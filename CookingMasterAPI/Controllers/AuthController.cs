@@ -19,18 +19,24 @@ namespace CookingMasterAPI.Controllers
         #region Variables
         private readonly APIDbContext _context;
         private readonly IEmailGenerateService _emailGenerateService;
-        private readonly IValidator<UserRegisterRequest> _validator;
+        private readonly IValidator<UserRegisterRequest> _registerValidator;
+        private readonly IValidator<UserLoginRequest> _loginValidator;
+        private readonly IValidator<ResetPasswordRequest> _resetPasswordValidator;
         #endregion
         public AuthController
             (
             APIDbContext context,
             IEmailGenerateService emailGenerateService,
-            IValidator<UserRegisterRequest> validator
+            IValidator<UserRegisterRequest> registerValidator,
+            IValidator<UserLoginRequest> loginValidator,
+            IValidator<ResetPasswordRequest> resetPasswordValidator
             )
         {
             _context = context;
             _emailGenerateService = emailGenerateService;
-            _validator = validator;
+            _registerValidator = registerValidator;
+            _loginValidator = loginValidator;
+            _resetPasswordValidator = resetPasswordValidator;
         }
 
         #region PostMethods
@@ -43,7 +49,7 @@ namespace CookingMasterAPI.Controllers
                 {
                     return BadRequest(ExceptionManager.requestIsNull);
                 }
-                ValidationResult result = _validator.Validate(request);
+                ValidationResult result = _registerValidator.Validate(request);
                 if (!result.IsValid)
                 {
                     return BadRequest(String.Join('\n', result.Errors));
@@ -89,6 +95,12 @@ namespace CookingMasterAPI.Controllers
                 {
                     return BadRequest(ExceptionManager.requestIsNull);
                 }
+                ValidationResult result = _loginValidator.Validate(request);
+                if (!result.IsValid)
+                {
+                    return BadRequest(String.Join('\n', result.Errors));
+                }
+
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == request.EmailAddress);
                 if (user is null)
                 {
@@ -161,6 +173,12 @@ namespace CookingMasterAPI.Controllers
         {
             try
             {
+                ValidationResult result = _resetPasswordValidator.Validate(request);
+                if (!result.IsValid)
+                {
+                    return BadRequest(String.Join('\n', result.Errors));
+                }
+
                 var user = await _context.Users.SingleOrDefaultAsync(u => 
                 u.EmailAddress == request.EmailAddress && 
                 u.PasswordResetToken == request.ResetPasswordToken);
