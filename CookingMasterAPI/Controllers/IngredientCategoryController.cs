@@ -1,7 +1,59 @@
-﻿namespace CookingMasterAPI.Controllers
+﻿using CookingMasterAPI.Data;
+using CookingMasterAPI.Models.Entity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace CookingMasterAPI.Controllers
 {
-    public class IngredientCategoryController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class IngredientCategoryController : ControllerBase
     {
-        
+        private readonly APIDbContext _context;
+        public IngredientCategoryController(APIDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<IngredientCategory>>> GetIngredientCategories()
+        {
+            try
+            {
+                if (_context.IngredientCategories is null)
+                {
+                    return NotFound();
+                }
+                return await _context.IngredientCategories.ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("{categoryId}")]
+        public async Task<ActionResult<IngredientCategory>> GetIngredientCategory(int categoryId)
+        {
+            try
+            {
+                if (_context.IngredientCategories is null)
+                {
+                    return NotFound();
+                }
+                var ingredientCategory = await _context.IngredientCategories.FindAsync(categoryId);
+                //var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(c => c.CategoryId == categoryId);
+
+                if (ingredientCategory is null)
+                {
+                    return NotFound();
+                }
+                return ingredientCategory;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
