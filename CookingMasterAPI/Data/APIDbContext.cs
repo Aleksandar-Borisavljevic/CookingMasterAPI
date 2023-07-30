@@ -16,7 +16,7 @@ namespace CookingMasterAPI.Data
         public DbSet<IngredientCategory> IngredientCategories { get; set; }
 
         //Defining connection string which leads to server
-        private const string LocalConnectionString = "Server =(local)\\sqlexpress;Database=CookingMaster_DB;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True";
+        private const string LocalConnectionString = "Server =(local)\\sqlexpress;Database=Server=localhost\\SQLEXPRESS;Database=CookingMaster_DB;Trusted_Connection=True;;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True";
         /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

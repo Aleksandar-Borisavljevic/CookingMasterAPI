@@ -1,4 +1,5 @@
 ﻿using CookingMasterAPI.Data;
+using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
@@ -17,76 +18,32 @@ namespace CookingMasterAPI.Controllers
     public class AuthController : ControllerBase
     {
         #region Variables
-        private readonly APIDbContext _context;
-        private readonly IEmailGenerateService _emailGenerateService;
-        private readonly IValidator<UserRegisterRequest> _registerValidator;
-        private readonly IValidator<UserLoginRequest> _loginValidator;
-        private readonly IValidator<ResetPasswordRequest> _resetPasswordValidator;
+        private readonly IAuthService _authService;
         #endregion
-        public AuthController
-            (
-            APIDbContext context,
-            IEmailGenerateService emailGenerateService,
-            IValidator<UserRegisterRequest> registerValidator,
-            IValidator<UserLoginRequest> loginValidator,
-            IValidator<ResetPasswordRequest> resetPasswordValidator
-            )
+        public AuthController(IAuthService authService)
         {
-            _context = context;
-            _emailGenerateService = emailGenerateService;
-            _registerValidator = registerValidator;
-            _loginValidator = loginValidator;
-            _resetPasswordValidator = resetPasswordValidator;
+            _authService = authService;
         }
+
 
         #region PostMethods
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(UserRegisterRequest request)
         {
-            try
+            var result = await _authService.RegisterAsync(request);
+
+            if (result.Status is StatusRegisterEnum.Success)
             {
-                if (request is null)
-                {
-                    return BadRequest(ExceptionManager.requestIsNull);
-                }
-                ValidationResult result = _registerValidator.Validate(request);
-                if (!result.IsValid)
-                {
-                    return BadRequest(String.Join('\n', result.Errors));
-                }
-                if (_context.Users.Any(u => u.EmailAddress == request.EmailAddress))
-                {
-                    return BadRequest(ExceptionManager.mailAlreadyInUse);
-                }
-                CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
-
-
-                var user = new User
-                {
-                    Username = request.Username,
-                    EmailAddress = request.EmailAddress,
-                    PasswordHash = passwordHash,
-                    PasswordSalt = passwordSalt,
-                    VerificationToken = _emailGenerateService.CreateRandomToken()
-                };
-
-                _context.Users.Add(user);
-
-                await _context.SaveChangesAsync();
-
-                _emailGenerateService.SendEmail(user.VerificationToken);
-
-                return Ok("User successfully created");
+                return Ok(result.Description);
             }
-            //Change this in the future
-            catch (Exception)
+            else
             {
-                throw;
+                return BadRequest(result.Description);
             }
         }
-
+        /*
         [HttpPost("login")]
-
+        
         public async Task<ActionResult<User>> LoginAsync(UserLoginRequest request)
         {
             try
@@ -179,8 +136,8 @@ namespace CookingMasterAPI.Controllers
                     return BadRequest(String.Join('\n', result.Errors));
                 }
 
-                var user = await _context.Users.SingleOrDefaultAsync(u => 
-                u.EmailAddress == request.EmailAddress && 
+                var user = await _context.Users.SingleOrDefaultAsync(u =>
+                u.EmailAddress == request.EmailAddress &&
                 u.PasswordResetToken == request.ResetPasswordToken);
                 if (user is null || user.ResetTokenExpires < DateTime.Now)
                 {
@@ -223,8 +180,12 @@ namespace CookingMasterAPI.Controllers
                 return computedHash.SequenceEqual(passwordHash);
             }
         }
+        
+        
+        */
         #endregion
     }
+
 }
 
 
