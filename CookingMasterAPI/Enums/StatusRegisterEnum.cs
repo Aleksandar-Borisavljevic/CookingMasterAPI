@@ -6,7 +6,7 @@ namespace CookingMasterAPI.Enums
     {
         [Description("An uknown error has occured. Please contact support.")]
         Undefined = 0,
-        [Description("User succesfully created.")]
+        [Description("User successfully created.")]
         Success = 1,
         [Description("User info not valid.")]
         RequestIsNull = 2,

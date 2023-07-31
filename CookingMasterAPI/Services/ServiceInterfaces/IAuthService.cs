@@ -9,9 +9,9 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
     public interface IAuthService
     {
         Task<RegistrationResult> RegisterAsync(UserRegisterRequest request);
-        Task<ActionResult<User>> LoginAsync(UserLoginRequest request);
+        Task<LoginResult> LoginAsync(UserLoginRequest request);
 
-        Task<IActionResult> VerifyAsync(string token);
+        string VerifyAsync(string token);
 
         Task<IActionResult> ForgotPasswordAsync(string emailAddress);
 

@@ -2,9 +2,11 @@
 
 namespace CookingMasterAPI.Models.Result
 {
-    public class RegistrationResult
+    public class RegistrationResult : BaseResult<StatusRegisterEnum>
     {
-        public StatusRegisterEnum Status { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public RegistrationResult(StatusRegisterEnum registerEnum, string description)
+        : base(registerEnum, description)
+        {            
+        }
     }
 }

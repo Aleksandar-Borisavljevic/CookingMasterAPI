@@ -1,6 +1,7 @@
 ﻿using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
+using CookingMasterAPI.Models.DTOs;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Services.ServiceInterfaces;
@@ -30,48 +31,45 @@ namespace CookingMasterAPI.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(UserRegisterRequest request)
         {
-            var result = await _authService.RegisterAsync(request);
+            try
+            {
+                var result = await _authService.RegisterAsync(request);
 
-            if (result.Status is StatusRegisterEnum.Success)
-            {
-                return Ok(result.Description);
+                if (result.Status is StatusRegisterEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                else
+                {
+                    return BadRequest(result.Description);
+                }
             }
-            else
+            catch (Exception)
             {
-                return BadRequest(result.Description);
+                throw;
             }
+
         }
-        /*
+
         [HttpPost("login")]
-        
-        public async Task<ActionResult<User>> LoginAsync(UserLoginRequest request)
+        public async Task<ActionResult<UserDto>> LoginAsync(UserLoginRequest request)
         {
             try
             {
-                if (request is null)
+                var result = await _authService.LoginAsync(request);
+                if (result.Status is StatusLoginEnum.Success)
                 {
-                    return BadRequest(ExceptionManager.requestIsNull);
-                }
-                ValidationResult result = _loginValidator.Validate(request);
-                if (!result.IsValid)
-                {
-                    return BadRequest(String.Join('\n', result.Errors));
-                }
+                    if (result.User is null)
+                    {
+                        throw new ArgumentNullException(nameof(result.User), "User cannot be null.");
+                    }
 
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == request.EmailAddress);
-                if (user is null)
-                {
-                    return BadRequest(ExceptionManager.userDoesNotExist);
+                    return Ok(result.User);
                 }
-                if (user.VerifiedAt is null)
+                else
                 {
-                    return BadRequest(ExceptionManager.userNotVerified);
+                    return BadRequest(result.Description);
                 }
-                if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-                {
-                    return BadRequest(ExceptionManager.invalidPassword);
-                }
-                return Ok(user);
             }
             //Change this in the future
             catch (Exception)
@@ -79,7 +77,7 @@ namespace CookingMasterAPI.Controllers
                 throw;
             }
         }
-
+        /*
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyAsync(string token)
         {

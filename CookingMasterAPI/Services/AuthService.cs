@@ -1,6 +1,7 @@
 ﻿using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
+using CookingMasterAPI.Models.DTOs;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Models.Result;
@@ -8,6 +9,7 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 namespace CookingMasterAPI.Services
@@ -83,27 +85,27 @@ namespace CookingMasterAPI.Services
                 if (request is null)
                 {
                     return new RegistrationResult
-                    {
-                        Status = StatusRegisterEnum.RequestIsNull,
-                        Description = StatusRegisterEnum.RequestIsNull.GetEnumDescription()
-                    };
+                    (
+                        StatusRegisterEnum.RequestIsNull,
+                        StatusRegisterEnum.RequestIsNull.GetEnumDescription()
+                    );
                 }
                 ValidationResult result = _registerValidator.Validate(request);
                 if (!result.IsValid)
                 {
                     return new RegistrationResult
-                    {
-                        Status = StatusRegisterEnum.RequestIsValid,
-                        Description = String.Join('\n', result.Errors)
-                    };
+                    (
+                        StatusRegisterEnum.RequestIsValid,
+                        String.Join('\n', result.Errors)
+                    );
                 }
                 if (_context.Users.Any(u => u.EmailAddress == request.EmailAddress))
                 {
                     return new RegistrationResult
-                    {
-                        Status = StatusRegisterEnum.MailAlreadyInUse,
-                        Description = StatusRegisterEnum.MailAlreadyInUse.GetEnumDescription()
-                    };
+                    (
+                        StatusRegisterEnum.MailAlreadyInUse,
+                        StatusRegisterEnum.MailAlreadyInUse.GetEnumDescription()
+                    );
                 }
                 CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
@@ -123,10 +125,10 @@ namespace CookingMasterAPI.Services
                 _emailGenerateService.SendEmail(user.VerificationToken);
 
                 return new RegistrationResult
-                {
-                    Status = StatusRegisterEnum.Success,
-                    Description = StatusRegisterEnum.Success.GetEnumDescription()
-                };
+                (
+                    StatusRegisterEnum.Success,
+                    StatusRegisterEnum.Success.GetEnumDescription()
+                );
             }
             catch (Exception)
             {
@@ -134,20 +136,108 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public Task<ActionResult<User>> LoginAsync(UserLoginRequest request)
+        public async Task<LoginResult> LoginAsync(UserLoginRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (request is null)
+                {
+                    return new LoginResult
+                    (
+                        StatusLoginEnum.RequestIsNull,
+                        StatusLoginEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+
+
+                ValidationResult result = _loginValidator.Validate(request);
+                if (!result.IsValid)
+                {
+                    return new LoginResult
+                    (
+                        StatusLoginEnum.RequestIsValid,
+                        String.Join('\n', result.Errors)
+                    );
+                }
+
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == request.EmailAddress);
+                if (user is null)
+                {
+                    return new LoginResult
+                    (
+                        StatusLoginEnum.UserDoesNotExist,
+                        StatusLoginEnum.UserDoesNotExist.GetEnumDescription()
+                    );
+                }
+                if (user.VerifiedAt is null)
+                {
+                    return new LoginResult
+                    (
+                        StatusLoginEnum.UserNotVerified,
+                        StatusLoginEnum.UserNotVerified.GetEnumDescription()
+                    );
+                }
+                if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
+                {
+                    return new LoginResult
+                    (
+                        StatusLoginEnum.InvalidPassword,
+                        StatusLoginEnum.InvalidPassword.GetEnumDescription()
+                    );
+                }
+                var userDto = MapUserToDto(user);
+                return new LoginResult
+                (
+                    StatusLoginEnum.Success,
+                    StatusLoginEnum.Success.GetEnumDescription(),
+                    userDto
+                );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<IActionResult> VerifyAsync(string token)
+        public async Task<VerifyResult> VerifyAsync(string token)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.VerificationToken == token);
+                if (user is null)
+                {
+                    return new VerifyResult
+                    (
+                        StatusVerifyEnum.UserIsNull,
+                        StatusVerifyEnum.UserIsNull.GetEnumDescription()
+                    );
+                }
+                user.VerifiedAt = DateTime.Now;
+                await _context.SaveChangesAsync();
+
+
+                return new VerifyResult
+                (
+                    StatusVerifyEnum.Success,
+                    StatusVerifyEnum.Success.GetEnumDescription()
+                );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
         {
             throw new NotImplementedException();
         }
 
+
+        public Task<IActionResult> ForgotPasswordAsync(string emailAddress)
+        {
+            throw new NotImplementedException();
+        }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -167,9 +257,13 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public Task<IActionResult> ForgotPasswordAsync(string emailAddress)
+        private UserDto MapUserToDto(User user)
         {
-            throw new NotImplementedException();
+            return new UserDto
+            {
+                Username = user.Username,
+                EmailAddress = user.EmailAddress
+            };
         }
     }
 }
