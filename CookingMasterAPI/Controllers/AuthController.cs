@@ -1,7 +1,7 @@
 ﻿using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
-using CookingMasterAPI.Models.DTOs;
+using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Services;
@@ -51,7 +51,7 @@ namespace CookingMasterAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> LoginAsync(UserLoginRequest request)
+        public async Task<ActionResult<UserResponse>> LoginAsync(UserLoginRequest request)
         {
             try
             {

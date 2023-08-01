@@ -1,15 +1,15 @@
 ﻿using CookingMasterAPI.Enums;
-using CookingMasterAPI.Models.DTOs;
+using CookingMasterAPI.Models.Response;
 
 namespace CookingMasterAPI.Models.Result
 {
     public class LoginResult : BaseResult<StatusLoginEnum>
     {
-        public LoginResult(StatusLoginEnum status, string description, UserDto? user = null)
+        public LoginResult(StatusLoginEnum status, string description, UserResponse? user = null)
             : base(status, description)
         {
             User = user;
         }
-        public UserDto? User { get; set; }
+        public UserResponse? User { get; set; }
     }
 }

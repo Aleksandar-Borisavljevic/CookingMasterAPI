@@ -5,7 +5,7 @@ using FluentValidation.Results;
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
-using CookingMasterAPI.Models.DTOs;
+using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Models.Result;
@@ -184,12 +184,13 @@ namespace CookingMasterAPI.Services
                         StatusLoginEnum.InvalidPassword.GetEnumDescription()
                     );
                 }
-                var userDto = MapUserToDto(user);
+                var userResponse = MapUserToResponse(user);
+
                 return new LoginResult
                 (
                     StatusLoginEnum.Success,
                     StatusLoginEnum.Success.GetEnumDescription(),
-                    userDto
+                    userResponse
                 );
             }
             catch (Exception)
@@ -331,13 +332,9 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        private UserDto MapUserToDto(User user)
+        private UserResponse MapUserToResponse(User user)
         {
-            return new UserDto
-            {
-                Username = user.Username,
-                EmailAddress = user.EmailAddress
-            };
+            return new UserResponse(user.Username, user.EmailAddress);
         }
     }
 }
