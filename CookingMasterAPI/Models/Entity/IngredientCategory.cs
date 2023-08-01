@@ -17,5 +17,10 @@ namespace CookingMasterAPI.Models.Entity
         [Column(TypeName = "nvarchar(50)")]
         public string IconPath { get; set; } = string.Empty;
 
+        [Required]
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? DeleteDate { get; set; }
+
     }
 }

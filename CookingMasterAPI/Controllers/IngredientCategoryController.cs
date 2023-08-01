@@ -24,7 +24,9 @@ namespace CookingMasterAPI.Controllers
                 {
                     return NotFound();
                 }
-                return await _context.IngredientCategories.ToListAsync();
+
+                return await _context.IngredientCategories.Where(x => x.DeleteDate == null).ToListAsync();
+
             }
             catch (Exception)
             {
