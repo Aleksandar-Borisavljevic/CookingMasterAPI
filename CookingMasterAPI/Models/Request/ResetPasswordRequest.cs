@@ -2,7 +2,6 @@
 {
     public class ResetPasswordRequest
     {
-        //TODO: Create ResetPasswordValidation
         public string EmailAddress { get; set; } = string.Empty;
         public string ResetPasswordToken { get; set; } = string.Empty;
         public string NewPassword { get; set; } = string.Empty;

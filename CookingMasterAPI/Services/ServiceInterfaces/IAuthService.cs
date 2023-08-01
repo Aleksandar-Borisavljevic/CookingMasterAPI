@@ -11,9 +11,9 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
         Task<RegistrationResult> RegisterAsync(UserRegisterRequest request);
         Task<LoginResult> LoginAsync(UserLoginRequest request);
 
-        string VerifyAsync(string token);
+        Task<VerifyResult> VerifyAsync(string token);
 
-        Task<IActionResult> ForgotPasswordAsync(string emailAddress);
+        Task<ForgotPasswordResult> ForgotPasswordAsync(string emailAddress);
 
         Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request);
 

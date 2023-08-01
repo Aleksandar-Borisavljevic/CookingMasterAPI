@@ -4,6 +4,7 @@ using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.DTOs;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
+using CookingMasterAPI.Services;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using FluentValidation;
 using FluentValidation.Results;
@@ -77,45 +78,26 @@ namespace CookingMasterAPI.Controllers
                 throw;
             }
         }
-        /*
-        [HttpPost("verify")]
-        public async Task<IActionResult> VerifyAsync(string token)
-        {
-            try
-            {
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.VerificationToken == token);
-                if (user is null)
-                {
-                    return BadRequest(ExceptionManager.invalidVerificationToken);
-                }
-                user.VerifiedAt = DateTime.Now;
-                await _context.SaveChangesAsync();
-                return Ok("Registration successfuly verified.");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
 
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPasswordAsync(string emailAddress)
         {
             try
             {
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == emailAddress);
-                if (user is null)
+                var user = await _authService.ForgotPasswordAsync(emailAddress);
+                if (user.Status is StatusForgotPasswordEnum.Success)
                 {
-                    return BadRequest(ExceptionManager.userDoesNotExist);
+                    if (user.Status is StatusForgotPasswordEnum.UserDoesNotExist)
+                    {
+                        return BadRequest(user.Description);
+                    }
+
+                    return Ok(user.Description);
                 }
-                user.PasswordResetToken = _emailGenerateService.CreateRandomToken();
-                user.ResetTokenExpires = DateTime.Now.AddDays(1);
-
-                await _context.SaveChangesAsync();
-
-                _emailGenerateService.SendEmail(user.PasswordResetToken);
-
-                return Ok("Email with password reset token has been sent to you. Please check your email.");
+                else
+                {
+                    return BadRequest(user.Description);
+                }
             }
             catch (Exception)
             {
@@ -123,67 +105,69 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
-        {
-            try
-            {
-                ValidationResult result = _resetPasswordValidator.Validate(request);
-                if (!result.IsValid)
-                {
-                    return BadRequest(String.Join('\n', result.Errors));
-                }
-
-                var user = await _context.Users.SingleOrDefaultAsync(u =>
-                u.EmailAddress == request.EmailAddress &&
-                u.PasswordResetToken == request.ResetPasswordToken);
-                if (user is null || user.ResetTokenExpires < DateTime.Now)
-                {
-                    return BadRequest(ExceptionManager.invalidResetPasswordToken);
-                }
-                CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
-
-                user.PasswordSalt = passwordSalt;
-                user.PasswordHash = passwordHash;
-                user.PasswordResetToken = null;
-                user.ResetTokenExpires = null;
-
-                await _context.SaveChangesAsync();
-
-                return Ok("Password has succesfully been reset.");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        #endregion
-
-        #region Methods
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(passwordHash);
-            }
-        }
-        
-        
-        */
-        #endregion
     }
 
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
+    {
+        try
+        {
+            ValidationResult result = _resetPasswordValidator.Validate(request);
+            if (!result.IsValid)
+            {
+                return BadRequest(String.Join('\n', result.Errors));
+            }
+
+            var user = await _context.Users.SingleOrDefaultAsync(u =>
+            u.EmailAddress == request.EmailAddress &&
+            u.PasswordResetToken == request.ResetPasswordToken);
+            if (user is null || user.ResetTokenExpires < DateTime.Now)
+            {
+                return BadRequest(ExceptionManager.invalidResetPasswordToken);
+            }
+            CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+            user.PasswordSalt = passwordSalt;
+            user.PasswordHash = passwordHash;
+            user.PasswordResetToken = null;
+            user.ResetTokenExpires = null;
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Password has succesfully been reset.");
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    #endregion
+
+    /*#region Methods
+    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512())
+        {
+            passwordSalt = hmac.Key;
+            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+    }
+
+    private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512(passwordSalt))
+        {
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return computedHash.SequenceEqual(passwordHash);
+        }
+    }
+
+
+    
+    #endregion*/
 }
+
+
 
 

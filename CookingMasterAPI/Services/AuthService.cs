@@ -228,16 +228,46 @@ namespace CookingMasterAPI.Services
                 throw;
             }
         }
+
+        public async Task<ForgotPasswordResult> ForgotPasswordAsync(string emailAddress)
+        {
+            try
+            {
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == emailAddress);
+                if (user is null)
+                {                    
+                    return new ForgotPasswordResult
+                    (
+                        StatusForgotPasswordEnum.UserDoesNotExist,
+                        StatusForgotPasswordEnum.UserDoesNotExist.GetEnumDescription()
+                    );
+                }
+                user.PasswordResetToken = _emailGenerateService.CreateRandomToken();
+                user.ResetTokenExpires = DateTime.Now.AddDays(1);
+
+                await _context.SaveChangesAsync();
+
+                _emailGenerateService.SendEmail(user.PasswordResetToken);
+
+
+                return new ForgotPasswordResult
+                (
+                    StatusForgotPasswordEnum.Success,
+                    StatusForgotPasswordEnum.Success.GetEnumDescription()
+                );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
         {
             throw new NotImplementedException();
         }
 
 
-        public Task<IActionResult> ForgotPasswordAsync(string emailAddress)
-        {
-            throw new NotImplementedException();
-        }
+
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
