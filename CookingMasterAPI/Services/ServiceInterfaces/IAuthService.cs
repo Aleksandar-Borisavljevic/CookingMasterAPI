@@ -15,7 +15,7 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
 
         Task<ForgotPasswordResult> ForgotPasswordAsync(string emailAddress);
 
-        Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request);
+        Task<ResetPasswordResult> ResetPasswordAsync(ResetPasswordRequest request);
 
     }
 }

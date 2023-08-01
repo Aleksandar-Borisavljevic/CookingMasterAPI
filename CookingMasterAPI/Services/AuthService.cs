@@ -1,4 +1,8 @@
-﻿using CookingMasterAPI.Data;
+﻿using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.Results;
+using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.DTOs;
@@ -6,11 +10,6 @@ using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Models.Result;
 using CookingMasterAPI.Services.ServiceInterfaces;
-using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace CookingMasterAPI.Services
 {
@@ -235,11 +234,11 @@ namespace CookingMasterAPI.Services
             {
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.EmailAddress == emailAddress);
                 if (user is null)
-                {                    
+                {
                     return new ForgotPasswordResult
                     (
-                        StatusForgotPasswordEnum.UserDoesNotExist,
-                        StatusForgotPasswordEnum.UserDoesNotExist.GetEnumDescription()
+                        StatusForgotPasswordEnum.UserNotFound,
+                        StatusForgotPasswordEnum.UserNotFound.GetEnumDescription()
                     );
                 }
                 user.PasswordResetToken = _emailGenerateService.CreateRandomToken();
@@ -261,14 +260,59 @@ namespace CookingMasterAPI.Services
                 throw;
             }
         }
-        public Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
+        public async Task<ResetPasswordResult> ResetPasswordAsync(ResetPasswordRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ValidationResult result = _resetPasswordValidator.Validate(request);
+                if (!result.IsValid)
+                {
+                    return new ResetPasswordResult
+                        (
+                        StatusResetPasswordEnum.RequestIsValid,
+                        String.Join('\n', result.Errors)
+                        );
+                }
+
+                var user = await _context.Users.SingleOrDefaultAsync(u =>
+                u.EmailAddress == request.EmailAddress &&
+                u.PasswordResetToken == request.ResetPasswordToken);
+                if (user is null)
+                {
+                    return new ResetPasswordResult
+                    (
+                        StatusResetPasswordEnum.UserNotFound,
+                        StatusResetPasswordEnum.UserNotFound.GetEnumDescription()
+                    );
+                }
+                if (user.ResetTokenExpires < DateTime.Now)
+                {
+                    return new ResetPasswordResult
+                    (
+                        StatusResetPasswordEnum.ResetTokenExpired,
+                        StatusResetPasswordEnum.ResetTokenExpired.GetEnumDescription()
+                    );
+                }
+                CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+                user.PasswordSalt = passwordSalt;
+                user.PasswordHash = passwordHash;
+                user.PasswordResetToken = null;
+                user.ResetTokenExpires = null;
+
+                await _context.SaveChangesAsync();
+
+                return new ResetPasswordResult
+                (
+                    StatusResetPasswordEnum.Success,
+                    StatusResetPasswordEnum.Success.GetEnumDescription()
+                );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
-
-
-
-
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())

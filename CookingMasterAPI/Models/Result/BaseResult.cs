@@ -6,7 +6,6 @@ namespace CookingMasterAPI.Models.Result
     {
         public BaseResult(T status, string description)
         {
-
             Status = status;
             Description = description;
         }
