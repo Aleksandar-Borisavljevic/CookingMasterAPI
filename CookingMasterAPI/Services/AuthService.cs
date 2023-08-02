@@ -164,8 +164,8 @@ namespace CookingMasterAPI.Services
                 {
                     return new LoginResult
                     (
-                        StatusLoginEnum.UserDoesNotExist,
-                        StatusLoginEnum.UserDoesNotExist.GetEnumDescription()
+                        StatusLoginEnum.UserNotFound,
+                        StatusLoginEnum.UserNotFound.GetEnumDescription()
                     );
                 }
                 if (user.VerifiedAt is null)

@@ -12,7 +12,7 @@ namespace CookingMasterAPI.Enums
         RequestIsNull = 2,
         RequestIsValid = 3,
         [Description("User doesn't exist.")]
-        UserDoesNotExist = 4,
+        UserNotFound = 4,
         [Description("User is not verified.")]
         UserNotVerified = 5,
         [Description("The password that has been entered is not valid.")]

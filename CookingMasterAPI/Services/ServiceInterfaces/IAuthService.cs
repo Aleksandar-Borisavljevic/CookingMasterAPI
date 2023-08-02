@@ -1,8 +1,6 @@
-﻿using CookingMasterAPI.Enums;
-using CookingMasterAPI.Models.Entity;
-using CookingMasterAPI.Models.Request;
+﻿using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Models.Result;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace CookingMasterAPI.Services.ServiceInterfaces
 {

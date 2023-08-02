@@ -1,8 +1,8 @@
-﻿using CookingMasterAPI.Services.ServiceInterfaces;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
+using CookingMasterAPI.Services.ServiceInterfaces;
 
 namespace CookingMasterAPI.Services
 {

@@ -1,7 +1,7 @@
-﻿using CookingMasterAPI.Data;
-using CookingMasterAPI.Models.Entity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CookingMasterAPI.Data;
+using CookingMasterAPI.Models.Entity;
 
 namespace CookingMasterAPI.Controllers
 {
