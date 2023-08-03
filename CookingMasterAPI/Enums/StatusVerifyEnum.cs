@@ -9,6 +9,8 @@ namespace CookingMasterAPI.Enums
         [Description("User registration is successfully verified.")]
         Success = 1,
         [Description("Invalid verification token. Please check your email address.")]
-        UserIsNull = 2
+        InvalidToken = 2,
+        [Description("Token info not valid. Please enter a valid token containing 6 digits.")]
+        RequestIsNull = 3
     }
 }

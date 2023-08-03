@@ -3,9 +3,8 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Enums;
 using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Request;
-
-
-
+using CookingMasterAPI.Models.Result;
+using CookingMasterAPI.Helpers;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -63,6 +62,34 @@ namespace CookingMasterAPI.Controllers
                 return BadRequest(result.Description);
             }
             //Change this in the future
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("verify")]
+        public async Task<ActionResult<VerifyResult>> VerifyAsync(string token)
+        {
+            try
+            {
+                var result = await _authService.VerifyAsync(token);
+                if (result.Status is StatusVerifyEnum.Success)
+                {
+                    //TO DO: Implement validation in case the input field is empty
+                    //if (result.Status is StatusVerifyEnum.RequestIsNull)
+                    //{
+                    //    return BadRequest(result.Description);
+                    //}
+                    if (result.Status is StatusVerifyEnum.InvalidToken)
+                    {
+                        return BadRequest(result.Description);
+                    }
+                }
+
+                return Ok(result.Description);
+
+            }
             catch (Exception)
             {
                 throw;

@@ -209,8 +209,8 @@ namespace CookingMasterAPI.Services
                 {
                     return new VerifyResult
                     (
-                        StatusVerifyEnum.UserIsNull,
-                        StatusVerifyEnum.UserIsNull.GetEnumDescription()
+                        StatusVerifyEnum.InvalidToken,
+                        StatusVerifyEnum.InvalidToken.GetEnumDescription()
                     );
                 }
                 user.VerifiedAt = DateTime.Now;
