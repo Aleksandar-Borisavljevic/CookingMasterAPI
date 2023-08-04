@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace CookingMasterAPI.Enums
+namespace CookingMasterAPI.Enums.AuthStatusEnums
 {
-    public enum StatusLoginEnum
+    public enum LoginEnum
     {
         [Description("An uknown error has occured. Please contact support.")]
         Undefined = 0,

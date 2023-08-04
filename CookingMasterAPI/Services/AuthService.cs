@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.Results;
 using CookingMasterAPI.Data;
-using CookingMasterAPI.Enums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request;
-using CookingMasterAPI.Models.Result;
 using CookingMasterAPI.Services.ServiceInterfaces;
+using CookingMasterAPI.Models.Result.AuthResult;
+using CookingMasterAPI.Enums.AuthStatusEnums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CookingMasterAPI.Services
 {
@@ -85,8 +86,8 @@ namespace CookingMasterAPI.Services
                 {
                     return new RegistrationResult
                     (
-                        StatusRegisterEnum.RequestIsNull,
-                        StatusRegisterEnum.RequestIsNull.GetEnumDescription()
+                        RegisterEnum.RequestIsNull,
+                        RegisterEnum.RequestIsNull.GetEnumDescription()
                     );
                 }
                 ValidationResult result = _registerValidator.Validate(request);
@@ -94,7 +95,7 @@ namespace CookingMasterAPI.Services
                 {
                     return new RegistrationResult
                     (
-                        StatusRegisterEnum.RequestIsValid,
+                        RegisterEnum.RequestIsValid,
                         String.Join('\n', result.Errors)
                     );
                 }
@@ -102,8 +103,8 @@ namespace CookingMasterAPI.Services
                 {
                     return new RegistrationResult
                     (
-                        StatusRegisterEnum.MailAlreadyInUse,
-                        StatusRegisterEnum.MailAlreadyInUse.GetEnumDescription()
+                        RegisterEnum.MailAlreadyInUse,
+                        RegisterEnum.MailAlreadyInUse.GetEnumDescription()
                     );
                 }
                 CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
@@ -125,8 +126,8 @@ namespace CookingMasterAPI.Services
 
                 return new RegistrationResult
                 (
-                    StatusRegisterEnum.Success,
-                    StatusRegisterEnum.Success.GetEnumDescription()
+                    RegisterEnum.Success,
+                    RegisterEnum.Success.GetEnumDescription()
                 );
             }
             catch (Exception)
@@ -143,8 +144,8 @@ namespace CookingMasterAPI.Services
                 {
                     return new LoginResult
                     (
-                        StatusLoginEnum.RequestIsNull,
-                        StatusLoginEnum.RequestIsNull.GetEnumDescription()
+                        LoginEnum.RequestIsNull,
+                        LoginEnum.RequestIsNull.GetEnumDescription()
                     );
                 }
 
@@ -154,7 +155,7 @@ namespace CookingMasterAPI.Services
                 {
                     return new LoginResult
                     (
-                        StatusLoginEnum.RequestIsValid,
+                        LoginEnum.RequestIsValid,
                         String.Join('\n', result.Errors)
                     );
                 }
@@ -164,32 +165,32 @@ namespace CookingMasterAPI.Services
                 {
                     return new LoginResult
                     (
-                        StatusLoginEnum.UserNotFound,
-                        StatusLoginEnum.UserNotFound.GetEnumDescription()
+                        LoginEnum.UserNotFound,
+                        LoginEnum.UserNotFound.GetEnumDescription()
                     );
                 }
                 if (user.VerifiedAt is null)
                 {
                     return new LoginResult
                     (
-                        StatusLoginEnum.UserNotVerified,
-                        StatusLoginEnum.UserNotVerified.GetEnumDescription()
+                        LoginEnum.UserNotVerified,
+                        LoginEnum.UserNotVerified.GetEnumDescription()
                     );
                 }
                 if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
                 {
                     return new LoginResult
                     (
-                        StatusLoginEnum.InvalidPassword,
-                        StatusLoginEnum.InvalidPassword.GetEnumDescription()
+                        LoginEnum.InvalidPassword,
+                        LoginEnum.InvalidPassword.GetEnumDescription()
                     );
                 }
                 var userResponse = MapUserToResponse(user);
 
                 return new LoginResult
                 (
-                    StatusLoginEnum.Success,
-                    StatusLoginEnum.Success.GetEnumDescription(),
+                    LoginEnum.Success,
+                    LoginEnum.Success.GetEnumDescription(),
                     userResponse
                 );
             }
@@ -203,24 +204,24 @@ namespace CookingMasterAPI.Services
         {
             try
             {
-
                 var user = await _context.Users.SingleOrDefaultAsync(u => u.VerificationToken == token);
                 if (user is null)
                 {
                     return new VerifyResult
                     (
-                        StatusVerifyEnum.InvalidToken,
-                        StatusVerifyEnum.InvalidToken.GetEnumDescription()
+                        VerifyEnum.InvalidToken,
+                        VerifyEnum.InvalidToken.GetEnumDescription()
                     );
                 }
+
                 user.VerifiedAt = DateTime.Now;
                 await _context.SaveChangesAsync();
 
 
                 return new VerifyResult
                 (
-                    StatusVerifyEnum.Success,
-                    StatusVerifyEnum.Success.GetEnumDescription()
+                    VerifyEnum.Success,
+                    VerifyEnum.Success.GetEnumDescription()
                 );
             }
             catch (Exception)
@@ -238,8 +239,8 @@ namespace CookingMasterAPI.Services
                 {
                     return new ForgotPasswordResult
                     (
-                        StatusForgotPasswordEnum.UserNotFound,
-                        StatusForgotPasswordEnum.UserNotFound.GetEnumDescription()
+                        ForgotPasswordEnum.UserNotFound,
+                        ForgotPasswordEnum.UserNotFound.GetEnumDescription()
                     );
                 }
                 user.PasswordResetToken = _emailGenerateService.CreateRandomToken();
@@ -252,8 +253,8 @@ namespace CookingMasterAPI.Services
 
                 return new ForgotPasswordResult
                 (
-                    StatusForgotPasswordEnum.Success,
-                    StatusForgotPasswordEnum.Success.GetEnumDescription()
+                    ForgotPasswordEnum.Success,
+                    ForgotPasswordEnum.Success.GetEnumDescription()
                 );
             }
             catch (Exception)
@@ -270,7 +271,7 @@ namespace CookingMasterAPI.Services
                 {
                     return new ResetPasswordResult
                         (
-                        StatusResetPasswordEnum.RequestIsValid,
+                        ResetPasswordEnum.RequestIsValid,
                         String.Join('\n', result.Errors)
                         );
                 }
@@ -282,16 +283,16 @@ namespace CookingMasterAPI.Services
                 {
                     return new ResetPasswordResult
                     (
-                        StatusResetPasswordEnum.UserNotFound,
-                        StatusResetPasswordEnum.UserNotFound.GetEnumDescription()
+                        ResetPasswordEnum.UserNotFound,
+                        ResetPasswordEnum.UserNotFound.GetEnumDescription()
                     );
                 }
                 if (user.ResetTokenExpires < DateTime.Now)
                 {
                     return new ResetPasswordResult
                     (
-                        StatusResetPasswordEnum.ResetTokenExpired,
-                        StatusResetPasswordEnum.ResetTokenExpired.GetEnumDescription()
+                        ResetPasswordEnum.ResetTokenExpired,
+                        ResetPasswordEnum.ResetTokenExpired.GetEnumDescription()
                     );
                 }
                 CreatePasswordHash(request.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
@@ -305,8 +306,8 @@ namespace CookingMasterAPI.Services
 
                 return new ResetPasswordResult
                 (
-                    StatusResetPasswordEnum.Success,
-                    StatusResetPasswordEnum.Success.GetEnumDescription()
+                    ResetPasswordEnum.Success,
+                    ResetPasswordEnum.Success.GetEnumDescription()
                 );
             }
             catch (Exception)

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Models.Entity;
+using CookingMasterAPI.Services.ServiceInterfaces;
+using CookingMasterAPI.Enums.IngCategoryStatusEnums;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -9,31 +11,32 @@ namespace CookingMasterAPI.Controllers
     [ApiController]
     public class IngredientCategoryController : ControllerBase
     {
-        private readonly APIDbContext _context;
-        public IngredientCategoryController(APIDbContext context)
+        private readonly IIngredientCategoryService _service;
+        public IngredientCategoryController(IIngredientCategoryService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<IngredientCategory>>> GetIngredientCategories()
+        public async Task<ActionResult<IEnumerable<IngredientCategory>>> GetIngredientCategoriesAsync()
         {
             try
             {
-                if (_context.IngredientCategories is null)
+                var result = await _service.GetIngredientCategoriesAsync();
+
+                if (result.Status is GetIngredientCategoriesEnum.Success)
                 {
-                    return NotFound();
+                    return Ok(result.IngredientCategories);
                 }
 
-                return await _context.IngredientCategories.Where(x => x.DeleteDate == null).ToListAsync();
-
+                return NotFound(result.Description);
             }
             catch (Exception)
             {
                 throw;
             }
         }
-
+        //TODO: Fix this method
         [HttpGet("{categoryId}")]
         public async Task<ActionResult<IngredientCategory>> GetIngredientCategory(int categoryId)
         {

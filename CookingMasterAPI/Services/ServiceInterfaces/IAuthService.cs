@@ -1,6 +1,5 @@
 ﻿using CookingMasterAPI.Models.Request;
-using CookingMasterAPI.Models.Result;
-
+using CookingMasterAPI.Models.Result.AuthResult;
 
 namespace CookingMasterAPI.Services.ServiceInterfaces
 {

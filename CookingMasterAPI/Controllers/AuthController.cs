@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CookingMasterAPI.Services.ServiceInterfaces;
-using CookingMasterAPI.Enums;
 using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Request;
-using CookingMasterAPI.Models.Result;
-using CookingMasterAPI.Helpers;
+using CookingMasterAPI.Models.Result.AuthResult;
+using CookingMasterAPI.Enums.AuthStatusEnums;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -29,7 +28,7 @@ namespace CookingMasterAPI.Controllers
             {
                 var result = await _authService.RegisterAsync(request);
 
-                if (result.Status is StatusRegisterEnum.Success)
+                if (result.Status is RegisterEnum.Success)
                 {
                     return Ok(result.Description);
                 }
@@ -49,7 +48,7 @@ namespace CookingMasterAPI.Controllers
             try
             {
                 var result = await _authService.LoginAsync(request);
-                if (result.Status is StatusLoginEnum.Success)
+                if (result.Status is LoginEnum.Success)
                 {
                     if (result.User is null)
                     {
@@ -74,14 +73,14 @@ namespace CookingMasterAPI.Controllers
             try
             {
                 var result = await _authService.VerifyAsync(token);
-                if (result.Status is StatusVerifyEnum.Success)
+                if (result.Status is VerifyEnum.Success)
                 {
                     //TO DO: Implement validation in case the input field is empty
                     //if (result.Status is StatusVerifyEnum.RequestIsNull)
                     //{
                     //    return BadRequest(result.Description);
                     //}
-                    if (result.Status is StatusVerifyEnum.InvalidToken)
+                    if (result.Status is VerifyEnum.InvalidToken)
                     {
                         return BadRequest(result.Description);
                     }
@@ -102,7 +101,7 @@ namespace CookingMasterAPI.Controllers
             try
             {
                 var result = await _authService.ForgotPasswordAsync(emailAddress);
-                if (result.Status is StatusForgotPasswordEnum.Success)
+                if (result.Status is ForgotPasswordEnum.Success)
                 {
                     return Ok(result.Description);
                 }
@@ -121,7 +120,7 @@ namespace CookingMasterAPI.Controllers
             try
             {
                 var result = await _authService.ResetPasswordAsync(request);
-                if (result.Status is StatusResetPasswordEnum.Success)
+                if (result.Status is ResetPasswordEnum.Success)
                 {
                     return Ok(result.Description);
                 }

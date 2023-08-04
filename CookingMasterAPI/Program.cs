@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 #region Dependency Injection Services
 builder.Services.AddSingleton<IEmailGenerateService, EmailGenerateService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IIngredientCategoryService, IngredientCategoryService>();
 
 builder.Services.AddSingleton<IValidator<UserRegisterRequest>, UserRegisterValidator>();
 builder.Services.AddSingleton<IValidator<UserLoginRequest>, UserLoginValidator>();
