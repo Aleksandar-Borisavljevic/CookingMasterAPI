@@ -10,13 +10,13 @@ namespace CookingMasterAPI.Models.Result.IngredientCategoryResult
             (
             GetIngredientCategoriesEnum status,
             string description,
-            IEnumerable<IngredientCategory>? ingredientCategories
+            IEnumerable<IngredientCategoryResponse>? ingredientCategories
             )
             : base(status, description)
         {
             IngredientCategories = ingredientCategories;
         }
 
-        public IEnumerable<IngredientCategory>? IngredientCategories { get; set; }
+        public IEnumerable<IngredientCategoryResponse>? IngredientCategories { get; set; }
     }
 }

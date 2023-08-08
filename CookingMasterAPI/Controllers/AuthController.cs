@@ -75,11 +75,6 @@ namespace CookingMasterAPI.Controllers
                 var result = await _authService.VerifyAsync(token);
                 if (result.Status is VerifyEnum.Success)
                 {
-                    //TO DO: Implement validation in case the input field is empty
-                    //if (result.Status is StatusVerifyEnum.RequestIsNull)
-                    //{
-                    //    return BadRequest(result.Description);
-                    //}
                     if (result.Status is VerifyEnum.InvalidToken)
                     {
                         return BadRequest(result.Description);

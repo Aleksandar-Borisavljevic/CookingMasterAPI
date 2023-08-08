@@ -2,14 +2,15 @@
 
 namespace CookingMasterAPI.Enums.IngCategoryStatusEnums
 {
-    public enum GetIngredientCategoriesEnum
+    public enum GetIngredientCategoryEnum
     {
-        //TODO: Change this to fit the coresponding ENUM
         [Description("An uknown error has occured. Please contact support.")]
         Undefined = 0,
         [Description("Successfully obtained Ingredient Category Information.")]
         Success = 1,
-        [Description("Ingredient Categories not found.")]
-        IngredientCategoriesNotFound = 2
+        [Description("No Ingredient Categories were found.")]
+        IngredientCategoriesNotFound = 2,
+        [Description("Ingredient Category not found.")]
+        IngredientCategoryNotFound = 3
     }
 }

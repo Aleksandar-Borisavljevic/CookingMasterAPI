@@ -7,6 +7,6 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
     public interface IIngredientCategoryService
     {
         Task<GetIngredientCategoriesResult> GetIngredientCategoriesAsync();
-        IngredientCategory GetIngredientCategory(int categoryId);
+        Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(int categoryId);
     }
 }

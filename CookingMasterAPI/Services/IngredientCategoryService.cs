@@ -1,11 +1,12 @@
-﻿using CookingMasterAPI.Data;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
+using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Result.IngredientCategoryResult;
 using CookingMasterAPI.Services.ServiceInterfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterAPI.Services
 {
@@ -28,6 +29,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientCategoriesEnum.IngredientCategoriesNotFound,
                         GetIngredientCategoriesEnum.IngredientCategoriesNotFound.GetEnumDescription(),
+                        //Enumerable.Empty<IngredientCategoryResponse>()
                         null
                         );
                 }
@@ -36,7 +38,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientCategoriesEnum.Success,
                         GetIngredientCategoriesEnum.Success.GetEnumDescription(),
-                        await _context.IngredientCategories.Where(x => x.DeleteDate == null).ToListAsync()
+                        MapIngredientCategoryToResponse(await _context.IngredientCategories.Where(x => x.DeleteDate == null).ToListAsync())
                         );
 
             }
@@ -47,10 +49,70 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public IngredientCategory GetIngredientCategory(int categoryId)
+        public async Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(int categoryId)
         {
             //TODO: Return IngredientCategory(whole category)
-            throw new NotImplementedException();
+            try
+            {
+                if (_context.IngredientCategories is null)
+                {
+                    return new GetIngredientCategoryResult
+                        (
+                        GetIngredientCategoryEnum.IngredientCategoriesNotFound,
+                        GetIngredientCategoryEnum.IngredientCategoriesNotFound.GetEnumDescription(),
+                        null
+                        );
+                }
+                var ingredientCategory = await _context.IngredientCategories.FindAsync(categoryId);
+
+                if (ingredientCategory is null)
+                {
+                    return new GetIngredientCategoryResult
+                        (
+                        GetIngredientCategoryEnum.IngredientCategoryNotFound,
+                        GetIngredientCategoryEnum.IngredientCategoryNotFound.GetEnumDescription(),
+                        null
+                        );
+                }
+
+                return new GetIngredientCategoryResult
+                        (
+                        GetIngredientCategoryEnum.Success,
+                        GetIngredientCategoryEnum.Success.GetEnumDescription(),
+                        MapIngredientCategoryToResponse(ingredientCategory)
+                        );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private IEnumerable<IngredientCategoryResponse> MapIngredientCategoryToResponse(IEnumerable<IngredientCategory> ingredientCategories)
+        {
+            var ingredientCategoriesResponse = new List<IngredientCategoryResponse>();
+            foreach (var item in ingredientCategories)
+            {
+                //ingredientCategoriesResponse.Add
+                //    (
+                //    new IngredientCategoryResponse(item.CategoryId, item.CategoryName, item.IconPath, item.CreateDate, item.DeleteDate)
+                //    );
+                //By using te following statement we're further optimizing this method instea of creating a new object
+                ingredientCategoriesResponse.Add(MapIngredientCategoryToResponse(item));
+            }
+            return ingredientCategoriesResponse;
+        }
+
+        private IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory ingredientCategory)
+        {
+            return new IngredientCategoryResponse
+                (
+                ingredientCategory.CategoryId,
+                ingredientCategory.CategoryName,
+                ingredientCategory.IconPath,
+                ingredientCategory.CreateDate,
+                ingredientCategory.DeleteDate
+                );
         }
     }
 }

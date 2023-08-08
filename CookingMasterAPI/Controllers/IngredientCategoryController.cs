@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CookingMasterAPI.Data;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums;
@@ -17,7 +15,7 @@ namespace CookingMasterAPI.Controllers
             _service = service;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<IngredientCategory>>> GetIngredientCategoriesAsync()
         {
             try
@@ -36,24 +34,18 @@ namespace CookingMasterAPI.Controllers
                 throw;
             }
         }
-        //TODO: Fix this method
+
         [HttpGet("{categoryId}")]
-        public async Task<ActionResult<IngredientCategory>> GetIngredientCategory(int categoryId)
+        public async Task<ActionResult<IngredientCategory>> GetIngredientCategoryAsync(int categoryId)
         {
             try
             {
-                if (_context.IngredientCategories is null)
+                var result = await _service.GetIngredientCategoryAsync(categoryId);
+                if (result.Status is GetIngredientCategoryEnum.Success)
                 {
-                    return NotFound();
+                    return Ok(result.IngredientCategory);
                 }
-                var ingredientCategory = await _context.IngredientCategories.FindAsync(categoryId);
-                //var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(c => c.CategoryId == categoryId);
-
-                if (ingredientCategory is null)
-                {
-                    return NotFound();
-                }
-                return ingredientCategory;
+                return NotFound(result.Description);
             }
             catch (Exception)
             {
