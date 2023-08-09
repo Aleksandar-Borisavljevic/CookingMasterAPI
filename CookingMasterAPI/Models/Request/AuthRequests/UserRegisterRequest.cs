@@ -1,6 +1,4 @@
-﻿
-
-namespace CookingMasterAPI.Models.Request
+﻿namespace CookingMasterAPI.Models.Request.AuthRequests
 {
     public class UserRegisterRequest
     {

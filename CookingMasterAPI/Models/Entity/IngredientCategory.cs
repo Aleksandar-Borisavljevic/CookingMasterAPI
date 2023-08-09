@@ -10,7 +10,7 @@ namespace CookingMasterAPI.Models.Entity
         public int CategoryId { get; set; }
 
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
+        [Column(TypeName = "nvarchar(50)")]        
         public string CategoryName { get; set; } = string.Empty;
 
         [Required]

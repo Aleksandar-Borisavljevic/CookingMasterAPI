@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CookingMasterAPI.Enums.IngCategoryStatusEnums
+namespace CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums
 {
     public enum GetIngredientCategoryEnum
     {
@@ -11,6 +11,8 @@ namespace CookingMasterAPI.Enums.IngCategoryStatusEnums
         [Description("No Ingredient Categories were found.")]
         IngredientCategoriesNotFound = 2,
         [Description("Ingredient Category not found.")]
-        IngredientCategoryNotFound = 3
+        IngredientCategoryNotFound = 3,
+        [Description("Category is deleted. Please use another one.")]
+        IngredientCategoryIsDeleted = 4
     }
 }

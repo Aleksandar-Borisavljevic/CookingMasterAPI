@@ -6,11 +6,10 @@ using CookingMasterAPI.Data;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Entity;
-using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Result.AuthResult;
 using CookingMasterAPI.Enums.AuthStatusEnums;
-using Microsoft.AspNetCore.Mvc;
+using CookingMasterAPI.Models.Request.AuthRequests;
 
 namespace CookingMasterAPI.Services
 {
@@ -109,14 +108,9 @@ namespace CookingMasterAPI.Services
                 }
                 CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-                var user = new User
-                {
-                    Username = request.Username,
-                    EmailAddress = request.EmailAddress,
-                    PasswordHash = passwordHash,
-                    PasswordSalt = passwordSalt,
-                    VerificationToken = _emailGenerateService.CreateRandomToken()
-                };
+                var user = MapRequestToUser(request, passwordHash, passwordSalt);
+
+                user.VerificationToken = _emailGenerateService.CreateRandomToken();
 
                 _context.Users.Add(user);
 
@@ -336,6 +330,17 @@ namespace CookingMasterAPI.Services
         private UserResponse MapUserToResponse(User user)
         {
             return new UserResponse(user.Username, user.EmailAddress);
+        }
+
+        private User MapRequestToUser(UserRegisterRequest request, byte[] passwordHash, byte[] passwordSalt)
+        {
+            return new User
+            {
+                Username = request.Username,
+                EmailAddress = request.EmailAddress,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
+            };
         }
     }
 }

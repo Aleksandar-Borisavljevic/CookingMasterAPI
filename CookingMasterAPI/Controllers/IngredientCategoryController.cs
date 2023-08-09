@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Services.ServiceInterfaces;
-using CookingMasterAPI.Enums.IngCategoryStatusEnums;
+using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
+using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
+using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -49,6 +51,44 @@ namespace CookingMasterAPI.Controllers
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        [HttpPost("createCategory")]
+        public async Task<IActionResult> CreateIngredientCategoryAsync(CreateCategoryRequest request)
+        {
+            try
+            {
+                var result = await _service.CreateIngredientCategoryAsync(request);
+                if (result.Status is CreateIngredientCategoryEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpDelete("{categoryId}")]
+        public async Task<IActionResult> DeleteIngredientCategoryAsync(int categoryId)
+        {
+            try
+            {
+                var result = await _service.DeleteIngredientCategoryAsync(categoryId);
+                if (result.Status is DeleteIngredientCategoryEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Response;
-using CookingMasterAPI.Models.Request;
 using CookingMasterAPI.Models.Result.AuthResult;
 using CookingMasterAPI.Enums.AuthStatusEnums;
+using CookingMasterAPI.Models.Request.AuthRequests;
 
 namespace CookingMasterAPI.Controllers
 {

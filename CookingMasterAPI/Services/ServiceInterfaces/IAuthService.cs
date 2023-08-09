@@ -1,4 +1,4 @@
-﻿using CookingMasterAPI.Models.Request;
+﻿using CookingMasterAPI.Models.Request.AuthRequests;
 using CookingMasterAPI.Models.Result.AuthResult;
 
 namespace CookingMasterAPI.Services.ServiceInterfaces

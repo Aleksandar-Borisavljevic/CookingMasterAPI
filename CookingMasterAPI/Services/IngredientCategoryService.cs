@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using CookingMasterAPI.Data;
-using CookingMasterAPI.Enums.IngCategoryStatusEnums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Response;
-using CookingMasterAPI.Models.Result.IngredientCategoryResult;
 using CookingMasterAPI.Services.ServiceInterfaces;
+using CookingMasterAPI.Models.Result.IngredientCategoryResult.QueryResult;
+using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
+using CookingMasterAPI.Models.Result.IngredientCategoryResult.CommandResult;
+using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
+using CookingMasterAPI.Enums.AuthStatusEnums;
+using CookingMasterAPI.Models.Result.AuthResult;
+using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CookingMasterAPI.Services
 {
@@ -75,12 +80,24 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
+                if (ingredientCategory.DeleteDate is not null)
+                {
+                    return new GetIngredientCategoryResult
+                        (
+                        GetIngredientCategoryEnum.IngredientCategoryIsDeleted,
+                        GetIngredientCategoryEnum.IngredientCategoryIsDeleted.GetEnumDescription(),
+                        MapIngredientCategoryToResponse(ingredientCategory)
+                        );
+                }
+
+
                 return new GetIngredientCategoryResult
                         (
                         GetIngredientCategoryEnum.Success,
                         GetIngredientCategoryEnum.Success.GetEnumDescription(),
                         MapIngredientCategoryToResponse(ingredientCategory)
                         );
+
             }
             catch (Exception)
             {
@@ -88,6 +105,85 @@ namespace CookingMasterAPI.Services
             }
         }
 
+        public async Task<CreateIngredientCategoryResult> CreateIngredientCategoryAsync(CreateCategoryRequest request)
+        {
+            try
+            {
+                if (request is null)
+                {
+                    return new CreateIngredientCategoryResult
+                    (
+                        CreateIngredientCategoryEnum.RequestIsNull,
+                        CreateIngredientCategoryEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+                //TODO: Add validation for entered category request
+
+                var result = MapRequestToIngredientCategory(request);
+
+                _context.IngredientCategories.Add(result);
+
+                await _context.SaveChangesAsync();
+
+                return new CreateIngredientCategoryResult
+                    (
+                        CreateIngredientCategoryEnum.Success,
+                        CreateIngredientCategoryEnum.Success.GetEnumDescription()
+                    );
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<DeleteIngredientCategoryResult> DeleteIngredientCategoryAsync(int categoryId)
+        {
+            try
+            {
+                if (_context.IngredientCategories is null)
+                {
+                    return new DeleteIngredientCategoryResult
+                        (
+                        DeleteIngredientCategoryEnum.IngredientCategoriesNotFound,
+                        DeleteIngredientCategoryEnum.IngredientCategoriesNotFound.GetEnumDescription()
+                        );
+                }
+                var ingredientCategory = await _context.IngredientCategories.FindAsync(categoryId);
+
+                if (ingredientCategory is null)
+                {
+                    return new DeleteIngredientCategoryResult
+                        (
+                        DeleteIngredientCategoryEnum.IngredientCategoryNotFound,
+                        DeleteIngredientCategoryEnum.IngredientCategoryNotFound.GetEnumDescription()
+                        );
+                }
+
+                //Soft Delete - example
+                ingredientCategory.DeleteDate = DateTime.Now;
+
+                //Permanent Delete - example
+                //_context.IngredientCategories.Remove(ingredientCategory);
+
+                await _context.SaveChangesAsync();
+
+                return new DeleteIngredientCategoryResult
+                        (
+                        DeleteIngredientCategoryEnum.Success,
+                        DeleteIngredientCategoryEnum.Success.GetEnumDescription()
+                        );
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        #region Mapping Methods - later on consider making a static class to migrate these methods to
         private IEnumerable<IngredientCategoryResponse> MapIngredientCategoryToResponse(IEnumerable<IngredientCategory> ingredientCategories)
         {
             var ingredientCategoriesResponse = new List<IngredientCategoryResponse>();
@@ -114,5 +210,16 @@ namespace CookingMasterAPI.Services
                 ingredientCategory.DeleteDate
                 );
         }
+
+        private IngredientCategory MapRequestToIngredientCategory(CreateCategoryRequest request)
+        {
+            return new IngredientCategory
+            {
+                CategoryName = request.CategoryName,
+                IconPath = request.IconPath,
+                CreateDate = DateTime.Now
+            };
+        }
+        #endregion
     }
 }

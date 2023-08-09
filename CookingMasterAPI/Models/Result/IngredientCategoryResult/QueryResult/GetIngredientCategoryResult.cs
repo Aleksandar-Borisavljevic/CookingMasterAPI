@@ -1,8 +1,7 @@
-﻿using CookingMasterAPI.Enums.IngCategoryStatusEnums;
-using CookingMasterAPI.Models.Entity;
+﻿using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Response;
 
-namespace CookingMasterAPI.Models.Result.IngredientCategoryResult
+namespace CookingMasterAPI.Models.Result.IngredientCategoryResult.QueryResult
 {
     public class GetIngredientCategoryResult : BaseResult<GetIngredientCategoryEnum>
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CookingMasterAPI.Enums.IngCategoryStatusEnums
+namespace CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums
 {
     public enum GetIngredientCategoriesEnum
     {

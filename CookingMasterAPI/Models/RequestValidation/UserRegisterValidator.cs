@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using CookingMasterAPI.Helpers;
-using CookingMasterAPI.Models.Request;
+using CookingMasterAPI.Models.Request.AuthRequests;
 
 namespace CookingMasterAPI.Models.RequestValidation
 {
