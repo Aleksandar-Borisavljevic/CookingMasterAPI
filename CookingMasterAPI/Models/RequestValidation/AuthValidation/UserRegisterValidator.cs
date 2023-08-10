@@ -2,7 +2,7 @@
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Request.AuthRequests;
 
-namespace CookingMasterAPI.Models.RequestValidation
+namespace CookingMasterAPI.Models.RequestValidation.AuthValidation
 {
     public class UserRegisterValidator : AbstractValidator<UserRegisterRequest>
     {
@@ -20,12 +20,12 @@ namespace CookingMasterAPI.Models.RequestValidation
                 .NotEmpty().WithMessage("Password is required.")
                 .MinimumLength(6).WithMessage("Password needs to have at least 6 characters")
                 .Must(ExtensionMethods.HasUpperCaseLetter).WithMessage("Password needs to contain at least one capitol character.");
-                //Must(password => HasUpperCaseLetter(password))
+            //Must(password => HasUpperCaseLetter(password))
 
             RuleFor(user => user.ConfirmPassword)
                 .NotEmpty().WithMessage("Passwords don't match.")
                 .Equal(user => user.ConfirmPassword);
 
-        }        
+        }
     }
 }

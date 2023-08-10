@@ -2,7 +2,7 @@
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Request.AuthRequests;
 
-namespace CookingMasterAPI.Models.RequestValidation
+namespace CookingMasterAPI.Models.RequestValidation.AuthValidation
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordRequest>
     {

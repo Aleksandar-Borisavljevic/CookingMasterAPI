@@ -1,6 +1,6 @@
 ﻿namespace CookingMasterAPI.Models.Request.IngredientCategoryRequests
 {
-    public class CreateCategoryRequest
+    public class CreateIngredientCategoryRequest
     {
         public string CategoryName { get; set; } = string.Empty;
 

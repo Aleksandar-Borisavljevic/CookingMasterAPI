@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using CookingMasterAPI.Models.Request.AuthRequests;
 
-namespace CookingMasterAPI.Models.RequestValidation
+namespace CookingMasterAPI.Models.RequestValidation.AuthValidation
 {
     //TODO: create validation for User Login request 
     public class UserLoginValidator : AbstractValidator<UserLoginRequest>

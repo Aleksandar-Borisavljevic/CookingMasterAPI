@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.Results;
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
@@ -8,10 +10,7 @@ using CookingMasterAPI.Models.Result.IngredientCategoryResult.QueryResult;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Result.IngredientCategoryResult.CommandResult;
 using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
-using CookingMasterAPI.Enums.AuthStatusEnums;
-using CookingMasterAPI.Models.Result.AuthResult;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CookingMasterAPI.Services
 {
@@ -19,10 +18,16 @@ namespace CookingMasterAPI.Services
     {
         #region Variables
         private readonly APIDbContext _context;
+        private readonly IValidator<CreateIngredientCategoryRequest> _createIngredientCategoryValidator;
         #endregion
-        public IngredientCategoryService(APIDbContext context)
+        public IngredientCategoryService
+            (
+            APIDbContext context,
+            IValidator<CreateIngredientCategoryRequest> createIngredientCategoryValidator
+            )
         {
             _context = context;
+            _createIngredientCategoryValidator = createIngredientCategoryValidator;
         }
         public async Task<GetIngredientCategoriesResult> GetIngredientCategoriesAsync()
         {
@@ -56,7 +61,6 @@ namespace CookingMasterAPI.Services
 
         public async Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(int categoryId)
         {
-            //TODO: Return IngredientCategory(whole category)
             try
             {
                 if (_context.IngredientCategories is null)
@@ -105,7 +109,7 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public async Task<CreateIngredientCategoryResult> CreateIngredientCategoryAsync(CreateCategoryRequest request)
+        public async Task<CreateIngredientCategoryResult> CreateIngredientCategoryAsync(CreateIngredientCategoryRequest request)
         {
             try
             {
@@ -117,7 +121,16 @@ namespace CookingMasterAPI.Services
                         CreateIngredientCategoryEnum.RequestIsNull.GetEnumDescription()
                     );
                 }
-                //TODO: Add validation for entered category request
+
+                ValidationResult validationResult = _createIngredientCategoryValidator.Validate(request);
+                if (!validationResult.IsValid)
+                {
+                    return new CreateIngredientCategoryResult
+                        (
+                        CreateIngredientCategoryEnum.RequestIsValid,
+                        String.Join('\n', validationResult.Errors)
+                        );
+                }
 
                 var result = MapRequestToIngredientCategory(request);
 
@@ -211,7 +224,7 @@ namespace CookingMasterAPI.Services
                 );
         }
 
-        private IngredientCategory MapRequestToIngredientCategory(CreateCategoryRequest request)
+        private IngredientCategory MapRequestToIngredientCategory(CreateIngredientCategoryRequest request)
         {
             return new IngredientCategory
             {

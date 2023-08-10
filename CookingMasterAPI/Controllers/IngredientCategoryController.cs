@@ -56,7 +56,7 @@ namespace CookingMasterAPI.Controllers
         }
 
         [HttpPost("createCategory")]
-        public async Task<IActionResult> CreateIngredientCategoryAsync(CreateCategoryRequest request)
+        public async Task<IActionResult> CreateIngredientCategoryAsync(CreateIngredientCategoryRequest request)
         {
             try
             {

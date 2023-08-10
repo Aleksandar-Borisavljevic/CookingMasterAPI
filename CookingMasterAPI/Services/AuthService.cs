@@ -23,7 +23,8 @@ namespace CookingMasterAPI.Services
         private readonly IValidator<ResetPasswordRequest> _resetPasswordValidator;
         #endregion
 
-        public AuthService(
+        public AuthService
+            (
             APIDbContext context,
             IEmailGenerateService emailGenerateService,
             IValidator<UserRegisterRequest> registerValidator,

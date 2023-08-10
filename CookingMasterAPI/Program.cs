@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using CookingMasterAPI.Data;
-using CookingMasterAPI.Models.RequestValidation;
 using CookingMasterAPI.Services;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Request.AuthRequests;
+using CookingMasterAPI.Models.RequestValidation.AuthValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
