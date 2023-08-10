@@ -1,6 +1,6 @@
 ﻿namespace CookingMasterAPI.Models.Request.IngredientCategoryRequests
 {
-    public class CreateIngredientCategoryRequest : BaseIngredientCategoryRequest
+    public class UpdateIngredientCategoryRequest : BaseIngredientCategoryRequest
     {
     }
 }

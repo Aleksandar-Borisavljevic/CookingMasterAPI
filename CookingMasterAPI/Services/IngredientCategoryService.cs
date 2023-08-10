@@ -11,6 +11,7 @@ using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Result.IngredientCategoryResult.CommandResult;
 using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CookingMasterAPI.Services
 {
@@ -196,6 +197,57 @@ namespace CookingMasterAPI.Services
                         DeleteIngredientCategoryEnum.Success,
                         DeleteIngredientCategoryEnum.Success.GetEnumDescription()
                         );
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<UpdateIngredientCategoryResult> UpdateIngredientCategoryAsync(string uid, JsonPatchDocument<IngredientCategory> request)
+        {
+            try
+            {
+                if (uid is null)
+                {
+                    return new UpdateIngredientCategoryResult
+                    (
+                        UpdateIngredientCategoryEnum.RequestIsNull,
+                        UpdateIngredientCategoryEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+
+                if (request is null)
+                {
+                    return new UpdateIngredientCategoryResult
+                    (
+                        UpdateIngredientCategoryEnum.RequestIsNull,
+                        UpdateIngredientCategoryEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+
+                var result = await _context.IngredientCategories.SingleOrDefaultAsync(c => c.Uid == uid);
+
+                if (result == null)
+                {
+                    return new UpdateIngredientCategoryResult
+                    (
+                        UpdateIngredientCategoryEnum.NotFound,
+                        UpdateIngredientCategoryEnum.NotFound.GetEnumDescription()
+                    );
+                }
+
+                request.ApplyTo(result);
+
+                await _context.SaveChangesAsync();
+
+                return new UpdateIngredientCategoryResult
+                    (
+                        UpdateIngredientCategoryEnum.Success,
+                        UpdateIngredientCategoryEnum.Success.GetEnumDescription()
+                    );
 
             }
             catch (Exception)

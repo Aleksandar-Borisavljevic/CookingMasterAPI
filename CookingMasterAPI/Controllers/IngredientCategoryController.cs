@@ -94,25 +94,22 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        //[HttpPatch("{categoryId}")]
-        //public IActionResult PatchProduct(int id, [FromBody] JsonPatchDocument<CreateIngredientCategoryRequest> request)
-        //{
-
-
-        //    var product = _products.FirstOrDefault(p => p.Id == id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    patchDocument.ApplyTo(product, ModelState);
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    return NoContent();
-        //}
+        [HttpPatch("{uid}")]
+        public async Task<IActionResult> PatchIngredientCategoryAsync(string uid, [FromBody] JsonPatchDocument<IngredientCategory> request)
+        {
+            try
+            {
+                var result = await _service.UpdateIngredientCategoryAsync(uid, request);
+                if (result.Status is UpdateIngredientCategoryEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

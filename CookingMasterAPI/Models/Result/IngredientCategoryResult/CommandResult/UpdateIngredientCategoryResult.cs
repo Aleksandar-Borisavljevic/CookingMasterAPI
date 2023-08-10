@@ -2,9 +2,9 @@
 
 namespace CookingMasterAPI.Models.Result.IngredientCategoryResult.CommandResult
 {
-    public class UpdateIngredientCategoryResult : BaseResult<UpdateIngredientCategoryEnum>
+    public class CreateIngredientCategoryResult : BaseResult<CreateIngredientCategoryEnum>
     {
-        public UpdateIngredientCategoryResult(UpdateIngredientCategoryEnum status, string description)
+        public CreateIngredientCategoryResult(CreateIngredientCategoryEnum status, string description)
             : base(status, description)
         {
         }
