@@ -16,6 +16,6 @@ namespace CookingMasterAPI.Models.RequestValidation.IngredientCategoryValidation
             RuleFor(ingredientCategory => ingredientCategory.IconPath)
                 .NotEmpty().WithMessage("Ingredient Category Icon Path is required.")
                 .Length(3, 50).WithMessage("Ingredient Category Icon Path must be between 3 and 50 characters.");
-        }
+        }        
     }
 }

@@ -9,9 +9,9 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
     public interface IIngredientCategoryService
     {
         Task<GetIngredientCategoriesResult> GetIngredientCategoriesAsync();
-        Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(int categoryId);
+        Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(string uid);
 
         Task<CreateIngredientCategoryResult> CreateIngredientCategoryAsync(CreateIngredientCategoryRequest request);
-        Task<DeleteIngredientCategoryResult> DeleteIngredientCategoryAsync(int categoryId);
+        Task<DeleteIngredientCategoryResult> DeleteIngredientCategoryAsync(string uid);
     }
 }

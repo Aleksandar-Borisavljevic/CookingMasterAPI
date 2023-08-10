@@ -8,8 +8,10 @@ namespace CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums
         Undefined = 0,
         [Description("Successfully Created Ingredient Category.")]
         Success = 1,
-        [Description("Category info not valid.")]
+        [Description("Ingredient Category info not valid.")]
         RequestIsNull = 2,
-        RequestIsValid = 3
+        [Description("Ingredient Category already exists.")]
+        RecordAlreadyExists = 3,
+        RequestIsValid = 4
     }
 }

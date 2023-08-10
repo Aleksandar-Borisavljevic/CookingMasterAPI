@@ -24,5 +24,11 @@ namespace CookingMasterAPI.Helpers
             }
             throw new ArgumentException("Item not found.", nameof(enumValue));
         }
+
+        public static string CreateUniqueSequence(this string caption)
+        {
+            string currentDate = DateTime.Now.ToString("yyyyMMddHHmmss");
+            return $"{caption}-{currentDate}";
+        }
     }
 }

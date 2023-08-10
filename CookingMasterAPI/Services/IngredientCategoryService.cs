@@ -59,7 +59,7 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public async Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(int categoryId)
+        public async Task<GetIngredientCategoryResult> GetIngredientCategoryAsync(string uid)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace CookingMasterAPI.Services
                         null
                         );
                 }
-                var ingredientCategory = await _context.IngredientCategories.FindAsync(categoryId);
+                var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(c => c.Uid == uid);
 
                 if (ingredientCategory is null)
                 {
@@ -122,6 +122,15 @@ namespace CookingMasterAPI.Services
                     );
                 }
 
+                if (await _context.IngredientCategories.AnyAsync(c => c.CategoryName == request.CategoryName && c.DeleteDate == null))
+                {
+                    return new CreateIngredientCategoryResult
+                        (
+                        CreateIngredientCategoryEnum.RecordAlreadyExists,
+                        CreateIngredientCategoryEnum.RecordAlreadyExists.GetEnumDescription()
+                        );
+                }
+
                 ValidationResult validationResult = _createIngredientCategoryValidator.Validate(request);
                 if (!validationResult.IsValid)
                 {
@@ -151,7 +160,7 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public async Task<DeleteIngredientCategoryResult> DeleteIngredientCategoryAsync(int categoryId)
+        public async Task<DeleteIngredientCategoryResult> DeleteIngredientCategoryAsync(string uid)
         {
             try
             {
@@ -163,7 +172,7 @@ namespace CookingMasterAPI.Services
                         DeleteIngredientCategoryEnum.IngredientCategoriesNotFound.GetEnumDescription()
                         );
                 }
-                var ingredientCategory = await _context.IngredientCategories.FindAsync(categoryId);
+                var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(c => c.Uid == uid);
 
                 if (ingredientCategory is null)
                 {
@@ -216,11 +225,11 @@ namespace CookingMasterAPI.Services
         {
             return new IngredientCategoryResponse
                 (
-                ingredientCategory.CategoryId,
                 ingredientCategory.CategoryName,
                 ingredientCategory.IconPath,
                 ingredientCategory.CreateDate,
-                ingredientCategory.DeleteDate
+                ingredientCategory.DeleteDate,
+                ingredientCategory.Uid
                 );
         }
 
@@ -230,7 +239,8 @@ namespace CookingMasterAPI.Services
             {
                 CategoryName = request.CategoryName,
                 IconPath = request.IconPath,
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                Uid = request.CategoryName.CreateUniqueSequence()
             };
         }
         #endregion

@@ -5,6 +5,8 @@ using CookingMasterAPI.Services;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Request.AuthRequests;
 using CookingMasterAPI.Models.RequestValidation.AuthValidation;
+using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
+using CookingMasterAPI.Models.RequestValidation.IngredientCategoryValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddScoped<IIngredientCategoryService, IngredientCategoryService
 builder.Services.AddSingleton<IValidator<UserRegisterRequest>, UserRegisterValidator>();
 builder.Services.AddSingleton<IValidator<UserLoginRequest>, UserLoginValidator>();
 builder.Services.AddSingleton<IValidator<ResetPasswordRequest>, ResetPasswordValidator>();
+builder.Services.AddSingleton<IValidator<CreateIngredientCategoryRequest>, CreateIngredientCategoryValidator>();
 
 #endregion
 
