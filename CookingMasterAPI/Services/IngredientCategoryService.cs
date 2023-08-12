@@ -12,6 +12,8 @@ using CookingMasterAPI.Models.Result.IngredientCategoryResult.CommandResult;
 using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
 using Microsoft.AspNetCore.JsonPatch;
+using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
+using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
 
 namespace CookingMasterAPI.Services
 {
@@ -144,7 +146,7 @@ namespace CookingMasterAPI.Services
 
                 var result = MapRequestToIngredientCategory(request);
 
-                _context.IngredientCategories.Add(result);
+                await _context.IngredientCategories.AddAsync(result);
 
                 await _context.SaveChangesAsync();
 
@@ -173,6 +175,16 @@ namespace CookingMasterAPI.Services
                         DeleteIngredientCategoryEnum.IngredientCategoriesNotFound.GetEnumDescription()
                         );
                 }
+
+                if (string.IsNullOrWhiteSpace(uid))
+                {
+                    return new DeleteIngredientCategoryResult
+                        (
+                        DeleteIngredientCategoryEnum.UidIsNull,
+                        DeleteIngredientCategoryEnum.UidIsNull.GetEnumDescription()
+                        );
+                }
+
                 var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(c => c.Uid == uid);
 
                 if (ingredientCategory is null)
@@ -250,10 +262,13 @@ namespace CookingMasterAPI.Services
                     );
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                return new UpdateIngredientCategoryResult
+                    (
+                        UpdateIngredientCategoryEnum.Undefined,
+                        UpdateIngredientCategoryEnum.Undefined.GetEnumDescription() + ex.Message
+                    );
             }
         }
 

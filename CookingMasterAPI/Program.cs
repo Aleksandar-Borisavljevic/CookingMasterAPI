@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IEmailGenerateService, EmailGenerateService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IIngredientCategoryService, IngredientCategoryService>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
 
 builder.Services.AddSingleton<IValidator<UserRegisterRequest>, UserRegisterValidator>();
 builder.Services.AddSingleton<IValidator<UserLoginRequest>, UserLoginValidator>();
@@ -24,7 +25,7 @@ builder.Services.AddSingleton<IValidator<CreateIngredientCategoryRequest>, Creat
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

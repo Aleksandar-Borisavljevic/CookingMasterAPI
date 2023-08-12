@@ -10,7 +10,7 @@ namespace CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums
         [Description("Successfully Deleted Ingredient Category.")]
         Success = 1,
         [Description("Category info not valid.")]
-        RequestIsNull = 2,
+        UidIsNull = 2,
         [Description("Ingredient Categories not found.")]
         IngredientCategoriesNotFound = 3,
         [Description("Ingredient Category not found.")]

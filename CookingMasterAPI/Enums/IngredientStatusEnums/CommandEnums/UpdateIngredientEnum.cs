@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums
+namespace CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums
 {
-    public enum UpdateIngredientCategoryEnum
+    public enum UpdateIngredientEnum
     {
         //TODO: Sort this enum to accordingly
         [Description("An uknown error has occured. Please contact support.")]
