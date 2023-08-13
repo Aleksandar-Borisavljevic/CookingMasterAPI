@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using FluentValidation.Results;
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
 using CookingMasterAPI.Models.Entity;
@@ -17,16 +18,16 @@ namespace CookingMasterAPI.Services
     public class IngredientService : IIngredientService
     {
         private readonly APIDbContext _context;
-        //private readonly IValidator<CreateIngredientRequest> _createIngredientValidator;
+        private readonly IValidator<CreateIngredientRequest> _createIngredientValidator;
 
         public IngredientService
             (
-            APIDbContext context
-            //IValidator<CreateIngredientRequest> createIngredientValidator
+            APIDbContext context,
+            IValidator<CreateIngredientRequest> createIngredientValidator
             )
         {
             _context = context;
-            //_createIngredientValidator = createIngredientValidator;
+            _createIngredientValidator = createIngredientValidator;
         }
         public async Task<CreateIngredientResult> CreateIngredientAsync(CreateIngredientRequest request)
         {
@@ -50,9 +51,21 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
+                ValidationResult validationResult = _createIngredientValidator.Validate(request);
+
+                if (!validationResult.IsValid)
+                {
+                    return new CreateIngredientResult
+                        (
+                        CreateIngredientEnum.RequestIsValid,
+                        String.Join('\n', validationResult.Errors)
+                        );
+                }
+
                 var result = await MapRequestToIngredientAsync(request);
 
                 await _context.Ingredients.AddAsync(result);
+
                 await _context.SaveChangesAsync();
 
                 return new CreateIngredientResult
@@ -210,7 +223,55 @@ namespace CookingMasterAPI.Services
 
         public async Task<UpdateIngredientResult> UpdateIngredientAsync(string uid, JsonPatchDocument<Ingredient> request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (uid is null)
+                {
+                    return new UpdateIngredientResult
+                    (
+                        UpdateIngredientEnum.RequestIsNull,
+                        UpdateIngredientEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+
+                if (request is null)
+                {
+                    return new UpdateIngredientResult
+                    (
+                        UpdateIngredientEnum.RequestIsNull,
+                        UpdateIngredientEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+
+                var result = await _context.Ingredients.SingleOrDefaultAsync(c => c.Uid == uid);
+
+                if (result == null)
+                {
+                    return new UpdateIngredientResult
+                    (
+                        UpdateIngredientEnum.NotFound,
+                        UpdateIngredientEnum.NotFound.GetEnumDescription()
+                    );
+                }
+
+                request.ApplyTo(result);
+
+                await _context.SaveChangesAsync();
+
+                return new UpdateIngredientResult
+                    (
+                        UpdateIngredientEnum.Success,
+                        UpdateIngredientEnum.Success.GetEnumDescription()
+                    );
+            }
+            catch (Exception ex)
+            {
+                return new UpdateIngredientResult
+                    (
+                        UpdateIngredientEnum.Undefined,
+                        UpdateIngredientEnum.Undefined.GetEnumDescription() + ex.Message
+                    );
+            }
         }
 
 

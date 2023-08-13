@@ -94,22 +94,22 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        //[HttpPatch("{uid}")]
-        //public async Task<IActionResult> PatchIngredientAsync(string uid, [FromBody] JsonPatchDocument<Ingredient> request)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.UpdateIngredientAsync(uid, request);
-        //        if (result.Status is UpdateIngredientEnum.Success)
-        //        {
-        //            return Ok(result.Description);
-        //        }
-        //        return BadRequest(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        [HttpPatch("{uid}")]
+        public async Task<IActionResult> PatchIngredientAsync(string uid, [FromBody] JsonPatchDocument<Ingredient> request)
+        {
+            try
+            {
+                var result = await _service.UpdateIngredientAsync(uid, request);
+                if (result.Status is UpdateIngredientEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
