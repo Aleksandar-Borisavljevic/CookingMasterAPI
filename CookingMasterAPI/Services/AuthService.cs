@@ -330,7 +330,12 @@ namespace CookingMasterAPI.Services
 
         private UserResponse MapUserToResponse(User user)
         {
-            return new UserResponse(user.Username, user.EmailAddress);
+            var ingredients = _context.Ingredients
+                .Where(ingredient => _context.UserIngredients
+                .Any(ui => ui.User.UserId == user.UserId && ui.Ingredient.IngredientId == ingredient.IngredientId)).ToList();
+
+            var ingredientResponse = MapIngredientToResponse(ingredients);
+            return new UserResponse(user.Username, user.EmailAddress, ingredientResponse);
         }
 
         private User MapRequestToUser(UserRegisterRequest request, byte[] passwordHash, byte[] passwordSalt)
@@ -342,6 +347,28 @@ namespace CookingMasterAPI.Services
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
+        }
+
+        private IngredientResponse MapIngredientToResponse(Ingredient ingredient)
+        {
+            return new IngredientResponse
+                (
+                ingredient.IngredientName,
+                ingredient.IconPath,
+                ingredient.CreateDate,
+                ingredient.DeleteDate,
+                ingredient.Uid
+                );
+        }
+
+        private IEnumerable<IngredientResponse> MapIngredientToResponse(IEnumerable<Ingredient> ingredients)
+        {
+            var ingredientsResponse = new List<IngredientResponse>();
+            foreach (var item in ingredients)
+            {
+                ingredientsResponse.Add(MapIngredientToResponse(item));
+            }
+            return ingredientsResponse;
         }
     }
 }

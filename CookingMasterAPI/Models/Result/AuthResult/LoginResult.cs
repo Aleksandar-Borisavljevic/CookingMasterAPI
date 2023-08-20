@@ -1,4 +1,5 @@
 ﻿using CookingMasterAPI.Enums.AuthStatusEnums;
+using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Response;
 
 namespace CookingMasterAPI.Models.Result.AuthResult
@@ -10,6 +11,6 @@ namespace CookingMasterAPI.Models.Result.AuthResult
         {
             User = user;
         }
-        public UserResponse? User { get; set; }
+        public UserResponse? User { get; set; }        
     }
 }

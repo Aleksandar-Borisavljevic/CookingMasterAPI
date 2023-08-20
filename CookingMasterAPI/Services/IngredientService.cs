@@ -229,6 +229,7 @@ namespace CookingMasterAPI.Services
                 {
                     return new UpdateIngredientResult
                     (
+                        //TODO: Change to UidIsNull
                         UpdateIngredientEnum.RequestIsNull,
                         UpdateIngredientEnum.RequestIsNull.GetEnumDescription()
                     );
@@ -274,7 +275,7 @@ namespace CookingMasterAPI.Services
             }
         }
 
-
+        #region Mapping Methods - later on consider making a static class to migrate these methods to
         private async Task<Ingredient> MapRequestToIngredientAsync(CreateIngredientRequest request)
         {
             var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(ic => ic.Uid == request.IngredientCategoryUid);
@@ -315,5 +316,6 @@ namespace CookingMasterAPI.Services
             }
             return ingredientsResponse;
         }
+        #endregion
     }
 }

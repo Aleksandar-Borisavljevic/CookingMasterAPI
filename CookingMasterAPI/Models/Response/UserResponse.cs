@@ -3,6 +3,7 @@
     public record UserResponse
         (
             string Username,
-            string EmailAddress
+            string EmailAddress,
+            IEnumerable<IngredientResponse> Ingredients
         );
 }
