@@ -12,6 +12,7 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Response;
+using CookingMasterAPI.Services.Mappers;
 
 namespace CookingMasterAPI.Services
 {
@@ -303,7 +304,7 @@ namespace CookingMasterAPI.Services
                 ingredient.IconPath,
                 ingredient.CreateDate,
                 ingredient.DeleteDate,
-                MapIngredientCategoryToResponse(ingredient.IngredientCategory),
+                IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredient.IngredientCategory),
                 ingredient.Uid
                 );
         }
@@ -316,18 +317,6 @@ namespace CookingMasterAPI.Services
                 ingredientsResponse.Add(MapIngredientToResponse(item));
             }
             return ingredientsResponse;
-        }
-
-        private IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory ingredientCategory)
-        {
-            return new IngredientCategoryResponse
-                (
-                ingredientCategory.CategoryName,
-                ingredientCategory.IconPath,
-                ingredientCategory.CreateDate,
-                ingredientCategory.DeleteDate,
-                ingredientCategory.Uid
-                );
         }
         #endregion
     }
