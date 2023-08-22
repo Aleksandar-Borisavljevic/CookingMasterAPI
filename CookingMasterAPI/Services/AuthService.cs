@@ -10,6 +10,7 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Result.AuthResult;
 using CookingMasterAPI.Enums.AuthStatusEnums;
 using CookingMasterAPI.Models.Request.AuthRequests;
+using CookingMasterAPI.Services.Mappers;
 
 namespace CookingMasterAPI.Services
 {
@@ -357,6 +358,7 @@ namespace CookingMasterAPI.Services
                 ingredient.IconPath,
                 ingredient.CreateDate,
                 ingredient.DeleteDate,
+                IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredient.IngredientCategory),
                 ingredient.Uid
                 );
         }

@@ -12,6 +12,7 @@ using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Result.IngredientCategoryResult.CommandResult;
 using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
+using CookingMasterAPI.Services.Mappers;
 
 namespace CookingMasterAPI.Services
 {
@@ -49,7 +50,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientCategoriesEnum.Success,
                         GetIngredientCategoriesEnum.Success.GetEnumDescription(),
-                        MapIngredientCategoryToResponse(await _context.IngredientCategories.Where(x => x.DeleteDate == null).ToListAsync())
+                        IngredientCategoryMapper.MapIngredientCategoryToResponse(await _context.IngredientCategories.Where(x => x.DeleteDate == null).ToListAsync())
                         );
 
             }
@@ -91,7 +92,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientCategoryEnum.IngredientCategoryIsDeleted,
                         GetIngredientCategoryEnum.IngredientCategoryIsDeleted.GetEnumDescription(),
-                        MapIngredientCategoryToResponse(ingredientCategory)
+                        IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredientCategory)
                         );
                 }
 
@@ -100,7 +101,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientCategoryEnum.Success,
                         GetIngredientCategoryEnum.Success.GetEnumDescription(),
-                        MapIngredientCategoryToResponse(ingredientCategory)
+                        IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredientCategory)
                         );
 
             }
@@ -142,7 +143,7 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
-                var result = MapRequestToIngredientCategory(request);
+                var result = IngredientCategoryMapper.MapRequestToIngredientCategory(request);
 
                 await _context.IngredientCategories.AddAsync(result);
 
@@ -269,45 +270,5 @@ namespace CookingMasterAPI.Services
                     );
             }
         }
-
-        #region Mapping Methods - later on consider making a static class to migrate these methods to
-        private IEnumerable<IngredientCategoryResponse> MapIngredientCategoryToResponse(IEnumerable<IngredientCategory> ingredientCategories)
-        {
-            var ingredientCategoriesResponse = new List<IngredientCategoryResponse>();
-            foreach (var item in ingredientCategories)
-            {
-                //ingredientCategoriesResponse.Add
-                //    (
-                //    new IngredientCategoryResponse(item.CategoryId, item.CategoryName, item.IconPath, item.CreateDate, item.DeleteDate)
-                //    );
-                //By using te following statement we're further optimizing this method instea of creating a new object
-                ingredientCategoriesResponse.Add(MapIngredientCategoryToResponse(item));
-            }
-            return ingredientCategoriesResponse;
-        }
-
-        private IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory ingredientCategory)
-        {
-            return new IngredientCategoryResponse
-                (
-                ingredientCategory.CategoryName,
-                ingredientCategory.IconPath,
-                ingredientCategory.CreateDate,
-                ingredientCategory.DeleteDate,
-                ingredientCategory.Uid
-                );
-        }
-
-        private IngredientCategory MapRequestToIngredientCategory(CreateIngredientCategoryRequest request)
-        {
-            return new IngredientCategory
-            {
-                CategoryName = request.CategoryName,
-                IconPath = request.IconPath,
-                CreateDate = DateTime.Now,
-                Uid = request.CategoryName.CreateUniqueSequence()
-            };
-        }
-        #endregion
     }
 }

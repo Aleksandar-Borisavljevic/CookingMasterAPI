@@ -6,6 +6,8 @@
         string IconPath,
         DateTime CreateDate,
         DateTime? DeleteDate,
+        IngredientCategoryResponse IngredientCategory,
         string Uid
+
     );
 }

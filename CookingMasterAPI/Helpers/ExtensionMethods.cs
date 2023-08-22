@@ -28,7 +28,7 @@ namespace CookingMasterAPI.Helpers
         public static string CreateUniqueSequence(this string caption)
         {
             string currentDate = DateTime.Now.ToString("yyyyMMddHHmmss");
-            return $"{caption}-{currentDate}";
+            return $"{caption.Trim()}-{currentDate}";
         }
     }
 }

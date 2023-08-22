@@ -211,7 +211,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientsEnum.Success,
                         GetIngredientsEnum.Success.GetEnumDescription(),
-                        MapIngredientToResponse(await _context.Ingredients.Where(i => i.DeleteDate == null).ToListAsync())
+                        MapIngredientToResponse(await _context.Ingredients.Include(x => x.IngredientCategory).Where(i => i.DeleteDate == null).ToListAsync())
                         );
             }
             catch (Exception)
@@ -303,6 +303,7 @@ namespace CookingMasterAPI.Services
                 ingredient.IconPath,
                 ingredient.CreateDate,
                 ingredient.DeleteDate,
+                MapIngredientCategoryToResponse(ingredient.IngredientCategory),
                 ingredient.Uid
                 );
         }
@@ -315,6 +316,18 @@ namespace CookingMasterAPI.Services
                 ingredientsResponse.Add(MapIngredientToResponse(item));
             }
             return ingredientsResponse;
+        }
+
+        private IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory ingredientCategory)
+        {
+            return new IngredientCategoryResponse
+                (
+                ingredientCategory.CategoryName,
+                ingredientCategory.IconPath,
+                ingredientCategory.CreateDate,
+                ingredientCategory.DeleteDate,
+                ingredientCategory.Uid
+                );
         }
         #endregion
     }
