@@ -332,6 +332,7 @@ namespace CookingMasterAPI.Services
         private UserResponse MapUserToResponse(User user)
         {
             var ingredients = _context.Ingredients
+                .Include(x => x.IngredientCategory)
                 .Where(ingredient => _context.UserIngredients
                 .Any(ui => ui.User.UserId == user.UserId && ui.Ingredient.IngredientId == ingredient.IngredientId)).ToList();
 

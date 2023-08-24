@@ -56,7 +56,7 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        [HttpPost("create")]
+        [HttpPost("createIngredient")]
         public async Task<IActionResult> CreateIngredientAsync(CreateIngredientRequest request)
         {
             try
@@ -108,6 +108,25 @@ namespace CookingMasterAPI.Controllers
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        [HttpPost("createUserIngredient")]
+        public async Task<IActionResult> CreateUserIngredientAsync(string userUid, string ingredientUid)
+        {
+            try
+            {
+                var result = await _service.CreateUserIngredientAsync(userUid, ingredientUid);
+                if (result.Status is CreateUserIngredientEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }

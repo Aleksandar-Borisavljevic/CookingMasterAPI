@@ -13,7 +13,6 @@ namespace CookingMasterAPI.Services
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse("cookingmasterinc@gmail.com"));
             email.To.Add(MailboxAddress.Parse("napstericious@gmail.com"));
-            //drpetar91@gmail.com
             email.Subject = "Test Email Subject";
             email.Body = new TextPart(TextFormat.Html)
             {

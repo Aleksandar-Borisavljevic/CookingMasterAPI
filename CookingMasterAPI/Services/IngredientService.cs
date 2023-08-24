@@ -13,6 +13,7 @@ using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Services.Mappers;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CookingMasterAPI.Services
 {
@@ -274,6 +275,74 @@ namespace CookingMasterAPI.Services
                         UpdateIngredientEnum.Undefined.GetEnumDescription() + ex.Message
                     );
             }
+        }
+
+        public async Task<CreateUserIngredientResult> CreateUserIngredientAsync(string userUid, string ingredientUid)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(userUid))
+                {
+                    return new CreateUserIngredientResult
+                    (
+                        CreateUserIngredientEnum.UserUidIsNull,
+                        CreateUserIngredientEnum.UserUidIsNull.GetEnumDescription()
+                    );
+                }
+
+                if (string.IsNullOrWhiteSpace(ingredientUid))
+                {
+                    return new CreateUserIngredientResult
+                    (
+                        CreateUserIngredientEnum.IngredientUidIsNull,
+                        CreateUserIngredientEnum.IngredientUidIsNull.GetEnumDescription()
+                    );
+                }
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.Uid.Equals(userUid));
+                var ingredient = await _context.Ingredients.SingleOrDefaultAsync(i => i.Uid.Equals(ingredientUid));
+
+                if (user is null)
+                {
+                    return new CreateUserIngredientResult
+                    (
+                        CreateUserIngredientEnum.UserNotFound,
+                        CreateUserIngredientEnum.UserNotFound.GetEnumDescription()
+                    );
+                }
+
+                if (ingredient is null)
+                {
+                    return new CreateUserIngredientResult
+                    (
+                        CreateUserIngredientEnum.IngredientNotFound,
+                        CreateUserIngredientEnum.IngredientNotFound.GetEnumDescription()
+                    );
+                }
+
+                if (_context.UserIngredients.Any(x => x.Ingredient.IngredientId == ingredient.IngredientId && x.User.UserId == user.UserId))
+                {
+                    return new CreateUserIngredientResult
+                    (
+                        CreateUserIngredientEnum.UserAlreadyHasThisIngredient,
+                        CreateUserIngredientEnum.UserAlreadyHasThisIngredient.GetEnumDescription()
+                    );
+                }
+
+                _context.UserIngredients.Add(new UserIngredient { User = user, Ingredient = ingredient });
+
+                await _context.SaveChangesAsync();
+
+                return new CreateUserIngredientResult
+                    (
+                        CreateUserIngredientEnum.Success,
+                        CreateUserIngredientEnum.Success.GetEnumDescription()
+                    );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         #region Mapping Methods - later on consider making a static class to migrate these methods to

@@ -32,6 +32,8 @@ namespace CookingMasterAPI.Models.Entity
         public string? PasswordResetToken { get; set; }
 
         public DateTime? ResetTokenExpires { get; set; }
+
+        public string Uid { get; set; }
         #endregion
     }
 }
