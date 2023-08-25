@@ -4,6 +4,7 @@
         (
             string Username,
             string EmailAddress,
-            IEnumerable<IngredientResponse> Ingredients
+            IEnumerable<IngredientResponse> Ingredients,
+            string UserUid
         );
 }

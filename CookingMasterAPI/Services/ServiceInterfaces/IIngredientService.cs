@@ -4,6 +4,7 @@ using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request.IngredientRequests;
 using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
 using CookingMasterAPI.Models.Result.IngredientResult.QueryResult;
+using CookingMasterAPI.Data;
 
 namespace CookingMasterAPI.Services.ServiceInterfaces
 {

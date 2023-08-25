@@ -63,8 +63,8 @@ namespace CookingMasterAPI.Services
                         String.Join('\n', validationResult.Errors)
                         );
                 }
-
-                var result = await MapRequestToIngredientAsync(request);
+                //TODO: Verify this
+                var result = await IngredientMapper.MapRequestToIngredientAsync(request, _context);
 
                 await _context.Ingredients.AddAsync(result);
 
@@ -79,7 +79,6 @@ namespace CookingMasterAPI.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -177,7 +176,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientEnum.IngredientIsDeleted,
                         GetIngredientEnum.IngredientIsDeleted.GetEnumDescription(),
-                        MapIngredientToResponse(result)
+                        IngredientMapper.MapIngredientToResponse(result)
                         );
                 }
 
@@ -185,7 +184,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientEnum.Success,
                         GetIngredientEnum.Success.GetEnumDescription(),
-                        MapIngredientToResponse(result)
+                        IngredientMapper.MapIngredientToResponse(result)
                         );
             }
             catch (Exception)
@@ -213,7 +212,7 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientsEnum.Success,
                         GetIngredientsEnum.Success.GetEnumDescription(),
-                        MapIngredientToResponse(await _context.Ingredients.Include(x => x.IngredientCategory).Where(i => i.DeleteDate == null).ToListAsync())
+                        IngredientMapper.MapIngredientToResponse(await _context.Ingredients.Include(x => x.IngredientCategory).Where(i => i.DeleteDate == null).ToListAsync())
                         );
             }
             catch (Exception)
@@ -345,48 +344,5 @@ namespace CookingMasterAPI.Services
 
         }
 
-        #region Mapping Methods - later on consider making a static class to migrate these methods to
-        private async Task<Ingredient> MapRequestToIngredientAsync(CreateIngredientRequest request)
-        {
-            var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(ic => ic.Uid == request.IngredientCategoryUid);
-
-            if (ingredientCategory is null)
-            {
-                ingredientCategory = await _context.IngredientCategories.LastAsync(); //We're taking the last category in case no category is found
-            }
-
-            return new Ingredient
-            {
-                IngredientCategory = ingredientCategory,
-                IngredientName = request.IngredientName,
-                IconPath = request.IconPath,
-                CreateDate = DateTime.Now,
-                Uid = request.IngredientName.CreateUniqueSequence()
-            };
-        }
-
-        private IngredientResponse MapIngredientToResponse(Ingredient ingredient)
-        {
-            return new IngredientResponse
-                (
-                ingredient.IngredientName,
-                ingredient.IconPath,
-                ingredient.CreateDate,
-                ingredient.DeleteDate,
-                IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredient.IngredientCategory),
-                ingredient.Uid
-                );
-        }
-
-        private IEnumerable<IngredientResponse> MapIngredientToResponse(IEnumerable<Ingredient> ingredients)
-        {
-            var ingredientsResponse = new List<IngredientResponse>();
-            foreach (var item in ingredients)
-            {
-                ingredientsResponse.Add(MapIngredientToResponse(item));
-            }
-            return ingredientsResponse;
-        }
-        #endregion
     }
 }

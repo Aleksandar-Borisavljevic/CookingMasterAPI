@@ -4,6 +4,7 @@ using CookingMasterAPI.Models.Response;
 using CookingMasterAPI.Models.Result.AuthResult;
 using CookingMasterAPI.Enums.AuthStatusEnums;
 using CookingMasterAPI.Models.Request.AuthRequests;
+using CookingMasterAPI.Data;
 
 namespace CookingMasterAPI.Controllers
 {

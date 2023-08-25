@@ -5,6 +5,7 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Request.IngredientRequests;
 using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
+using CookingMasterAPI.Data;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -112,12 +113,13 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
+        //string userUid, string ingredientUid
         [HttpPost("createUserIngredient")]
-        public async Task<IActionResult> CreateUserIngredientAsync(string userUid, string ingredientUid)
+        public async Task<IActionResult> CreateUserIngredientAsync(Tuple<string,string> Uids)
         {
             try
             {
-                var result = await _service.CreateUserIngredientAsync(userUid, ingredientUid);
+                var result = await _service.CreateUserIngredientAsync(Uids.Item1, Uids.Item2);
                 if (result.Status is CreateUserIngredientEnum.Success)
                 {
                     return Ok(result.Description);

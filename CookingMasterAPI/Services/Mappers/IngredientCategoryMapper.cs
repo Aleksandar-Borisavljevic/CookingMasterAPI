@@ -35,11 +35,6 @@ namespace CookingMasterAPI.Services.Mappers
             var ingredientCategoriesResponse = new List<IngredientCategoryResponse>();
             foreach (var item in ingredientCategories)
             {
-                //ingredientCategoriesResponse.Add
-                //    (
-                //    new IngredientCategoryResponse(item.CategoryId, item.CategoryName, item.IconPath, item.CreateDate, item.DeleteDate)
-                //    );
-                //By using te following statement we're further optimizing this method instea of creating a new object
                 ingredientCategoriesResponse.Add(MapIngredientCategoryToResponse(item));
             }
             return ingredientCategoriesResponse;

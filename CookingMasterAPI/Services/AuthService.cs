@@ -110,7 +110,7 @@ namespace CookingMasterAPI.Services
                 }
                 CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
-                var user = MapRequestToUser(request, passwordHash, passwordSalt);
+                var user = AuthMapper.MapRequestToUser(request, passwordHash, passwordSalt);
 
                 user.VerificationToken = _emailGenerateService.CreateRandomToken();
 
@@ -181,7 +181,7 @@ namespace CookingMasterAPI.Services
                         LoginEnum.InvalidPassword.GetEnumDescription()
                     );
                 }
-                var userResponse = MapUserToResponse(user);
+                var userResponse = AuthMapper.MapUserToResponse(user, _context);
 
                 return new LoginResult
                 (
@@ -327,51 +327,6 @@ namespace CookingMasterAPI.Services
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(passwordHash);
             }
-        }
-
-        private UserResponse MapUserToResponse(User user)
-        {
-            var ingredients = _context.Ingredients
-                .Include(x => x.IngredientCategory)
-                .Where(ingredient => _context.UserIngredients
-                .Any(ui => ui.User.UserId == user.UserId && ui.Ingredient.IngredientId == ingredient.IngredientId)).ToList();
-
-            var ingredientResponse = MapIngredientToResponse(ingredients);
-            return new UserResponse(user.Username, user.EmailAddress, ingredientResponse);
-        }
-
-        private User MapRequestToUser(UserRegisterRequest request, byte[] passwordHash, byte[] passwordSalt)
-        {
-            return new User
-            {
-                Username = request.Username,
-                EmailAddress = request.EmailAddress,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
-            };
-        }
-
-        private IngredientResponse MapIngredientToResponse(Ingredient ingredient)
-        {
-            return new IngredientResponse
-                (
-                ingredient.IngredientName,
-                ingredient.IconPath,
-                ingredient.CreateDate,
-                ingredient.DeleteDate,
-                IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredient.IngredientCategory),
-                ingredient.Uid
-                );
-        }
-
-        private IEnumerable<IngredientResponse> MapIngredientToResponse(IEnumerable<Ingredient> ingredients)
-        {
-            var ingredientsResponse = new List<IngredientResponse>();
-            foreach (var item in ingredients)
-            {
-                ingredientsResponse.Add(MapIngredientToResponse(item));
-            }
-            return ingredientsResponse;
         }
     }
 }
