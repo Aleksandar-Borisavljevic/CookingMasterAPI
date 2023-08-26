@@ -19,5 +19,6 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
         Task<UpdateIngredientResult> UpdateIngredientAsync(string uid, JsonPatchDocument<Ingredient> request);
 
         Task<CreateUserIngredientResult> CreateUserIngredientAsync(string userUid, string ingredientUid);
+        Task<DeleteUserIngredientResult> DeleteUserIngredientAsync(int userId, int ingredientId);
     }
 }

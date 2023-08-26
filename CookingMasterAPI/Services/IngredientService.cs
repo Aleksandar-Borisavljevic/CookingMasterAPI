@@ -344,5 +344,54 @@ namespace CookingMasterAPI.Services
 
         }
 
+        public async Task<DeleteUserIngredientResult> DeleteUserIngredientAsync(int userId, int ingredientId)
+        {
+            try
+            {
+                if (userId is 0)
+                {
+                    return new DeleteUserIngredientResult
+                    (
+                        DeleteUserIngredientEnum.UserUidIsNull,
+                        DeleteUserIngredientEnum.UserUidIsNull.GetEnumDescription()
+                    );
+                }
+                if (ingredientId is 0)
+                {
+                    return new DeleteUserIngredientResult
+                    (
+                        DeleteUserIngredientEnum.IngredientUidIsNull,
+                        DeleteUserIngredientEnum.IngredientUidIsNull.GetEnumDescription()
+                    );
+                }
+                var userIngredient = await _context.UserIngredients
+                    .SingleOrDefaultAsync(ui => ui.User.UserId == userId && ui.Ingredient.IngredientId == ingredientId);
+
+                if (userIngredient is null)
+                {
+                    return new DeleteUserIngredientResult
+                    (
+                        DeleteUserIngredientEnum.UserIngredientNotFound,
+                        DeleteUserIngredientEnum.UserIngredientNotFound.GetEnumDescription()
+                    );
+                }
+
+                _context.UserIngredients.Remove(userIngredient);
+
+                await _context.SaveChangesAsync();
+
+                return new DeleteUserIngredientResult
+                    (
+                        DeleteUserIngredientEnum.Success,
+                        DeleteUserIngredientEnum.Success.GetEnumDescription()
+                    );
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

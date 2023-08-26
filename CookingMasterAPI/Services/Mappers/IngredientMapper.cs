@@ -32,6 +32,7 @@ namespace CookingMasterAPI.Services.Mappers
         {
             return new IngredientResponse
                 (
+                ingredient.IngredientId,
                 ingredient.IngredientName,
                 ingredient.IconPath,
                 ingredient.CreateDate,

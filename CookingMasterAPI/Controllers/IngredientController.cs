@@ -115,12 +115,31 @@ namespace CookingMasterAPI.Controllers
 
         //string userUid, string ingredientUid
         [HttpPost("createUserIngredient")]
-        public async Task<IActionResult> CreateUserIngredientAsync(Tuple<string,string> Uids)
+        public async Task<IActionResult> CreateUserIngredientAsync(Tuple<string, string> Uids)
         {
             try
             {
                 var result = await _service.CreateUserIngredientAsync(Uids.Item1, Uids.Item2);
                 if (result.Status is CreateUserIngredientEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpDelete("deleteUserIngredient")]
+        public async Task<IActionResult> DeleteUserIngredientAsync(Tuple<int, int> Ids)
+        {
+            try
+            {
+                var result = await _service.DeleteUserIngredientAsync(Ids.Item1, Ids.Item2);
+                if (result.Status is DeleteUserIngredientEnum.Success)
                 {
                     return Ok(result.Description);
                 }

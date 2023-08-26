@@ -16,7 +16,7 @@ namespace CookingMasterAPI.Services.Mappers
                 .Any(ui => ui.User.UserId == user.UserId && ui.Ingredient.IngredientId == ingredient.IngredientId)).ToList();
 
             var ingredientResponse = IngredientMapper.MapIngredientToResponse(ingredients);
-            return new UserResponse(user.Username, user.EmailAddress, ingredientResponse, user.Uid);
+            return new UserResponse(user.UserId, user.Username, user.EmailAddress, ingredientResponse, user.Uid);
         }
 
         public static User MapRequestToUser(UserRegisterRequest request, byte[] passwordHash, byte[] passwordSalt)
@@ -30,27 +30,5 @@ namespace CookingMasterAPI.Services.Mappers
             };
         }
 
-        public static IngredientResponse MapIngredientToResponse(Ingredient ingredient)
-        {
-            return new IngredientResponse
-                (
-                ingredient.IngredientName,
-                ingredient.IconPath,
-                ingredient.CreateDate,
-                ingredient.DeleteDate,
-                IngredientCategoryMapper.MapIngredientCategoryToResponse(ingredient.IngredientCategory),
-                ingredient.Uid
-                );
-        }
-
-        public static IEnumerable<IngredientResponse> MapIngredientToResponse(IEnumerable<Ingredient> ingredients)
-        {
-            var ingredientsResponse = new List<IngredientResponse>();
-            foreach (var item in ingredients)
-            {
-                ingredientsResponse.Add(MapIngredientToResponse(item));
-            }
-            return ingredientsResponse;
-        }
     }
 }
