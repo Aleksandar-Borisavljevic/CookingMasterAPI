@@ -1,4 +1,5 @@
 ﻿using CookingMasterAPI.Data;
+using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request.AuthRequests;
 using CookingMasterAPI.Models.Response;
@@ -26,7 +27,8 @@ namespace CookingMasterAPI.Services.Mappers
                 Username = request.Username,
                 EmailAddress = request.EmailAddress,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                PasswordSalt = passwordSalt,
+                Uid = request.Username.CreateUniqueSequence()
             };
         }
 
