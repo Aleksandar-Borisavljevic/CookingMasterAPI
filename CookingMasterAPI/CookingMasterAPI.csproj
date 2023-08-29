@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Enums\IngNutrientStatusEnums\QueryEnums\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Models\Result\IngredientNutrientResult\QueryResult\" />
   </ItemGroup>
 
 </Project>

@@ -33,7 +33,7 @@ namespace CookingMasterAPI.Models.Entity
 
         public DateTime? ResetTokenExpires { get; set; }
 
-        public string Uid { get; set; }
+        public string? Uid { get; set; }
         #endregion
     }
 }

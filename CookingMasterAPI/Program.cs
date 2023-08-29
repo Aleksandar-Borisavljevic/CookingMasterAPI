@@ -17,6 +17,7 @@ builder.Services.AddSingleton<IEmailGenerateService, EmailGenerateService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IIngredientCategoryService, IngredientCategoryService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<IIngredientNutrientService, IngredientNutrientService>();
 
 builder.Services.AddSingleton<IValidator<UserRegisterRequest>, UserRegisterValidator>();
 builder.Services.AddSingleton<IValidator<UserLoginRequest>, UserLoginValidator>();
