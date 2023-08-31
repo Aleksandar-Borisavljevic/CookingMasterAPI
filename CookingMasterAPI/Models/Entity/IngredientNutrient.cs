@@ -9,10 +9,6 @@ namespace CookingMasterAPI.Models.Entity
         public int IngredientNutrientId { get; set; }
 
         [Required]
-        [ForeignKey("IngredientId")]
-        public Ingredient? Ingredient { get; set; }
-
-        [Required]
         [Column(TypeName = "decimal(4, 2)")]
         public decimal Calories { get; set; }
 

@@ -12,6 +12,9 @@ namespace CookingMasterAPI.Models.Entity
         [ForeignKey("CategoryId")]
         public IngredientCategory? IngredientCategory { get; set; }
 
+        [ForeignKey("IngredientNutrientId")]
+        public IngredientNutrient? IngredientNutrient { get; set; }
+
         [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string IngredientName { get; set; } = string.Empty;

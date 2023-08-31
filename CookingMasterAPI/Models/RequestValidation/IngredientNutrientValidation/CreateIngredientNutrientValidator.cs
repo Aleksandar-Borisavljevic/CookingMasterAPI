@@ -1,7 +1,5 @@
-﻿using CookingMasterAPI.Models.Entity;
-using CookingMasterAPI.Models.Request.IngredientRequests;
-using FluentValidation;
-using Newtonsoft.Json.Linq;
+﻿using FluentValidation;
+using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 
 namespace CookingMasterAPI.Models.RequestValidation.IngredientNutrientValidation
 {
@@ -20,10 +18,6 @@ namespace CookingMasterAPI.Models.RequestValidation.IngredientNutrientValidation
             RuleFor(ingredientNutrient => ingredientNutrient.Carbohydrates)
                 .NotEmpty().WithMessage("Carbohydrates value is required.")
                 .InclusiveBetween(0, 100).WithMessage("Carbohydrates value must be between 0 and 100.");
-
-            RuleFor(ingredientNutrient => ingredientNutrient.Fat)
-                .NotEmpty().WithMessage("Fat value is required.")
-                .InclusiveBetween(0, 100).WithMessage("Fat value must be between 0 and 100.");
 
             RuleFor(ingredientNutrient => ingredientNutrient.Fat)
                 .NotEmpty().WithMessage("Fat value is required.")

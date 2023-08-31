@@ -1,13 +1,13 @@
-﻿using CookingMasterAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using CookingMasterAPI.Data;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
-using CookingMasterAPI.Models.Request.IngredientRequests;
+using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 using CookingMasterAPI.Models.Response;
-using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterAPI.Services.Mappers
 {
-    public class IngredientNutrientMapper
+    public static class IngredientNutrientMapper
     {
         public static async Task<IngredientNutrient> MapRequestToIngredientNutrientAsync(CreateIngredientNutrientRequest request, APIDbContext context)
         {
@@ -20,7 +20,6 @@ namespace CookingMasterAPI.Services.Mappers
 
             return new IngredientNutrient
             {
-                Ingredient = ingredient,
                 Calories = request.Calories,
                 Protein = request.Protein,
                 Carbohydrates = request.Carbohydrates,
@@ -29,6 +28,19 @@ namespace CookingMasterAPI.Services.Mappers
                 CreateDate = DateTime.Now,
                 Uid = $"Nut-{ingredient.IngredientName.CreateUniqueSequence()}"
             };
+        }
+
+        public static IngredientNutrientResponse MapIngredientNutrientToResponse(IngredientNutrient ingredientNutrient)
+        {
+            return new IngredientNutrientResponse
+            (
+               ingredientNutrient.Calories,
+               ingredientNutrient.Protein,
+               ingredientNutrient.Carbohydrates,
+               ingredientNutrient.Fat,
+               ingredientNutrient.Sugar,
+               ingredientNutrient.Uid
+            );
         }
 
     }

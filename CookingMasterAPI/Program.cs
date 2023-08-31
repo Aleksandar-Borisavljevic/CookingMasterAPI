@@ -10,6 +10,7 @@ using CookingMasterAPI.Models.RequestValidation.IngredientCategoryValidation;
 using CookingMasterAPI.Models.Request.IngredientRequests;
 using CookingMasterAPI.Models.RequestValidation.IngredientValidation;
 using CookingMasterAPI.Models.RequestValidation.IngredientNutrientValidation;
+using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 
 var builder = WebApplication.CreateBuilder(args);
 

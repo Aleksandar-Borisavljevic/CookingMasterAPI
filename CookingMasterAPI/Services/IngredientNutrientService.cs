@@ -1,16 +1,17 @@
-﻿
-using CookingMasterAPI.Data;
-using CookingMasterAPI.Enums.IngNutrientStatusEnums.CommandEnums;
-using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
-using CookingMasterAPI.Helpers;
-using CookingMasterAPI.Models.Request.IngredientRequests;
-using CookingMasterAPI.Models.Result.IngredientNutrientResult.CommandResult;
-using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
-using CookingMasterAPI.Services.Mappers;
-using CookingMasterAPI.Services.ServiceInterfaces;
+﻿using CookingMasterAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FluentValidation.Results;
-using Microsoft.EntityFrameworkCore;
+using CookingMasterAPI.Enums.IngNutrientStatusEnums.CommandEnums;
+using CookingMasterAPI.Helpers;
+using CookingMasterAPI.Models.Result.IngredientNutrientResult.CommandResult;
+using CookingMasterAPI.Services.Mappers;
+using CookingMasterAPI.Services.ServiceInterfaces;
+using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
+using CookingMasterAPI.Models.Result.IngredientNutrientResult.QueryResult;
+using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
+using CookingMasterAPI.Models.Result.IngredientResult.QueryResult;
+using CookingMasterAPI.Enums.IngNutrientStatusEnums.QueryEnums;
 
 namespace CookingMasterAPI.Services
 {
@@ -91,5 +92,67 @@ namespace CookingMasterAPI.Services
                 throw;
             }
         }
+
+        public async Task<GetIngredientNutrientResult> GetIngredientNutrientAsync(string uid)
+        {
+            try
+            {
+                if (_context.IngredientNutrients is null)
+                {
+                    return new GetIngredientNutrientResult
+                        (
+                        GetIngredientNutrientEnum.IngredientNutrientNotFound,
+                        GetIngredientNutrientEnum.IngredientNutrientNotFound.GetEnumDescription(),
+                        null
+                        );
+                }
+
+                if (string.IsNullOrWhiteSpace(uid))
+                {
+                    return new GetIngredientNutrientResult
+                        (
+                        GetIngredientNutrientEnum.UidIsNull,
+                        GetIngredientNutrientEnum.UidIsNull.GetEnumDescription(),
+                        null
+                        );
+                }
+
+                var result = await _context.IngredientNutrients.SingleOrDefaultAsync(x => x.Uid == uid);
+
+                if (result is null)
+                {
+                    return new GetIngredientNutrientResult
+                        (
+                        GetIngredientNutrientEnum.IngredientNutrientNotFound,
+                        GetIngredientNutrientEnum.IngredientNutrientNotFound.GetEnumDescription(),
+                        null
+                        );
+                }
+
+                if (result.DeleteDate is not null)
+                {
+                    return new GetIngredientNutrientResult
+                        (
+                        GetIngredientNutrientEnum.IngredientNutrientIsDeleted,
+                        GetIngredientNutrientEnum.IngredientNutrientIsDeleted.GetEnumDescription(),
+                        IngredientNutrientMapper.MapIngredientNutrientToResponse(result)
+                        );
+                }
+
+                return new GetIngredientNutrientResult
+                        (
+                        GetIngredientNutrientEnum.Success,
+                        GetIngredientNutrientEnum.Success.GetEnumDescription(),
+                        IngredientNutrientMapper.MapIngredientNutrientToResponse(result)
+                        );
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }

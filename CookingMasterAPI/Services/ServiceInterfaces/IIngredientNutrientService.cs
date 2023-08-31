@@ -1,6 +1,7 @@
 ﻿using Azure;
-using CookingMasterAPI.Models.Request.IngredientRequests;
+using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.CommandResult;
+using CookingMasterAPI.Models.Result.IngredientNutrientResult.QueryResult;
 
 namespace CookingMasterAPI.Services.ServiceInterfaces
 {
@@ -8,7 +9,7 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
     {
         Task<CreateIngredientNutrientResult> CreateIngredientNutrientsAsync(CreateIngredientNutrientRequest request);
 
-        //Task<GetIngredientNutrientsResult> GetIngredientNutrientsAsync(string uid);
+        Task<GetIngredientNutrientResult> GetIngredientNutrientAsync(string uid);
 
 
         //Task<DeleteIngredientNutrientsResult> DeleteIngredientNutrientsAsync(string uid);

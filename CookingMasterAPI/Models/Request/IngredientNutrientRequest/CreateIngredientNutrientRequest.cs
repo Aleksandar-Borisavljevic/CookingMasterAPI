@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace CookingMasterAPI.Models.Request.IngredientRequests
+﻿namespace CookingMasterAPI.Models.Request.IngredientNutrientRequests
 {
     public class CreateIngredientNutrientRequest
     {
