@@ -1,7 +1,8 @@
-﻿using CookingMasterAPI.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch;
 using FluentValidation;
 using FluentValidation.Results;
+using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.IngNutrientStatusEnums.CommandEnums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.CommandResult;
@@ -9,9 +10,10 @@ using CookingMasterAPI.Services.Mappers;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.QueryResult;
-using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
-using CookingMasterAPI.Models.Result.IngredientResult.QueryResult;
 using CookingMasterAPI.Enums.IngNutrientStatusEnums.QueryEnums;
+using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
+using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
+using CookingMasterAPI.Models.Entity;
 
 namespace CookingMasterAPI.Services
 {
@@ -93,7 +95,7 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        public async Task<GetIngredientNutrientResult> GetIngredientNutrientAsync(string uid)
+        public async Task<GetIngredientNutrientResult> GetIngredientNutrientsAsync(string uid)
         {
             try
             {
@@ -153,6 +155,100 @@ namespace CookingMasterAPI.Services
             }
         }
 
+        public async Task<DeleteIngredientNutrientResult> DeleteIngredientNutrientsAsync(string uid)
+        {
+            try
+            {
+                if (_context.IngredientNutrients is null)
+                {
+                    return new DeleteIngredientNutrientResult
+                        (
+                        DeleteIngredientNutrientEnum.IngredientNutrientNotFound,
+                        DeleteIngredientNutrientEnum.IngredientNutrientNotFound.GetEnumDescription()
+                        );
+                }
 
+                if (string.IsNullOrWhiteSpace(uid))
+                {
+                    return new DeleteIngredientNutrientResult
+                        (
+                        DeleteIngredientNutrientEnum.UidIsNull,
+                        DeleteIngredientNutrientEnum.UidIsNull.GetEnumDescription()
+                        );
+                }
+
+                var ingredientNutrient = await _context.IngredientNutrients.SingleOrDefaultAsync(x => x.Uid == uid);
+
+                if (ingredientNutrient is null)
+                {
+                    return new DeleteIngredientNutrientResult
+                        (
+                        DeleteIngredientNutrientEnum.IngredientNutrientNotFound,
+                        DeleteIngredientNutrientEnum.IngredientNutrientNotFound.GetEnumDescription()
+                        );
+                }
+
+                ingredientNutrient.DeleteDate = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                return new DeleteIngredientNutrientResult
+                        (
+                        DeleteIngredientNutrientEnum.Success,
+                        DeleteIngredientNutrientEnum.Success.GetEnumDescription()
+                        );
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<UpdateIngredientNutrientResult> UpdateIngredientNutrientsAsync(string uid, JsonPatchDocument<IngredientNutrient> request)
+        {
+            try
+            {
+                if (uid is null)
+                {
+                    return new UpdateIngredientNutrientResult
+                    (
+                        UpdateIngredientNutrientEnum.NotFound,
+                        UpdateIngredientNutrientEnum.NotFound.GetEnumDescription()
+                    );
+                }
+
+                var result = await _context.IngredientNutrients.SingleOrDefaultAsync(x => x.Uid == uid);
+
+                if (result == null)
+                {
+                    return new UpdateIngredientNutrientResult
+                    (
+                        UpdateIngredientNutrientEnum.NotFound,
+                        UpdateIngredientNutrientEnum.NotFound.GetEnumDescription()
+                    );
+                }
+
+                request.ApplyTo(result);
+
+                await _context.SaveChangesAsync();
+
+                return new UpdateIngredientNutrientResult
+                    (
+                        UpdateIngredientNutrientEnum.Success,
+                        UpdateIngredientNutrientEnum.Success.GetEnumDescription()
+                    );
+
+            }
+            catch (Exception ex)
+            {
+                return new UpdateIngredientNutrientResult
+                    (
+                        UpdateIngredientNutrientEnum.Undefined,
+                        UpdateIngredientNutrientEnum.Undefined.GetEnumDescription() + ex.Message
+                    );
+            }
+        }
     }
 }

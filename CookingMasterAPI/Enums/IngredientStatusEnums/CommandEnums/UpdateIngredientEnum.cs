@@ -13,6 +13,8 @@ namespace CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums
         RequestIsNull = 2,
         [Description("Ingredient Category Not Found.")]
         NotFound = 3,
-        RequestIsValid = 4
+        RequestIsValid = 4,
+        [Description("Ingredient Uid not found.")]
+        UidNotFound = 5
     }
 }

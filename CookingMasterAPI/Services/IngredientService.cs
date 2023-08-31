@@ -63,7 +63,7 @@ namespace CookingMasterAPI.Services
                         String.Join('\n', validationResult.Errors)
                         );
                 }
-                
+
                 var result = await IngredientMapper.MapRequestToIngredientAsync(request, _context);
 
                 await _context.Ingredients.AddAsync(result);
@@ -231,8 +231,8 @@ namespace CookingMasterAPI.Services
                     return new UpdateIngredientResult
                     (
                         //TODO: Change to UidIsNull
-                        UpdateIngredientEnum.RequestIsNull,
-                        UpdateIngredientEnum.RequestIsNull.GetEnumDescription()
+                        UpdateIngredientEnum.UidNotFound,
+                        UpdateIngredientEnum.UidNotFound.GetEnumDescription()
                     );
                 }
 

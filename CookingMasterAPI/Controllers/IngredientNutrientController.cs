@@ -5,6 +5,9 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Enums.IngNutrientStatusEnums.QueryEnums;
+using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
+using Azure;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -21,7 +24,7 @@ namespace CookingMasterAPI.Controllers
         }
 
         [HttpPost("createIngredientNutrient")]
-        public async Task<IActionResult> CreateIngredientNutrientAsync(CreateIngredientNutrientRequest request)
+        public async Task<IActionResult> CreateIngredientNutrientsAsync(CreateIngredientNutrientRequest request)
         {
             try
             {
@@ -40,16 +43,53 @@ namespace CookingMasterAPI.Controllers
         }
 
         [HttpGet("{uid}")]
-        public async Task<ActionResult<IngredientNutrient>> GetIngredientNutrientAsync(string uid)
+        public async Task<ActionResult<IngredientNutrient>> GetIngredientNutrientsAsync(string uid)
         {
             try
             {
-                var result = await _service.GetIngredientNutrientAsync(uid);
+                var result = await _service.GetIngredientNutrientsAsync(uid);
                 if (result.Status is GetIngredientNutrientEnum.Success)
                 {
                     return Ok(result.IngredientNutrient);
                 }
                 return NotFound(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpDelete("{uid}")]
+        public async Task<IActionResult> DeleteIngredientNutrientsAsync(string uid)
+        {
+            try
+            {
+                var result = await _service.DeleteIngredientNutrientsAsync(uid);
+                if (result.Status is DeleteIngredientNutrientEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPatch("{uid}")]
+        public async Task<IActionResult> PatchIngredientNutrientsAsync(string uid, [FromBody] JsonPatchDocument<IngredientNutrient> request)
+        {
+            try
+            {
+                var result = await _service.UpdateIngredientNutrientsAsync(uid, request);
+                if (result.Status is UpdateIngredientNutrientEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
             }
             catch (Exception)
             {

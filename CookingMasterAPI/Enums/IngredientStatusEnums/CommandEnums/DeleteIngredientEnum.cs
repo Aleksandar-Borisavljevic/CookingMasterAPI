@@ -4,7 +4,6 @@ namespace CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums
 {
     public enum DeleteIngredientEnum
     {
-        //TODO: Sort these statuses later on
         [Description("An uknown error has occured. Please contact support.")]
         Undefined = 0,
         [Description("Successfully Deleted Ingredient.")]

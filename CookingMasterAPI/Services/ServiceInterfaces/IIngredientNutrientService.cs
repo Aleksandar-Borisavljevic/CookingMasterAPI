@@ -1,7 +1,9 @@
 ﻿using Azure;
+using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.CommandResult;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.QueryResult;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace CookingMasterAPI.Services.ServiceInterfaces
 {
@@ -9,11 +11,11 @@ namespace CookingMasterAPI.Services.ServiceInterfaces
     {
         Task<CreateIngredientNutrientResult> CreateIngredientNutrientsAsync(CreateIngredientNutrientRequest request);
 
-        Task<GetIngredientNutrientResult> GetIngredientNutrientAsync(string uid);
+        Task<GetIngredientNutrientResult> GetIngredientNutrientsAsync(string uid);
 
 
-        //Task<DeleteIngredientNutrientsResult> DeleteIngredientNutrientsAsync(string uid);
+        Task<DeleteIngredientNutrientResult> DeleteIngredientNutrientsAsync(string uid);
 
-        //Task<UpdateIngredientNutrientsResult> UpdateIngredientNutrientsAsync(string uid, JsonPatchDocument<IngredientNutrients> request);
+        Task<UpdateIngredientNutrientResult> UpdateIngredientNutrientsAsync(string uid, JsonPatchDocument<IngredientNutrient> request);
     }
 }
