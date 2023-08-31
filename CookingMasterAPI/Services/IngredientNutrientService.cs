@@ -1,12 +1,15 @@
 ﻿
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.IngNutrientStatusEnums.CommandEnums;
+using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Request.IngredientRequests;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.CommandResult;
+using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
 using CookingMasterAPI.Services.Mappers;
 using CookingMasterAPI.Services.ServiceInterfaces;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterAPI.Services
@@ -14,17 +17,19 @@ namespace CookingMasterAPI.Services
     public class IngredientNutrientService : IIngredientNutrientService
     {
         private readonly APIDbContext _context;
-        private readonly IValidator<CreateIngredientRequest> _createIngredientValidator;
+        private readonly IValidator<CreateIngredientNutrientRequest> _createIngredientNutrientValidator;
 
         public IngredientNutrientService
             (
-            APIDbContext context
-            //IValidator<CreateIngredientNutrientRequest> createIngredientNutrientValidator
+            APIDbContext context,
+            IValidator<CreateIngredientNutrientRequest> createIngredientNutrientValidator
             )
         {
             _context = context;
-            //_createIngredientNutrientValidator = createIngredientNutrientValidator;
+            _createIngredientNutrientValidator = createIngredientNutrientValidator;
         }
+
+        //TODO: Consult with sensei whether these validations are up to his standards
         public async Task<CreateIngredientNutrientResult> CreateIngredientNutrientsAsync(CreateIngredientNutrientRequest request)
         {
             try
@@ -38,7 +43,26 @@ namespace CookingMasterAPI.Services
                         CreateIngredientNutrientEnum.RequestIsNull.GetEnumDescription()
                     );
                 }
-                //TODO: Finish Fluent validation
+
+                if (await _context.IngredientNutrients.AnyAsync(x => x.Uid == request.IngredientUid && x.DeleteDate == null))
+                {
+                    return new CreateIngredientNutrientResult
+                        (
+                        CreateIngredientNutrientEnum.IngredientNutrientsAlreadyExist,
+                        CreateIngredientNutrientEnum.IngredientNutrientsAlreadyExist.GetEnumDescription()
+                        );
+                }
+
+                ValidationResult validationResult = _createIngredientNutrientValidator.Validate(request);
+
+                if (!validationResult.IsValid)
+                {
+                    return new CreateIngredientNutrientResult
+                        (
+                        CreateIngredientNutrientEnum.RequestIsValid,
+                        String.Join('\n', validationResult.Errors)
+                        );
+                }
 
                 var result = await IngredientNutrientMapper.MapRequestToIngredientNutrientAsync(request, _context);
                 if (result == null)

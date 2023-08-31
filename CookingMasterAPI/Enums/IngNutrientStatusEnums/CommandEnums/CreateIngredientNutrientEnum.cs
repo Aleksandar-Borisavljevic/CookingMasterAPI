@@ -12,6 +12,7 @@ namespace CookingMasterAPI.Enums.IngNutrientStatusEnums.CommandEnums
         RequestIsNull = 2,
         ResultIsNull = 3,
         [Description("Ingredient Nutrients already exist.")]
-        IngredientNutrientsAlreadyExist = 4
+        IngredientNutrientsAlreadyExist = 4,
+        RequestIsValid = 5
     }
 }
