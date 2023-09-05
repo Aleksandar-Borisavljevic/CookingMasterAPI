@@ -32,7 +32,6 @@ namespace CookingMasterAPI.Services
             _createIngredientNutrientValidator = createIngredientNutrientValidator;
         }
 
-        //TODO: Consult with sensei whether these validations are up to his standards
         public async Task<CreateIngredientNutrientResult> CreateIngredientNutrientsAsync(CreateIngredientNutrientRequest request)
         {
             try

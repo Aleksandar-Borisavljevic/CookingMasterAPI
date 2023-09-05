@@ -17,6 +17,9 @@ namespace CookingMasterAPI.Data
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<UserIngredient> UserIngredients { get; set; }
         public DbSet<IngredientNutrient> IngredientNutrients { get; set; }
+        public DbSet<CuisineType> CuisineTypes { get; set; }
+        public DbSet<CulinaryRecipe> CulinaryRecipes { get; set; }
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
         //Defining connection string which leads to server
         private const string LocalConnectionString = "Server =(local)\\sqlexpress;Database=Server=localhost\\SQLEXPRESS;Database=CookingMaster_DB;Trusted_Connection=True;;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True";
