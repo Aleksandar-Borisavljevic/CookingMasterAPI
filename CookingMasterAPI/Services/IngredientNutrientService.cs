@@ -11,8 +11,6 @@ using CookingMasterAPI.Services.ServiceInterfaces;
 using CookingMasterAPI.Models.Request.IngredientNutrientRequests;
 using CookingMasterAPI.Models.Result.IngredientNutrientResult.QueryResult;
 using CookingMasterAPI.Enums.IngNutrientStatusEnums.QueryEnums;
-using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
-using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
 using CookingMasterAPI.Models.Entity;
 
 namespace CookingMasterAPI.Services

@@ -7,8 +7,13 @@ namespace CookingMasterAPI.Services.Mappers
 {
     public static class IngredientCategoryMapper
     {
-        public static IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory ingredientCategory)
+        public static IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory? ingredientCategory)
         {
+            if (ingredientCategory is null)
+            {
+                return null;
+            }
+
             return new IngredientCategoryResponse
                 (
                 ingredientCategory.CategoryName,

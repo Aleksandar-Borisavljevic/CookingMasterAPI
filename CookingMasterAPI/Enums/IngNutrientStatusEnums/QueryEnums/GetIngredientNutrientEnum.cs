@@ -9,10 +9,10 @@ namespace CookingMasterAPI.Enums.IngNutrientStatusEnums.QueryEnums
         [Description("Successfully obtained Ingredient Nutrient Information.")]
         Success = 1,
         [Description("Ingredient Nutrient not found.")]
-        IngredientNutrientNotFound = 3,
+        IngredientNutrientNotFound = 2,
         [Description("Ingredient Nutrient is deleted. Please use another one.")]
-        IngredientNutrientIsDeleted = 4,
+        IngredientNutrientIsDeleted = 3,
         [Description("Ingredient Nutrient Uid is not found.")]
-        UidIsNull = 5
+        UidIsNull = 4
     }
 }
