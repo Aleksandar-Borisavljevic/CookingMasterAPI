@@ -1,11 +1,45 @@
-﻿using CookingMasterAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using CookingMasterAPI.Data;
 using CookingMasterAPI.Models.Entity;
+using CookingMasterAPI.Models.Request.CulinaryRecipeRequests;
 using CookingMasterAPI.Models.Response;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using CookingMasterAPI.Helpers;
 
 namespace CookingMasterAPI.Services.Mappers
 {
     public static class CulinaryRecipeMapper
     {
+        public static async Task<CulinaryRecipe> MapRequestToCulinaryRecipeAsync(CreateCulinaryRecipeRequest request, APIDbContext _context)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Uid == request.UserUid);
+            var cuisineType = await _context.CuisineTypes.FirstOrDefaultAsync(ct => ct.Uid == request.CuisineTypeUid);
+
+            if (user is null)
+            {
+                return null;
+            }
+
+            if (cuisineType is null)
+            {
+                cuisineType = await _context.CuisineTypes.FirstAsync();
+            }
+
+            return new CulinaryRecipe
+            {
+                CuisineType = cuisineType,
+                User = user,
+                RecipeName = request.RecipeName,
+                RecipeDescription = request.RecipeDescription,
+                CreateDate = DateTime.Now,
+                Uid = request.RecipeName.Length > 30 ? request.RecipeName
+                .Substring(0, 29)
+                .CreateUniqueSequence()
+                : request.RecipeName
+                .CreateUniqueSequence(),
+            };
+        }
+
         public static CulinaryRecipeResponse MapCulinaryRecipeToResponse(CulinaryRecipe culinaryRecipe, APIDbContext context)
         {
             var ingredients = context.Ingredients

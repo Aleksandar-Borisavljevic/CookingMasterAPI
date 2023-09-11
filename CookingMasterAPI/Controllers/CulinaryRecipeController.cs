@@ -7,6 +7,8 @@ using CookingMasterAPI.Models.Request.IngredientRequests;
 using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.CulinaryRecipeStatusEnums.QueryEnums;
+using CookingMasterAPI.Models.Request.CulinaryRecipeRequests;
+using CookingMasterAPI.Enums.CulinaryRecipeStatusEnums.CommandEnums;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -58,24 +60,23 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        //[HttpPost("createCulinaryRecipe")]
-        //public async Task<IActionResult> CreateCulinaryRecipeAsync(CreateCulinaryRecipeRequest request)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.CreateCulinaryRecipeAsync(request);
-        //        if (result.Status is CreateCulinaryRecipeEnum.Success)
-        //        {
-        //            return Ok(result.Description);
-        //        }
-        //        return BadRequest(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
+        [HttpPost("createCulinaryRecipe")]
+        public async Task<IActionResult> CreateCulinaryRecipeAsync(CreateCulinaryRecipeRequest request)
+        {
+            try
+            {
+                var result = await _service.CreateCulinaryRecipeAsync(request);
+                if (result.Status is CreateCulinaryRecipeEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         //[HttpDelete("{uid}")]
         //public async Task<IActionResult> DeleteIngredientAsync(string uid)

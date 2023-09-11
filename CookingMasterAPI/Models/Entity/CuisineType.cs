@@ -10,5 +10,9 @@ namespace CookingMasterAPI.Models.Entity
 
         [Required]
         public string CuisineName { get; set; } = string.Empty;
+
+        [Required]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Uid { get; set; } = string.Empty;
     }
 }

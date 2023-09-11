@@ -25,10 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\CulinaryRecipeStatusEnums\CommandEnums\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Request\CulinaryRecipeRequests\" />
-    <Folder Include="Models\Result\CulinaryRecipeResult\CommandResult\" />
   </ItemGroup>
 
 </Project>
