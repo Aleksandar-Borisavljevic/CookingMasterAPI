@@ -7,9 +7,9 @@ namespace CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums
         //TODO: Change this to fit the coresponding ENUM
         [Description("An uknown error has occured. Please contact support.")]
         Undefined = 0,
-        [Description("Successfully obtained Ingredient Category Information.")]
+        [Description("Successfully obtained Ingredients Information.")]
         Success = 1,
-        [Description("Ingredient Categories not found.")]
+        [Description("Ingredients not found.")]
         IngredientsNotFound = 2
     }
 }

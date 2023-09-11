@@ -48,7 +48,10 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
-                var result = await _context.CulinaryRecipes.Include(x => x.CuisineType).Include(x => x.User).SingleOrDefaultAsync(x => x.Uid == uid);
+                var result = await _context.CulinaryRecipes
+                    .Include(x => x.CuisineType)
+                    .Include(x => x.User)
+                    .FirstOrDefaultAsync(x => x.Uid == uid);
 
                 if (result is null)
                 {
@@ -77,6 +80,36 @@ namespace CookingMasterAPI.Services
                         CulinaryRecipeMapper.MapCulinaryRecipeToResponse(result, _context)
                         );
 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<GetCulinaryRecipesResult> GetCulinaryRecipesAsync()
+        {
+            try
+            {
+                if (_context.CulinaryRecipes is null)
+                {
+                    return new GetCulinaryRecipesResult
+                        (
+                        GetCulinaryRecipesEnum.CulinaryRecipesNotFound,
+                        GetCulinaryRecipesEnum.CulinaryRecipesNotFound.GetEnumDescription(),
+                        null
+                        );
+                }
+                return new GetCulinaryRecipesResult
+                        (
+                        GetCulinaryRecipesEnum.Success,
+                        GetCulinaryRecipesEnum.Success.GetEnumDescription(),
+                        CulinaryRecipeMapper.MapCulinaryRecipeToResponse(await _context.CulinaryRecipes
+                        .Include(x => x.CuisineType)
+                        .Include(u => u.User)
+                        .Where(y => y.DeleteDate == null)
+                        .ToListAsync(), _context)
+                        );
             }
             catch (Exception)
             {

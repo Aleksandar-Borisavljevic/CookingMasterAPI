@@ -20,25 +20,25 @@ namespace CookingMasterAPI.Controllers
             _service = service;
         }
 
-        //[HttpGet("all")]
-        //public async Task<ActionResult<IEnumerable<CulinaryRecipe>>> GetIngredientsAsync()
-        //{
-        //    try
-        //    {
-        //        var result = await _service.GetIngredientsAsync();
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<CulinaryRecipe>>> GetCulinaryRecipesAsync()
+        {
+            try
+            {
+                var result = await _service.GetCulinaryRecipesAsync();
 
-        //        if (result.Status is GetIngredientsEnum.Success)
-        //        {
-        //            return Ok(result.Ingredients);
-        //        }
+                if (result.Status is GetCulinaryRecipesEnum.Success)
+                {
+                    return Ok(result.CulinaryRecipes);
+                }
 
-        //        return NotFound(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                return NotFound(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         [HttpGet("{uid}")]
         public async Task<ActionResult<CulinaryRecipe>> GetCulinaryRecipe(string uid)
@@ -58,13 +58,13 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        //[HttpPost("createIngredient")]
-        //public async Task<IActionResult> CreateIngredientAsync(CreateIngredientRequest request)
+        //[HttpPost("createCulinaryRecipe")]
+        //public async Task<IActionResult> CreateCulinaryRecipeAsync(CreateCulinaryRecipeRequest request)
         //{
         //    try
         //    {
-        //        var result = await _service.CreateIngredientAsync(request);
-        //        if (result.Status is CreateIngredientEnum.Success)
+        //        var result = await _service.CreateCulinaryRecipeAsync(request);
+        //        if (result.Status is CreateCulinaryRecipeEnum.Success)
         //        {
         //            return Ok(result.Description);
         //        }

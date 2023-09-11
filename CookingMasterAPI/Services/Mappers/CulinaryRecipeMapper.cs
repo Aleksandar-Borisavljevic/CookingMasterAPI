@@ -1,7 +1,6 @@
 ﻿using CookingMasterAPI.Data;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Response;
-using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterAPI.Services.Mappers
 {
@@ -22,6 +21,17 @@ namespace CookingMasterAPI.Services.Mappers
                 culinaryRecipe.RecipeDescription,
                 culinaryRecipe.Uid
                 );
+        }
+
+        public static IEnumerable<CulinaryRecipeResponse> MapCulinaryRecipeToResponse(IEnumerable<CulinaryRecipe> culinaryRecipes, APIDbContext context)
+        {
+            return culinaryRecipes.Select(item => MapCulinaryRecipeToResponse(item, context));
+            //var culinaryRecipeResponse = new List<CulinaryRecipeResponse>();
+            //foreach (var item in culinaryRecipes)
+            //{
+            //    culinaryRecipeResponse.Add(MapCulinaryRecipeToResponse(item, context));
+            //}
+            //return culinaryRecipeResponse;
         }
     }
 }

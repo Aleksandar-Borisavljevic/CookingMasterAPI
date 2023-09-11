@@ -1,6 +1,4 @@
-﻿using CookingMasterAPI.Models.Entity;
-
-namespace CookingMasterAPI.Models.Response
+﻿namespace CookingMasterAPI.Models.Response
 {
     public record CulinaryRecipeResponse
     (

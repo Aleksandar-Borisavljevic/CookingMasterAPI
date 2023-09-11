@@ -11,7 +11,7 @@ namespace CookingMasterAPI.Services.Mappers
     {
         public static async Task<Ingredient> MapRequestToIngredientAsync(CreateIngredientRequest request, APIDbContext _context)
         {
-            var ingredientCategory = await _context.IngredientCategories.SingleOrDefaultAsync(ic => ic.Uid == request.IngredientCategoryUid);
+            var ingredientCategory = await _context.IngredientCategories.FirstOrDefaultAsync(ic => ic.Uid == request.IngredientCategoryUid);
 
             if (ingredientCategory is null)
             {
@@ -44,12 +44,18 @@ namespace CookingMasterAPI.Services.Mappers
 
         public static IEnumerable<IngredientResponse> MapIngredientToResponse(IEnumerable<Ingredient> ingredients)
         {
-            var ingredientsResponse = new List<IngredientResponse>();
-            foreach (var item in ingredients)
-            {
-                ingredientsResponse.Add(MapIngredientToResponse(item));
-            }
-            return ingredientsResponse;
+            return ingredients.Select(MapIngredientToResponse);
+
+            #region Two different ways of selecting
+            //return ingredients.Select(i => MapIngredientToResponse(i));
+
+            //var ingredientsResponse = new List<IngredientResponse>();
+            //foreach (var item in ingredients)
+            //{
+            //    ingredientsResponse.Add(MapIngredientToResponse(item));
+            //}
+            //return ingredientsResponse;
+            #endregion
         }
     }
 }
