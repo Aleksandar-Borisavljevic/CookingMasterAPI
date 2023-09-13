@@ -78,80 +78,40 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
-        //[HttpDelete("{uid}")]
-        //public async Task<IActionResult> DeleteIngredientAsync(string uid)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.DeleteIngredientAsync(uid);
-        //        if (result.Status is DeleteIngredientEnum.Success)
-        //        {
-        //            return Ok(result.Description);
-        //        }
-        //        return BadRequest(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
+        [HttpDelete("{uid}")]
+        public async Task<IActionResult> DeleteCulinaryRecipeAsync(string uid)
+        {
+            try
+            {
+                var result = await _service.DeleteCulinaryRecipeAsync(uid);
+                if (result.Status is DeleteCulinaryRecipeEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-        //        throw;
-        //    }
-        //}
-
-        //[HttpPatch("{uid}")]
-        //public async Task<IActionResult> PatchIngredientAsync(string uid, [FromBody] JsonPatchDocument<Ingredient> request)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.UpdateIngredientAsync(uid, request);
-        //        if (result.Status is UpdateIngredientEnum.Success)
-        //        {
-        //            return Ok(result.Description);
-        //        }
-        //        return BadRequest(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
-
-        ////string userUid, string ingredientUid
-        //[HttpPost("createUserIngredient")]
-        //public async Task<IActionResult> CreateUserIngredientAsync(Tuple<string, string> Uids)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.CreateUserIngredientAsync(Uids.Item1, Uids.Item2);
-        //        if (result.Status is CreateUserIngredientEnum.Success)
-        //        {
-        //            return Ok(result.Description);
-        //        }
-        //        return BadRequest(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
-
-        //[HttpDelete("deleteUserIngredient")]
-        //public async Task<IActionResult> DeleteUserIngredientAsync(Tuple<int, int> Ids)
-        //{
-        //    try
-        //    {
-        //        var result = await _service.DeleteUserIngredientAsync(Ids.Item1, Ids.Item2);
-        //        if (result.Status is DeleteUserIngredientEnum.Success)
-        //        {
-        //            return Ok(result.Description);
-        //        }
-        //        return BadRequest(result.Description);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
+        [HttpPatch("{uid}")]
+        public async Task<IActionResult> PatchCulinaryRecipeAsync(string uid, [FromBody] JsonPatchDocument<CulinaryRecipe> request)
+        {
+            try
+            {
+                var result = await _service.UpdateCulinaryRecipeAsync(uid, request);
+                if (result.Status is UpdateCulinaryRecipeEnum.Success)
+                {
+                    return Ok(result.Description);
+                }
+                return BadRequest(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

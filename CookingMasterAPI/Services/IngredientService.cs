@@ -245,7 +245,7 @@ namespace CookingMasterAPI.Services
                     );
                 }
 
-                var result = await _context.Ingredients.SingleOrDefaultAsync(c => c.Uid == uid);
+                var result = await _context.Ingredients.FirstOrDefaultAsync(c => c.Uid == uid);
 
                 if (result == null)
                 {

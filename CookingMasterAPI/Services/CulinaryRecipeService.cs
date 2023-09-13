@@ -1,17 +1,18 @@
-﻿using CookingMasterAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.CulinaryRecipeStatusEnums.CommandEnums;
 using CookingMasterAPI.Enums.CulinaryRecipeStatusEnums.QueryEnums;
-using CookingMasterAPI.Enums.IngredientStatusEnums.QueryEnums;
 using CookingMasterAPI.Helpers;
 using CookingMasterAPI.Models.Entity;
 using CookingMasterAPI.Models.Request.CulinaryRecipeRequests;
 using CookingMasterAPI.Models.Result.CulinaryRecipeResult.CommandResult;
 using CookingMasterAPI.Models.Result.CulinaryRecipeResult.QueryResult;
-using CookingMasterAPI.Models.Result.IngredientResult.QueryResult;
 using CookingMasterAPI.Services.Mappers;
 using CookingMasterAPI.Services.ServiceInterfaces;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch;
+using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
+using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
 
 namespace CookingMasterAPI.Services
 {
@@ -65,7 +66,6 @@ namespace CookingMasterAPI.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -156,6 +156,97 @@ namespace CookingMasterAPI.Services
                             .Where(y => y.DeleteDate == null)
                             .ToListAsync(), _context)
                         );
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<UpdateCulinaryRecipeResult> UpdateCulinaryRecipeAsync(string uid, JsonPatchDocument<CulinaryRecipe> request)
+        {
+            try
+            {
+                if (uid is null)
+                {
+                    return new UpdateCulinaryRecipeResult
+                    (
+                        UpdateCulinaryRecipeEnum.CulinaryRecipeUidIsNull,
+                        UpdateCulinaryRecipeEnum.CulinaryRecipeUidIsNull.GetEnumDescription()
+                    );
+                }
+
+                if (request is null)
+                {
+                    return new UpdateCulinaryRecipeResult
+                    (
+                        UpdateCulinaryRecipeEnum.RequestIsNull,
+                        UpdateCulinaryRecipeEnum.RequestIsNull.GetEnumDescription()
+                    );
+                }
+
+                var culinaryRecipe = await _context.CulinaryRecipes.FirstOrDefaultAsync(x => x.Uid == uid);
+
+                if (culinaryRecipe is null)
+                {
+                    return new UpdateCulinaryRecipeResult
+                    (
+                        UpdateCulinaryRecipeEnum.CulinaryRecipeNotFound,
+                        UpdateCulinaryRecipeEnum.CulinaryRecipeNotFound.GetEnumDescription()
+                    );
+                }
+
+                request.ApplyTo(culinaryRecipe);
+
+                await _context.SaveChangesAsync();
+
+                return new UpdateCulinaryRecipeResult
+                    (
+                        UpdateCulinaryRecipeEnum.Success,
+                        UpdateCulinaryRecipeEnum.Success.GetEnumDescription()
+                    );
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<DeleteCulinaryRecipeResult> DeleteCulinaryRecipeAsync(string uid)
+        {
+            try
+            {
+                if (uid is null)
+                {
+                    return new DeleteCulinaryRecipeResult
+                        (
+                            DeleteCulinaryRecipeEnum.CulinaryRecipeUidIsNull,
+                            DeleteCulinaryRecipeEnum.CulinaryRecipeUidIsNull.GetEnumDescription()
+                        );
+                }
+                var culinaryRecipe = _context.CulinaryRecipes.FirstOrDefault(x => x.Uid == uid);
+
+                if (culinaryRecipe is null)
+                {
+                    return new DeleteCulinaryRecipeResult
+                        (
+                            DeleteCulinaryRecipeEnum.CulinaryRecipeNotFound,
+                            DeleteCulinaryRecipeEnum.CulinaryRecipeNotFound.GetEnumDescription()
+                        );
+                }
+
+                culinaryRecipe.DeleteDate = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                return new DeleteCulinaryRecipeResult
+                        (
+                            DeleteCulinaryRecipeEnum.Success,
+                            DeleteCulinaryRecipeEnum.Success.GetEnumDescription()
+                        );
+
             }
             catch (Exception)
             {
