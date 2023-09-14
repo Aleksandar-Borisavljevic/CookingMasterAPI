@@ -17,14 +17,18 @@ namespace CookingMasterAPI.Models.Entity
         #endregion
 
         [Required]
+        [Column(TypeName = "nvarchar(200)")]
         public string RecipeName { get; set; } = string.Empty;
 
         [Required]
+        [Column(TypeName = "nvarchar(MAX)")]
         public string RecipeDescription { get; set; } = string.Empty;
 
         [Required]
         public DateTime CreateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
         public string Uid { get; set; } = string.Empty;
     }
 }

@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using FluentValidation.Results;
 using CookingMasterAPI.Data;
 using CookingMasterAPI.Enums.CulinaryRecipeStatusEnums.CommandEnums;
 using CookingMasterAPI.Enums.CulinaryRecipeStatusEnums.QueryEnums;
@@ -10,24 +12,22 @@ using CookingMasterAPI.Models.Result.CulinaryRecipeResult.CommandResult;
 using CookingMasterAPI.Models.Result.CulinaryRecipeResult.QueryResult;
 using CookingMasterAPI.Services.Mappers;
 using CookingMasterAPI.Services.ServiceInterfaces;
-using Microsoft.AspNetCore.JsonPatch;
-using CookingMasterAPI.Enums.IngredientStatusEnums.CommandEnums;
-using CookingMasterAPI.Models.Result.IngredientResult.CommandResult;
 
 namespace CookingMasterAPI.Services
 {
     public class CulinaryRecipeService : ICulinaryRecipeService
     {
         private readonly APIDbContext _context;
-        //private readonly IValidator<CreateCulinaryRecipeRequest> _createCulinaryRecipeValidator;
+        private readonly IValidator<CreateCulinaryRecipeRequest> _createCulinaryRecipeValidator;
 
         public CulinaryRecipeService
             (
-            APIDbContext context
-            //IValidator<CreateCulinaryRecipeRequest> createCulinaryRecipeValidator
+            APIDbContext context,
+            IValidator<CreateCulinaryRecipeRequest> createCulinaryRecipeValidator
             )
         {
             _context = context;
+            _createCulinaryRecipeValidator = createCulinaryRecipeValidator;
         }
 
         public async Task<CreateCulinaryRecipeResult> CreateCulinaryRecipeAsync(CreateCulinaryRecipeRequest request)
@@ -42,7 +42,26 @@ namespace CookingMasterAPI.Services
                             CreateCulinaryRecipeEnum.RequestIsNull.GetEnumDescription()
                         );
                 }
-                //TODO: Implement Validation here for Creation of Culinary Recipe
+
+                if (await _context.CulinaryRecipes.AnyAsync(cr => cr.RecipeName == request.RecipeName && cr.DeleteDate == null))
+                {
+                    return new CreateCulinaryRecipeResult
+                    (
+                        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists,
+                        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists.GetEnumDescription()
+                    );
+                }
+
+                ValidationResult validationResult = _createCulinaryRecipeValidator.Validate(request);
+
+                if (!validationResult.IsValid)
+                {
+                    return new CreateCulinaryRecipeResult
+                    (
+                        CreateCulinaryRecipeEnum.RequestIsValid,
+                        String.Join('\n', validationResult.Errors)
+                    );
+                }
 
                 var culinaryRecipe = await CulinaryRecipeMapper.MapRequestToCulinaryRecipeAsync(request, _context);
 
