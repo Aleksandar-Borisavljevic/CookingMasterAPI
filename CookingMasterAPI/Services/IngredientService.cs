@@ -158,7 +158,9 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
-                var result = await _context.Ingredients.SingleOrDefaultAsync(x => x.Uid == uid);
+                var result = await _context
+                    .Ingredients
+                    .FirstOrDefaultAsync(x => x.Uid == uid);
 
                 if (result is null)
                 {
@@ -212,7 +214,11 @@ namespace CookingMasterAPI.Services
                         (
                         GetIngredientsEnum.Success,
                         GetIngredientsEnum.Success.GetEnumDescription(),
-                        IngredientMapper.MapIngredientToResponse(await _context.Ingredients.Include(x => x.IngredientCategory).Where(i => i.DeleteDate == null).ToListAsync())
+                        IngredientMapper.MapIngredientToResponse(await _context.Ingredients
+                        .Include(x => x.IngredientCategory)
+                        .Include(i => i.IngredientNutrient)
+                        .Where(i => i.DeleteDate == null)
+                        .ToListAsync())
                         );
             }
             catch (Exception)

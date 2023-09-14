@@ -30,8 +30,12 @@ namespace CookingMasterAPI.Services.Mappers
             };
         }
 
-        public static IngredientNutrientResponse MapIngredientNutrientToResponse(IngredientNutrient ingredientNutrient)
+        public static IngredientNutrientResponse MapIngredientNutrientToResponse(IngredientNutrient? ingredientNutrient)
         {
+            if (ingredientNutrient is null)
+            {
+                return null;
+            }
             return new IngredientNutrientResponse
             (
                ingredientNutrient.Calories,

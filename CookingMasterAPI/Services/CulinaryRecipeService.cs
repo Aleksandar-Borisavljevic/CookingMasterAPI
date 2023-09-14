@@ -43,14 +43,14 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
-                if (await _context.CulinaryRecipes.AnyAsync(cr => cr.RecipeName == request.RecipeName && cr.DeleteDate == null))
-                {
-                    return new CreateCulinaryRecipeResult
-                    (
-                        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists,
-                        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists.GetEnumDescription()
-                    );
-                }
+                //if (await _context.CulinaryRecipes.AnyAsync(cr => cr.RecipeName == request.RecipeName && cr.DeleteDate == null))
+                //{
+                //    return new CreateCulinaryRecipeResult
+                //    (
+                //        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists,
+                //        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists.GetEnumDescription()
+                //    );
+                //}
 
                 ValidationResult validationResult = _createCulinaryRecipeValidator.Validate(request);
 
@@ -59,7 +59,7 @@ namespace CookingMasterAPI.Services
                     return new CreateCulinaryRecipeResult
                     (
                         CreateCulinaryRecipeEnum.RequestIsValid,
-                        String.Join('\n', validationResult.Errors)
+                        string.Join('\n', validationResult.Errors)
                     );
                 }
 
