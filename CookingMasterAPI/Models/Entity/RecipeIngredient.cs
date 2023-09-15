@@ -13,5 +13,8 @@ namespace CookingMasterAPI.Models.Entity
 
         [ForeignKey("IngredientId")]
         public Ingredient? Ingredient { get; set; }
+
+        [Required]
+        public short Amount { get; set; }
     }
 }

@@ -5,6 +5,8 @@
         int IngredientId,
         string IngredientName,
         string IconPath,
+        short UnitOfMeasure,
+        short Amount,
         DateTime CreateDate,
         DateTime? DeleteDate,
         IngredientNutrientResponse IngredientNutrient,

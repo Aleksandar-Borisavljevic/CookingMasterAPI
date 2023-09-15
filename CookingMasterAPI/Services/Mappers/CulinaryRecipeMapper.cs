@@ -42,15 +42,31 @@ namespace CookingMasterAPI.Services.Mappers
 
         public static CulinaryRecipeResponse MapCulinaryRecipeToResponse(CulinaryRecipe culinaryRecipe, APIDbContext context)
         {
-            var ingredients = context.Ingredients
-                .Where(ingredient => context.RecipeIngredients
-                .Any(ri => ri.CulinaryRecipe.CulinaryRecipeId == culinaryRecipe.CulinaryRecipeId && ri.Ingredient.IngredientId == ingredient.IngredientId)).ToList();
+            var ingredientResponses = from ri in context.RecipeIngredients
+                                      join i in context.Ingredients on ri.Ingredient.IngredientId equals i.IngredientId
+                                      join cr in context.CulinaryRecipes on ri.CulinaryRecipe.CulinaryRecipeId equals cr.CulinaryRecipeId
+                                      where cr.CulinaryRecipeId == culinaryRecipe.CulinaryRecipeId
+                                      select new IngredientResponse
+                                      (
+                                          i.IngredientId,
+                                          i.IngredientName,
+                                          i.IconPath,
+                                          i.UnitOfMeasure,
+                                          ri.Amount,
+                                          i.CreateDate,
+                                          i.DeleteDate,
+                                          IngredientNutrientMapper.MapIngredientNutrientToResponse(i.IngredientNutrient),
+                                          null,
+                                          i.Uid
+                                      );
+
+            var result = ingredientResponses.ToList();
 
             return new CulinaryRecipeResponse
                 (
                 culinaryRecipe.CuisineType.CuisineName,
                 AuthMapper.MapUserToResponse(culinaryRecipe.User, context),
-                IngredientMapper.MapIngredientToResponse(ingredients),
+                ingredientResponses,
                 culinaryRecipe.RecipeName,
                 culinaryRecipe.RecipeDescription,
                 culinaryRecipe.Uid

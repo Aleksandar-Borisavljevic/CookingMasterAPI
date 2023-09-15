@@ -24,6 +24,9 @@ namespace CookingMasterAPI.Models.Entity
         public string IconPath { get; set; } = string.Empty;
 
         [Required]
+        public short UnitOfMeasure { get; set; }
+
+        [Required]
         public DateTime CreateDate { get; set; }
 
         public DateTime? DeleteDate { get; set; }

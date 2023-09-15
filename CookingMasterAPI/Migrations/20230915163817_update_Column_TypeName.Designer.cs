@@ -4,6 +4,7 @@ using CookingMasterAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingMasterAPI.Migrations
 {
     [DbContext(typeof(APIDbContext))]
-    partial class APIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230915163817_update_Column_TypeName")]
+    partial class update_Column_TypeName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,9 +119,6 @@ namespace CookingMasterAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<short>("UnitOfMeasure")
-                        .HasColumnType("smallint");
-
                     b.HasKey("IngredientId");
 
                     b.HasIndex("CategoryId");
@@ -204,9 +204,6 @@ namespace CookingMasterAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeIngredientId"));
-
-                    b.Property<short>("Amount")
-                        .HasColumnType("smallint");
 
                     b.Property<int?>("CulinaryRecipeId")
                         .HasColumnType("int");

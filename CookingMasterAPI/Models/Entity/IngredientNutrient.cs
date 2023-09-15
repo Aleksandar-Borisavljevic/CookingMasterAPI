@@ -9,23 +9,23 @@ namespace CookingMasterAPI.Models.Entity
         public int IngredientNutrientId { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(4, 2)")]
+        [Column(TypeName = "decimal(6, 2)")]
         public decimal Calories { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(4, 2)")]
+        [Column(TypeName = "decimal(6, 2)")]
         public decimal Protein { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(4, 2)")]
+        [Column(TypeName = "decimal(6, 2)")]
         public decimal Carbohydrates { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(4, 2)")]
+        [Column(TypeName = "decimal(6, 2)")]
         public decimal Fat { get; set; }
 
         [Required]
-        [Column(TypeName = "decimal(4, 2)")]
+        [Column(TypeName = "decimal(6, 2)")]
         public decimal Sugar { get; set; }
 
         [Required]

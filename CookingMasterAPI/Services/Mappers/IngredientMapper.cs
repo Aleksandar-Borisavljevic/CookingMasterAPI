@@ -35,6 +35,8 @@ namespace CookingMasterAPI.Services.Mappers
                 ingredient.IngredientId,
                 ingredient.IngredientName,
                 ingredient.IconPath,
+                ingredient.UnitOfMeasure,
+                0,
                 ingredient.CreateDate,
                 ingredient.DeleteDate,
                 IngredientNutrientMapper.MapIngredientNutrientToResponse(ingredient.IngredientNutrient),
