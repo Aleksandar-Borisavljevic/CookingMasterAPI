@@ -42,6 +42,26 @@ namespace CookingMasterAPI.Controllers
             }
         }
 
+        [HttpGet("recipesByUser/{userUid}")]
+        public async Task<ActionResult<IEnumerable<CulinaryRecipe>>> GetCulinaryRecipesByUser(string userUid)
+        {
+            try
+            {
+                var result = await _service.GetCulinaryRecipesByUser(userUid);
+
+                if (result.Status is GetCulinaryRecipesEnum.Success)
+                {
+                    return Ok(result.CulinaryRecipes);
+                }
+
+                return NotFound(result.Description);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("{uid}")]
         public async Task<ActionResult<CulinaryRecipe>> GetCulinaryRecipe(string uid)
         {

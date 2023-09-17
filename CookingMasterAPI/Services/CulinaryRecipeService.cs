@@ -152,6 +152,59 @@ namespace CookingMasterAPI.Services
             }
         }
 
+        public async Task<GetCulinaryRecipesResult> GetCulinaryRecipesByUser(string userUid)
+        {
+            try
+            {
+                if (_context.CulinaryRecipes is null)
+                {
+                    return new GetCulinaryRecipesResult
+                        (
+                            GetCulinaryRecipesEnum.CulinaryRecipesNotFound,
+                            GetCulinaryRecipesEnum.CulinaryRecipesNotFound.GetEnumDescription(),
+                            null
+                        );
+                }
+
+                if (string.IsNullOrWhiteSpace(userUid))
+                {
+                    return new GetCulinaryRecipesResult
+                        (
+                            GetCulinaryRecipesEnum.UidIsNull,
+                            GetCulinaryRecipesEnum.UidIsNull.GetEnumDescription(),
+                            null
+                        );
+                }
+
+                var result = await _context.CulinaryRecipes
+                    .Include(x => x.CuisineType)
+                    .Include(x => x.User)
+                    .Where(x => x.User.Uid == userUid && x.DeleteDate == null).ToListAsync();
+
+                if (result is null)
+                {
+                    return new GetCulinaryRecipesResult
+                        (
+                            GetCulinaryRecipesEnum.CulinaryRecipesNotFound,
+                            GetCulinaryRecipesEnum.CulinaryRecipesNotFound.GetEnumDescription(),
+                            null
+                        );
+                }
+
+                return new GetCulinaryRecipesResult
+                        (
+                            GetCulinaryRecipesEnum.Success,
+                            GetCulinaryRecipesEnum.Success.GetEnumDescription(),
+                            CulinaryRecipeMapper.MapCulinaryRecipeToResponse(result, _context)
+                        );
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<GetCulinaryRecipesResult> GetCulinaryRecipesAsync()
         {
             try
@@ -272,5 +325,7 @@ namespace CookingMasterAPI.Services
                 throw;
             }
         }
+
+        
     }
 }

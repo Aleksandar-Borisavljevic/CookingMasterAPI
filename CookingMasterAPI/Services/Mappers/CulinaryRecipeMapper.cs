@@ -62,11 +62,25 @@ namespace CookingMasterAPI.Services.Mappers
 
             var result = ingredientResponses.ToList();
 
+
+            IngredientNutrientResponse totalNutrients = result.Aggregate(
+    new IngredientNutrientResponse(0, 0, 0, 0, 0, ""),
+    (acc, x) => new IngredientNutrientResponse(
+        acc.Calories + x.IngredientNutrient.Calories * (x.Amount / 100),
+        acc.Protein + x.IngredientNutrient.Protein * (x.Amount / 100),
+        acc.Carbohydrates + x.IngredientNutrient.Carbohydrates * (x.Amount / 100),
+        acc.Fat + x.IngredientNutrient.Fat * (x.Amount / 100),
+        acc.Sugar + x.IngredientNutrient.Sugar * (x.Amount / 100),
+        ""
+    )
+);
+
             return new CulinaryRecipeResponse
                 (
                 culinaryRecipe.CuisineType.CuisineName,
                 AuthMapper.MapUserToResponse(culinaryRecipe.User, context),
                 ingredientResponses,
+                totalNutrients,
                 culinaryRecipe.RecipeName,
                 culinaryRecipe.RecipeDescription,
                 culinaryRecipe.Uid
