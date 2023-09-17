@@ -22,11 +22,25 @@ DELETE FROM [CookingMasterDB].[dbo].[UserIngredients]
 
 GO
 
+DELETE FROM [CookingMasterDB].[dbo].[CuisineTypes]
+
+GO
+
+DBCC CHECKIDENT ('dbo.Ingredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.IngredientCategories', RESEED, 0);
 DBCC CHECKIDENT ('dbo.RecipeIngredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.UserIngredients', RESEED, 0);
+DBCC CHECKIDENT ('dbo.IngredientNutrients', RESEED, 0);
+DBCC CHECKIDENT ('dbo.CuisineTypes', RESEED, 0);
 
 GO
+
+INSERT INTO CuisineTypes (CuisineName, Uid)
+VALUES('Italian', 'Italian-1909772648542')
+INSERT INTO CuisineTypes (CuisineName, Uid)
+VALUES('Indian', 'Indian-1909772648542')
+INSERT INTO CuisineTypes (CuisineName, Uid)
+VALUES('Mexican', 'Mexican-1909772648542')
 
 INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('All Ingredients', 'allingredients', GETDATE(), 'All Ingredients-20230822194117')
@@ -48,10 +62,6 @@ INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('Nuts', 'nuts', GETDATE(), 'Nuts-20230822194117')
  INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('Other', 'other', GETDATE(), 'Other-20230822194117')
-
-GO
-
-DBCC CHECKIDENT ('dbo.IngredientNutrients', RESEED, 0);
 
 GO
 
@@ -141,10 +151,6 @@ INSERT INTO IngredientNutrients (Calories, Protein, Carbohydrates, Fat, Sugar, C
 VALUES (884, 0, 0, 100, 0, GETDATE(), 'Nut-Olive Oil-20237822194215')
 INSERT INTO IngredientNutrients (Calories, Protein, Carbohydrates, Fat, Sugar, CreateDate, Uid)
 VALUES (304, 0.3, 82.4, 0, 82.1, GETDATE(), 'Nut-Honey-20237822194215')
-
-GO
-
-DBCC CHECKIDENT ('dbo.Ingredients', RESEED, 0);
 
 GO
 
