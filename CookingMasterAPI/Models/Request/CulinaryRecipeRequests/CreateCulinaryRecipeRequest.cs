@@ -8,6 +8,6 @@ namespace CookingMasterAPI.Models.Request.CulinaryRecipeRequests
         public string UserUid { get; set; } = string.Empty;
         public string RecipeName { get; set; } = string.Empty;
         public string RecipeDescription { get; set; } = string.Empty;
-        public IEnumerable<string> IngredientUids { get; set; } = Enumerable.Empty<string>();
+        public required Dictionary<string, short> IngredientUids { get; set; }
     }
 }

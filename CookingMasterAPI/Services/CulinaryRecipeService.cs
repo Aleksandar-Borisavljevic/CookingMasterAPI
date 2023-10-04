@@ -43,15 +43,6 @@ namespace CookingMasterAPI.Services
                         );
                 }
 
-                //if (await _context.CulinaryRecipes.AnyAsync(cr => cr.RecipeName == request.RecipeName && cr.DeleteDate == null))
-                //{
-                //    return new CreateCulinaryRecipeResult
-                //    (
-                //        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists,
-                //        CreateCulinaryRecipeEnum.CulinaryRecipeAlreadyExists.GetEnumDescription()
-                //    );
-                //}
-
                 ValidationResult validationResult = _createCulinaryRecipeValidator.Validate(request);
 
                 if (!validationResult.IsValid)
@@ -69,9 +60,16 @@ namespace CookingMasterAPI.Services
 
                 var recipeId = await _context.SaveChangesAsync();
 
-                var ingredients = _context.Ingredients.Where(i => request.IngredientUids.Contains(i.Uid));
+                var ingredientsWithValues = _context.Ingredients
+                         .Where(i => request.IngredientUids.Keys.Contains(i.Uid))
+                         .Select(i => new
+                         {
+                             Ingredient = i,
+                             Amount = request.IngredientUids[i.Uid]
+                         })
+                         .ToList();
 
-                var recipeIngredients = ingredients.Select(i => new RecipeIngredient { CulinaryRecipe = culinaryRecipe, Ingredient = i });
+                var recipeIngredients = ingredientsWithValues.Select(i => new RecipeIngredient { CulinaryRecipe = culinaryRecipe, Ingredient = i.Ingredient, Amount = i.Amount });
 
                 await _context.RecipeIngredients.AddRangeAsync(recipeIngredients);
 
@@ -326,6 +324,6 @@ namespace CookingMasterAPI.Services
             }
         }
 
-        
+
     }
 }
