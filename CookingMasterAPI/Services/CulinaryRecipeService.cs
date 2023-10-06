@@ -61,11 +61,11 @@ namespace CookingMasterAPI.Services
                 var recipeId = await _context.SaveChangesAsync();
 
                 var ingredientsWithValues = _context.Ingredients
-                         .Where(i => request.IngredientUids.Keys.Contains(i.Uid))
+                         .Where(i => request.Ingredients.Keys.Contains(i.Uid))
                          .Select(i => new
                          {
                              Ingredient = i,
-                             Amount = request.IngredientUids[i.Uid]
+                             Amount = request.Ingredients[i.Uid]
                          })
                          .ToList();
 

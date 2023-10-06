@@ -17,7 +17,7 @@ namespace CookingMasterAPI.Models.RequestValidation.CulinaryRecipeValidation
             RuleFor(culinaryRecipe => culinaryRecipe.CuisineTypeUid)
                 .NotEmpty().WithMessage("Cuisine Type must be selected.");
 
-            RuleFor(culinaryRecipe => culinaryRecipe.IngredientUids)
+            RuleFor(culinaryRecipe => culinaryRecipe.Ingredients)
                 .NotEmpty().WithMessage("Please select at least one ingredient to create a Culinary Recipe.");
 
         }
