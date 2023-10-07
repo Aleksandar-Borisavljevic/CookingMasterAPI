@@ -7,13 +7,8 @@ namespace CookingMasterAPI.Services.Mappers
 {
     public static class IngredientCategoryMapper
     {
-        public static IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory? ingredientCategory)
+        public static IngredientCategoryResponse MapIngredientCategoryToResponse(IngredientCategory ingredientCategory)
         {
-            if (ingredientCategory is null)
-            {
-                return null;
-            }
-
             return new IngredientCategoryResponse
                 (
                 ingredientCategory.CategoryName,
@@ -37,12 +32,7 @@ namespace CookingMasterAPI.Services.Mappers
 
         public static IEnumerable<IngredientCategoryResponse> MapIngredientCategoryToResponse(IEnumerable<IngredientCategory> ingredientCategories)
         {
-            var ingredientCategoriesResponse = new List<IngredientCategoryResponse>();
-            foreach (var item in ingredientCategories)
-            {
-                ingredientCategoriesResponse.Add(MapIngredientCategoryToResponse(item));
-            }
-            return ingredientCategoriesResponse;
+            return ingredientCategories.Select(MapIngredientCategoryToResponse);
         }
     }
 }

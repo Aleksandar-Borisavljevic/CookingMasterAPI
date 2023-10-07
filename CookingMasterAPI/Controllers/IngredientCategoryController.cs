@@ -5,6 +5,7 @@ using CookingMasterAPI.Enums.IngCategoryStatusEnums.QueryEnums;
 using CookingMasterAPI.Models.Request.IngredientCategoryRequests;
 using CookingMasterAPI.Enums.IngCategoryStatusEnums.CommandEnums;
 using Microsoft.AspNetCore.JsonPatch;
+using CookingMasterAPI.Models.Response;
 
 namespace CookingMasterAPI.Controllers
 {
@@ -19,7 +20,7 @@ namespace CookingMasterAPI.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<IngredientCategory>>> GetIngredientCategoriesAsync()
+        public async Task<ActionResult<IEnumerable<IngredientCategoryResponse>>> GetIngredientCategoriesAsync()
         {
             try
             {
@@ -39,7 +40,7 @@ namespace CookingMasterAPI.Controllers
         }
 
         [HttpGet("{uid}")]
-        public async Task<ActionResult<IngredientCategory>> GetIngredientCategoryAsync(string uid)
+        public async Task<ActionResult<IngredientCategoryResponse>> GetIngredientCategoryAsync(string uid)
         {
             try
             {
