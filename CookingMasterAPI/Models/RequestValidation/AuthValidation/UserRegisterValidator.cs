@@ -10,7 +10,7 @@ namespace CookingMasterAPI.Models.RequestValidation.AuthValidation
         {
             RuleFor(user => user.Username)
                 .NotEmpty().WithMessage("Username is required.")
-                .Length(6, 50).WithMessage("Username length must be between 6 and 50 characters.");
+                .Length(3, 50).WithMessage("Username length must be between 6 and 50 characters.");
 
             RuleFor(user => user.EmailAddress)
                 .NotEmpty().WithMessage("Email is required.")

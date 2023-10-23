@@ -2,15 +2,19 @@ USE CookingMasterDB
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[Ingredients];
+DELETE FROM [CookingMasterDB].[dbo].[RecipeIngredients];
+
+GO 
+
+DELETE FROM [CookingMasterDB].[dbo].[UserIngredients];
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[IngredientCategories];
+DELETE FROM [CookingMasterDB].[dbo].[CulinaryRecipes];
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[IngredientNutrients]
+DELETE FROM [CookingMasterDB].[dbo].[Users];
 
 GO
 
@@ -18,7 +22,15 @@ DELETE FROM [CookingMasterDB].[dbo].[RecipeIngredients]
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[UserIngredients]
+DELETE FROM [CookingMasterDB].[dbo].[Ingredients];
+
+GO
+
+DELETE FROM [CookingMasterDB].[dbo].[IngredientNutrients]
+
+GO
+
+DELETE FROM [CookingMasterDB].[dbo].[IngredientCategories];
 
 GO
 
@@ -34,6 +46,9 @@ DBCC CHECKIDENT ('dbo.IngredientNutrients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.CuisineTypes', RESEED, 0);
 
 GO
+
+INSERT INTO Users (Username, EmailAddress, PasswordHash, PasswordSalt, VerificationToken, VerifiedAt, Uid)
+VALUES('Admin', 'admin@gmail.com', 0x8A2C23CB6511E38FB54692A30C0224210BE7DE47050F7FB962424B55D5648B79B0E8A9386206A22E93369C29D147D7DB470321272C6B38C0247AE2749FEFC5BA, 0x4E07391EBA122D042C02C711932C8C3967961306E0DD8B8B7ED804AA014F3814AC07ED6388ECE7B7572AA177E9EEB6BD49A3858C2821516D3C4FAA3511DCFA86965E2CAAD09737C78445A81522291F1513407CA8BCB4A3EAC5C2314CB06B31A8E1614C602320F4A4A1AC5EE75FC8027EC8E77F55A41BD8C8E6563510A7C50620,'724464', '2023-10-23 20:06:18.8078634', 'Admin-20231023200557')
 
 INSERT INTO CuisineTypes (CuisineName, Uid)
 VALUES('Italian', 'Italian-1909772648542')
