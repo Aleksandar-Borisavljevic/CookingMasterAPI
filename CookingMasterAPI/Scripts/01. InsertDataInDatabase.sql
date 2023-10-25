@@ -88,6 +88,52 @@ Carefully transfer the pizza to the hot oven (either onto the pizza stone or dir
 Remove the pizza from the oven, let it cool for a minute, then slice and enjoy your delicious Margherita pizza!
 
 This classic pizza is all about simple, high-quality ingredients. Enjoy!', GETDATE(), 'Italian-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (1, 1, 'Spaghetti Carbonara','Ingredients:
+
+12 ounces (340 grams) of spaghetti
+2 large eggs
+1 cup (about 100 grams) of grated Pecorino Romano cheese
+2-3 cloves of garlic, minced
+4-6 slices of pancetta or guanciale, diced (about 4 ounces or 115 grams)
+Freshly ground black pepper
+Salt
+Fresh parsley, chopped (for garnish, optional)
+Instructions:
+
+Prepare the Ingredients:
+
+Begin by grating the Pecorino Romano cheese and setting it aside.
+Mince the garlic and set it aside.
+Dice the pancetta or guanciale into small pieces.
+Cook the Spaghetti:
+
+Bring a large pot of salted water to a boil.
+Add the spaghetti and cook according to the package instructions until al dente. This typically takes about 8-10 minutes.
+Before draining the pasta, reserve about 1/2 cup of pasta cooking water, then drain the spaghetti.
+Cook the Pancetta or Guanciale:
+
+While the pasta is cooking, heat a large skillet over medium heat.
+Add the diced pancetta or guanciale and cook until it becomes crispy and golden brown, usually about 4-5 minutes.
+Remove the cooked pancetta/guanciale from the skillet and set it aside on a plate lined with paper towels.
+Prepare the Carbonara Sauce:
+
+In a bowl, whisk together the eggs and grated Pecorino Romano cheese. Add a generous amount of freshly ground black pepper (usually about 1/2 teaspoon) to the mixture.
+Combine the Pasta and Sauce:
+
+Add the minced garlic to the skillet (with the pancetta/guanciale drippings) and cook for about 1 minute until fragrant.
+Return the cooked pasta to the skillet and toss it in the garlic and drippings until well coated.
+Add the Egg and Cheese Mixture:
+
+Remove the skillet from the heat to avoid scrambling the eggs.
+Quickly pour the egg and cheese mixture over the pasta and toss it vigorously until the sauce thickens and coats the pasta evenly. If the sauce is too thick, you can add some of the reserved pasta cooking water a little at a time to achieve the desired consistency.
+Serve:
+
+Add the crispy pancetta or guanciale back to the skillet and toss to combine.
+Garnish with additional Pecorino Romano and chopped parsley if desired.
+Serve immediately while it is hot.
+Enjoy your homemade Spaghetti Carbonara! It is a classic Roman dish that is creamy, savory, and absolutely delicious.', GETDATE(), 'Italian-1909772648542')
+
 
 INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('All Ingredients', 'allingredients', GETDATE(), 'All Ingredients-20230822194117')
