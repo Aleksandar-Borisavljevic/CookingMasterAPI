@@ -134,6 +134,200 @@ Garnish with additional Pecorino Romano and chopped parsley if desired.
 Serve immediately while it is hot.
 Enjoy your homemade Spaghetti Carbonara! It is a classic Roman dish that is creamy, savory, and absolutely delicious.', GETDATE(), 'Italian-1909772648542')
 
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (3, 1, 'Cheese Quesadillas', 'Ingredients:
+
+4 large flour tortillas
+2 cups shredded cheese (such as cheddar, Monterey Jack, or a blend)
+1/2 cup diced onions (optional)
+1/2 cup diced bell peppers (optional)
+1/2 cup diced cooked chicken, beef, or sautéed vegetables (optional)
+2 tablespoons vegetable oil or butter
+Salsa, sour cream, and guacamole for serving (optional)
+Instructions:
+
+Prepare the Filling (if using):
+
+If you are adding onions, bell peppers, or any other fillings, sauté them in a little oil over medium heat until they are tender. If you are using pre-cooked meat or vegetables, make sure they are diced or shredded and set them aside.
+Assemble the Quesadillas:
+
+Lay out one tortilla on a clean surface or plate.
+Sprinkle a quarter of the shredded cheese evenly over half of the tortilla.
+If you are using any additional fillings, add them on top of the cheese.
+Fold the other half of the tortilla over the filling to create a half-moon shape.
+Cook the Quesadillas:
+
+Heat a large skillet or griddle over medium heat and add about a teaspoon of vegetable oil or butter.
+Carefully place one quesadilla in the skillet and cook for about 2-3 minutes on each side or until the tortilla is crispy and the cheese is melted.
+You can press down gently with a spatula to help the quesadilla hold together.
+Repeat for Remaining Quesadillas:
+
+Remove the cooked quesadilla from the skillet and keep it warm.
+Repeat the process for the remaining quesadillas, adding a bit more oil or butter to the skillet if needed.
+Serve:
+
+Cut each quesadilla into wedges.
+Serve hot with your choice of toppings, such as salsa, sour cream, and guacamole.
+Quesadillas are a versatile dish, so feel free to get creative with the fillings. You can also use corn tortillas if you prefer a different texture. Enjoy your delicious homemade quesadillas!', GETDATE(), 'Mexican-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (3, 1, 'Chilaquiles', 'Ingredients:
+
+For the Sauce:
+
+2 cups of red or green salsa (homemade or store-bought)
+1/2 cup of chicken or vegetable broth
+1/2 onion, finely chopped
+2 cloves of garlic, minced
+1-2 chipotle peppers in adobo sauce (adjust to your preferred level of spiciness), minced (optional)
+1 teaspoon cumin
+1 teaspoon chili powder
+Salt and pepper to taste
+For the Chilaquiles:
+
+6 cups of tortilla chips (slightly stale chips work great)
+1 cup shredded cheese (such as queso fresco, Monterey Jack, or cheddar)
+2-3 eggs (optional)
+1/4 cup chopped fresh cilantro
+1/4 cup diced red onion
+Sour cream for serving (optional)
+Instructions:
+
+Prepare the Sauce:
+
+In a saucepan, heat a little oil over medium heat.
+Add the chopped onion and garlic and sauté for a few minutes until they become soft and translucent.
+Stir in the cumin and chili powder, and cook for an additional minute.
+Add the salsa, chicken or vegetable broth, and chipotle peppers (if using). Simmer the sauce for about 10-15 minutes, stirring occasionally. Season with salt and pepper to taste.
+Cook the Eggs (Optional):
+
+In a separate skillet, cook the eggs to your preferred style (fried or scrambled). Set them aside.
+Assemble the Chilaquiles:
+
+In a large pan, pour the sauce over the tortilla chips.
+Gently stir to coat the chips with the sauce, ensuring they are well coated but not soggy.
+Serve:
+
+Top the saucy chips with shredded cheese, chopped cilantro, diced red onion, and the cooked eggs (if using).
+Serve hot, garnished with a dollop of sour cream if desired.
+Chilaquiles can be customized with additional toppings such as sliced avocado, sliced radishes, or crumbled queso fresco. It is a flavorful and comforting Mexican dish that is often enjoyed for breakfast or brunch.', GETDATE(), 'Mexican-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (2, 1, 'Samosa','Ingredients:
+
+For the Dough:
+
+2 cups all-purpose flour (maida)
+4 tablespoons ghee or vegetable oil
+A pinch of salt
+Water, as needed
+For the Filling:
+
+2 cups boiled and mashed potatoes
+1 cup boiled and coarsely mashed green peas
+1/2 cup finely chopped carrots
+1/2 cup finely chopped green beans
+1/2 cup finely chopped onions
+2-3 green chilies, finely chopped (adjust to your spice preference)
+1-inch piece of ginger, grated
+2 cloves of garlic, minced
+1 teaspoon cumin seeds
+1 teaspoon coriander seeds
+1 teaspoon garam masala
+1/2 teaspoon turmeric powder
+1 teaspoon ground coriander
+Salt to taste
+Vegetable oil for frying
+Instructions:
+
+For the Dough:
+
+In a mixing bowl, combine the all-purpose flour and a pinch of salt.
+Add the ghee or vegetable oil and mix it into the flour using your fingers until the mixture resembles breadcrumbs.
+Gradually add water and knead the dough until it is smooth and firm. Cover it with a damp cloth and let it rest for about 30 minutes.
+For the Filling:
+
+In a large skillet, heat a couple of tablespoons of vegetable oil over medium heat.
+Add cumin seeds and coriander seeds, and sauté for a minute or until they start to splutter.
+Add the chopped onions and cook until they become translucent.
+Add the grated ginger and minced garlic and cook for another minute.
+Stir in the chopped green chilies, garam masala, turmeric, ground coriander, and salt. Cook for a couple of minutes.
+Add the chopped vegetables (carrots, green beans) and cook until they soften.
+Add the mashed potatoes and green peas. Stir well to combine and cook for a few more minutes.
+Remove the filling from the heat and let it cool.
+Assemble and Fry Samosas:
+
+Divide the rested dough into small, equal-sized balls and roll each ball into a thin oval or circle (about 6 inches in diameter).
+Cut each circle in half to make two semi-circles.
+Fold each semi-circle into a cone shape, sealing the edges with a little water.
+Fill each cone with a couple of tablespoons of the prepared filling.
+Seal the open edge to form a triangular or cone shape.
+Heat vegetable oil in a deep pan or fryer for deep-frying. Make sure the oil is hot, but not smoking.
+Carefully slide the filled samosas into the hot oil and fry them until they turn golden brown and crispy, turning occasionally to ensure even frying.
+Remove the samosas with a slotted spoon and drain on paper towels to remove excess oil.
+Serve the samosas hot with tamarind chutney, mint chutney, or ketchup. Enjoy your homemade Indian samosas!', GETDATE(), 'Indian-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (2, 1, 'Biryani','Ingredients:
+
+For Marinating Chicken:
+
+1 kg (2.2 pounds) chicken, cut into pieces
+1 cup yogurt
+1 tablespoon ginger-garlic paste
+1 teaspoon red chili powder
+1 teaspoon turmeric powder
+Salt to taste
+2 tablespoons vegetable oil
+For Rice:
+
+2 cups Basmati rice
+Water for soaking
+4-5 cups water for cooking rice
+2-3 green cardamom pods
+2-3 cloves
+1 bay leaf
+1-inch cinnamon stick
+Salt to taste
+For Biryani:
+
+2 onions, thinly sliced
+2 tomatoes, chopped
+2 green chilies, slit
+2 teaspoons ginger-garlic paste
+1/2 cup fresh coriander leaves, chopped
+1/2 cup fresh mint leaves, chopped
+1/2 teaspoon red chili powder
+1/2 teaspoon garam masala
+1/2 teaspoon turmeric powder
+1/2 cup vegetable oil or ghee (clarified butter)
+Saffron strands soaked in 2 tablespoons of warm milk (optional, for garnish)
+Instructions:
+
+Marinating Chicken:
+
+In a bowl, mix the yogurt, ginger-garlic paste, red chili powder, turmeric powder, salt, and vegetable oil.
+Add the chicken pieces and coat them with the marinade.
+Cover and refrigerate for at least 1 hour (or longer for better flavor).
+Preparing the Rice:
+
+Wash the Basmati rice in cold water until the water runs clear.
+Soak the rice in water for about 30 minutes.
+In a large pot, bring 4-5 cups of water to a boil.
+Add the soaked rice, green cardamom pods, cloves, bay leaf, cinnamon stick, and salt.
+Cook the rice until it is 70-80% cooked (still slightly firm), then drain the water.
+Assembling the Biryani:
+
+In a large, heavy-bottomed pot or a biryani pot, heat the vegetable oil or ghee over medium heat.
+Add the sliced onions and fry until they become golden brown and crisp. Remove some fried onions for garnish.
+Add the ginger-garlic paste and green chilies to the remaining fried onions. Sauté for a few minutes.
+Add the chopped tomatoes and cook until they become soft and the oil begins to separate.
+Add the marinated chicken and cook until it changes color and starts to brown.
+Add the red chili powder, turmeric, and garam masala. Cook for a few minutes.
+Layer the partially cooked rice on top of the chicken mixture.
+Sprinkle chopped fresh coriander and mint leaves over the rice.
+Drizzle the saffron milk over the top for a beautiful color and aroma.
+Cover the pot with a tight-fitting lid, sealing it with dough or foil to trap steam.
+Cook on low heat for about 20-25 minutes, allowing the biryani to steam. This is known as "dum cooking."
+Once done, gently fluff the biryani with a fork and serve, garnishing with the fried onions.
+Chicken Biryani is traditionally served with raita (yogurt with spices) or a cucumber and mint salad. Enjoy your homemade Indian Biryani!', GETDATE(), 'Indian-1909772648542')
 
 INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('All Ingredients', 'allingredients', GETDATE(), 'All Ingredients-20230822194117')
