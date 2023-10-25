@@ -44,6 +44,7 @@ DBCC CHECKIDENT ('dbo.RecipeIngredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.UserIngredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.IngredientNutrients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.CuisineTypes', RESEED, 0);
+DBCC CHECKIDENT ('dbo.Users', RESEED, 0);
 
 GO
 
@@ -56,6 +57,37 @@ INSERT INTO CuisineTypes (CuisineName, Uid)
 VALUES('Indian', 'Indian-1909772648542')
 INSERT INTO CuisineTypes (CuisineName, Uid)
 VALUES('Mexican', 'Mexican-1909772648542')
+
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (1, 1, 'Pizza Margherita', 'Ingredients:
+
+1 pizza dough
+1/2 cup tomato sauce
+1 1/2 cups fresh mozzarella cheese, sliced
+1/4 cup fresh basil leaves
+2 tablespoons olive oil
+Salt and pepper to taste
+Instructions:
+
+Preheat your oven to its highest temperature (usually around 500°F or 260°C). If you have a pizza stone, place it in the oven while it preheats.
+
+Roll out the pizza dough into a thin round shape on a floured surface.
+
+Transfer the rolled-out dough to a pizza peel or an inverted baking sheet dusted with cornmeal or flour. This will make it easier to transfer the pizza to the hot oven.
+
+Spread the tomato sauce evenly over the pizza dough, leaving a small border around the edge for the crust.
+
+Arrange the sliced mozzarella cheese over the tomato sauce.
+
+Tear the fresh basil leaves and scatter them over the pizza.
+
+Drizzle the olive oil over the top, and season with a pinch of salt and freshly ground black pepper.
+
+Carefully transfer the pizza to the hot oven (either onto the pizza stone or directly onto a baking sheet) and bake for about 10-12 minutes or until the crust is golden and the cheese is bubbling and slightly browned.
+
+Remove the pizza from the oven, let it cool for a minute, then slice and enjoy your delicious Margherita pizza!
+
+This classic pizza is all about simple, high-quality ingredients. Enjoy!', GETDATE(), 'Italian-1909772648542')
 
 INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('All Ingredients', 'allingredients', GETDATE(), 'All Ingredients-20230822194117')
