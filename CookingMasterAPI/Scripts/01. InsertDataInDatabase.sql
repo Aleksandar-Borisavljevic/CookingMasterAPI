@@ -57,6 +57,12 @@ INSERT INTO CuisineTypes (CuisineName, Uid)
 VALUES('Indian', 'Indian-1909772648542')
 INSERT INTO CuisineTypes (CuisineName, Uid)
 VALUES('Mexican', 'Mexican-1909772648542')
+INSERT INTO CuisineTypes (CuisineName, Uid)
+VALUES('Chinese', 'Chinese-1909772648542')
+INSERT INTO CuisineTypes (CuisineName, Uid)
+VALUES('French', 'French-1909772648542')
+INSERT INTO CuisineTypes (CuisineName, Uid)
+VALUES('Thai', 'Thai-1909772648542')
 
 INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
 VALUES (1, 1, 'Pizza Margherita', 'Ingredients:
