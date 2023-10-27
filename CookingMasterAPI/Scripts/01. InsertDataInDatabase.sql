@@ -334,6 +334,273 @@ Cover the pot with a tight-fitting lid, sealing it with dough or foil to trap st
 Cook on low heat for about 20-25 minutes, allowing the biryani to steam. This is known as "dum cooking."
 Once done, gently fluff the biryani with a fork and serve, garnishing with the fried onions.
 Chicken Biryani is traditionally served with raita (yogurt with spices) or a cucumber and mint salad. Enjoy your homemade Indian Biryani!', GETDATE(), 'Indian-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (5, 1, 'Ratatouille','Ingredients:
+
+1 large eggplant
+2 medium zucchini
+2 red bell peppers
+2 yellow bell peppers
+3 ripe tomatoes
+1 onion
+4 cloves garlic
+1/4 cup olive oil
+1 teaspoon dried thyme
+1 teaspoon dried oregano
+Salt and black pepper to taste
+Fresh basil leaves for garnish (optional)
+Instructions:
+
+Begin by preparing the vegetables. Wash them and then cut the eggplant, zucchini, and bell peppers into small cubes. Dice the tomatoes and finely chop the onion and garlic.
+
+In a large, heavy-bottomed pot or Dutch oven, heat the olive oil over medium heat. Add the chopped onion and garlic and sauté for a few minutes until they become translucent.
+
+Add the eggplant to the pot and cook for about 5 minutes, stirring occasionally until it starts to soften.
+
+Next, add the zucchini, bell peppers, and tomatoes to the pot. Stir everything together.
+
+Season the mixture with dried thyme, dried oregano, salt, and black pepper. Mix well to distribute the seasonings evenly.
+
+Reduce the heat to low, cover the pot, and let the vegetables simmer for about 30-40 minutes. Stir occasionally, and be careful not to overcook the vegetables; you want them to remain somewhat firm, not mushy.
+
+Taste and adjust the seasonings if necessary. If you like, you can add more olive oil for extra richness.
+
+Once the Ratatouille is cooked to your liking, remove it from heat. You can serve it warm, at room temperature, or even chilled. It is delicious on its own or as a side dish.
+
+If desired, garnish with fresh basil leaves before serving.
+
+Ratatouille is a versatile dish that can be served with crusty bread, over pasta, or alongside a protein of your choice. Enjoy your homemade French Ratatouille!', GETDATE(), 'French-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (5, 1, 'Boeuf Bourguignon','Ingredients:
+
+2 pounds (about 1 kg) of stewing beef (such as chuck), cut into 2-inch (5 cm) cubes
+4 slices of bacon, chopped
+2 tablespoons olive oil
+2 onions, chopped
+2 carrots, chopped
+2 cloves of garlic, minced
+1 bottle (750 ml) of red wine (Burgundy, if possible)
+2 cups beef broth
+2 tablespoons tomato paste
+1 teaspoon dried thyme
+2 bay leaves
+Salt and black pepper to taste
+1 pound (about 450 g) of small white mushrooms, cleaned and quartered
+20-24 small pearl onions, peeled (blanching them first can make peeling easier)
+2 tablespoons butter
+Chopped fresh parsley for garnish (optional)
+Instructions:
+
+In a large, heavy-bottomed pot or Dutch oven, cook the chopped bacon over medium heat until it becomes crisp. Remove the bacon with a slotted spoon and set it aside.
+
+In the same pot, brown the beef cubes in batches in the bacon fat and olive oil. Make sure not to overcrowd the pot, as the beef should brown, not steam. Remove the browned beef and set it aside with the bacon.
+
+In the same pot, add the chopped onions and carrots. Sauté for a few minutes until they begin to soften.
+
+Add the minced garlic and sauté for another minute.
+
+Return the beef and bacon to the pot. Stir in the tomato paste, thyme, and bay leaves. Season with salt and black pepper.
+
+Pour in the red wine and beef broth, making sure the meat is mostly covered by the liquid. Bring it to a boil, then reduce the heat to low. Cover and let it simmer for about 2-3 hours, or until the beef is tender.
+
+While the stew is simmering, melt the butter in a separate pan. Add the pearl onions and cook them until they become browned and caramelized. Set them aside.
+
+In the same pan, add the quartered mushrooms and sauté them until they release their liquid and brown slightly. Set them aside.
+
+Once the beef is tender, remove and discard the bay leaves. Add the caramelized onions and sautéed mushrooms to the stew. Simmer for an additional 15-20 minutes.
+
+Taste the stew and adjust the seasonings if needed.
+
+Serve the Beef Bourguignon hot, garnished with chopped fresh parsley if desired. It is typically served with crusty bread, mashed potatoes, or egg noodles.
+
+Enjoy your homemade Beef Bourguignon, a delightful and classic French dish!', GETDATE(), 'French-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (4, 1, 'Kung Pao Chicken','Ingredients:
+
+For the Marinade:
+
+1 pound (450g) boneless, skinless chicken breast or thigh, cut into bite-sized cubes
+1 tablespoon soy sauce
+1 tablespoon rice wine or dry sherry
+1 teaspoon cornstarch
+For the Sauce:
+
+3 tablespoons soy sauce
+1 tablespoon hoisin sauce
+1 tablespoon rice vinegar
+1 tablespoon sugar
+1/4 cup chicken broth or water
+For the Stir-Fry:
+
+2 tablespoons peanut or vegetable oil
+1/2 cup unsalted peanuts
+2-3 dried red chili peppers (adjust to your preferred level of spiciness)
+3-4 cloves garlic, minced
+1-inch piece of fresh ginger, minced
+2 green onions, chopped
+1 red bell pepper, cut into bite-sized pieces
+1 green bell pepper, cut into bite-sized pieces
+Instructions:
+
+In a bowl, combine the marinade ingredients: soy sauce, rice wine (or sherry), and cornstarch. Add the cubed chicken and marinate for 15-20 minutes.
+
+In a separate bowl, mix the sauce ingredients: soy sauce, hoisin sauce, rice vinegar, sugar, and chicken broth (or water). Stir well and set aside.
+
+Heat the oil in a wok or a large skillet over high heat. Add the dried red chili peppers and stir-fry for about 30 seconds to infuse the oil with their flavor. Be careful not to burn them.
+
+Add the marinated chicken to the wok and stir-fry until it is no longer pink, about 3-4 minutes. Remove the chicken from the wok and set it aside.
+
+In the same wok, add a bit more oil if needed and stir-fry the minced garlic and ginger until fragrant, about 30 seconds.
+
+Add the chopped bell peppers and stir-fry for 2-3 minutes, or until they start to soften.
+
+Return the cooked chicken to the wok, along with the sauce mixture. Stir everything together and cook for an additional 2-3 minutes until the sauce thickens and coats the chicken and vegetables.
+
+Add the chopped green onions and unsalted peanuts, then stir-fry for another minute or two.
+
+Taste the dish and adjust the seasoning if needed. If you prefer it spicier, you can add more chili peppers or a dash of chili sauce.
+
+Serve your Kung Pao Chicken hot over steamed rice. Enjoy!
+
+This dish is known for its delicious balance of flavors, and you can adjust the spice level to suit your taste by adding more or fewer chili peppers.', GETDATE(), 'Chinese-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (4, 1, 'Chinese Hot Pot','Ingredients:
+
+For the Broth (you can choose one or both of the following options):
+
+Chicken or vegetable broth
+Spicy Sichuan-style broth (recipe below)
+For the Spicy Sichuan-Style Broth (optional but adds a great kick):
+
+4 cups chicken or vegetable broth
+2-4 tablespoons Sichuan peppercorns (adjust to your desired level of spiciness)
+2-4 dried red chili peppers (adjust to your desired level of spiciness)
+2-3 slices of ginger
+2-3 cloves garlic, minced
+2 tablespoons vegetable oil
+For the Ingredients (feel free to customize with your favorite items):
+
+Thinly sliced meats (beef, lamb, pork, chicken)
+Seafood (shrimp, scallops, fish)
+Tofu (soft and firm varieties)
+Dumplings or wontons
+A variety of mushrooms (shiitake, enoki, oyster, etc.)
+Leafy greens (bok choy, napa cabbage, spinach)
+Noodles (glass noodles, udon, or your choice)
+Eggs (for dipping)
+Dipping Sauces (prepare a variety of sauces for dipping cooked ingredients):
+
+Soy sauce
+Hoisin sauce
+Sesame sauce
+Chili sauce
+Chopped garlic
+Chopped scallions
+Peanut sauce (optional)
+Instructions:
+
+Prepare the Broth:
+
+If you are making a spicy Sichuan-style broth, heat the vegetable oil in a pot, add the ginger, garlic, Sichuan peppercorns, and dried chili peppers. Stir-fry for a couple of minutes until fragrant.
+Pour in the chicken or vegetable broth and bring it to a boil. Reduce the heat and simmer for about 20 minutes to infuse the flavors. Strain to remove the solids.
+Set Up the Hot Pot Table:
+
+Place a portable burner or electric hot pot at the center of the table.
+Pour the broth(s) into the pot and set it to simmer.
+Prepare the Ingredients:
+
+Arrange all the sliced meats, seafood, tofu, vegetables, dumplings, and noodles on platters around the table.
+Cooking Process:
+
+Use chopsticks or a small strainer to cook ingredients in the simmering broth. Cooking times will vary (e.g., thinly sliced meat cooks quickly, while dumplings may take a few minutes).
+Dip the cooked ingredients in your choice of dipping sauce and enjoy!
+Continue to cook and eat, adding more ingredients as you go, until you are satisfied.
+
+Chinese Hot Pot is a customizable and interactive dining experience, so feel free to adapt it to your preferences. It is perfect for gatherings with family and friends. Enjoy your hot pot meal!', GETDATE(), 'Chinese-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (6, 1, 'Pad Thai','Ingredients:
+
+For the Pad Thai Sauce:
+
+3 tablespoons tamarind paste
+2 tablespoons fish sauce (for a vegetarian version, use soy sauce)
+2 tablespoons sugar
+1/2 teaspoon paprika or chili powder (adjust to your preferred level of spiciness)
+For the Noodles:
+
+8 oz (about 225g) of rice noodles
+2 tablespoons vegetable oil
+2 cloves garlic, minced
+1/2 cup diced tofu (extra firm)
+1 egg (optional)
+1/2 cup shrimp, chicken, or your choice of protein (optional)
+1 cup bean sprouts
+2 green onions, sliced
+Crushed peanuts (for garnish)
+Lime wedges (for garnish)
+Instructions:
+
+Prepare the Noodles:
+
+Soak the rice noodles in warm water for about 30 minutes or until they become pliable but not too soft. Drain and set aside.
+Make the Pad Thai Sauce:
+
+In a small bowl, mix the tamarind paste, fish sauce (or soy sauce), sugar, and paprika (or chili powder) until well combined. Taste and adjust the ingredients to achieve your preferred balance of sweet, sour, and savory flavors.
+Stir-Fry:
+
+Heat the vegetable oil in a wok or large skillet over medium-high heat.
+Add the minced garlic and stir-fry for about 30 seconds or until fragrant.
+If using protein (shrimp, chicken, tofu, etc.), add it to the wok and stir-fry until it is cooked through. If using shrimp, they should turn pink and opaque.
+
+Push the ingredients in the wok to one side and crack the egg into the empty space. Scramble the egg with a spatula until it is mostly cooked, and then mix it with the other ingredients.
+
+Add the soaked and drained rice noodles to the wok, followed by the Pad Thai sauce. Toss everything together over medium heat.
+
+Add the bean sprouts and green onions, and continue stir-frying for a few more minutes until the noodles are heated through and the sauce is well distributed.
+
+Taste the Pad Thai and adjust the flavors if needed by adding more tamarind paste, fish sauce (or soy sauce), or sugar.
+
+Serve your Pad Thai hot, garnished with crushed peanuts and lime wedges.
+
+Pad Thai is often enjoyed with additional toppings like extra crushed peanuts, chili flakes, or cilantro. Customize it to your taste and enjoy your homemade Pad Thai!', GETDATE(), 'Thai-1909772648542')
+INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
+VALUES (6, 1, 'Tom Yum Goong','ngredients:
+
+4 cups (1 liter) chicken or shrimp stock
+200g (about 7 oz) large shrimp, peeled and deveined
+200g (about 7 oz) mushrooms (straw mushrooms or other varieties), sliced
+2-3 stalks lemongrass, cut into 2-inch pieces and smashed
+3-4 slices of galangal or ginger (about 1-2 inches long)
+3-4 kaffir lime leaves, torn into pieces
+3-4 slices of fresh red chili (adjust to your preferred level of spiciness)
+2-3 tablespoons fish sauce (adjust to taste)
+1-2 tablespoons lime juice (adjust to taste)
+1 teaspoon sugar
+2-3 small tomatoes, cut into quarters
+Fresh cilantro leaves for garnish
+Fresh Thai birds eye chilies (optional, for extra heat)
+Instructions:
+
+In a pot, bring the chicken or shrimp stock to a boil over medium heat.
+
+Add the lemongrass, galangal or ginger, kaffir lime leaves, and fresh red chili slices to the boiling stock. Let it simmer for about 5-10 minutes to infuse the flavors.
+
+Add the mushrooms and shrimp to the pot. Cook until the shrimp turn pink and opaque, which usually takes about 2-3 minutes.
+
+Season the soup with fish sauce, lime juice, and sugar. Start with the recommended amounts, then adjust according to your taste. You should achieve a balance of hot, sour, salty, and sweet flavors.
+
+Add the tomatoes and cook for an additional 2-3 minutes.
+
+Taste the soup and adjust the seasoning if needed, adding more fish sauce, lime juice, or sugar as desired.
+
+If you prefer a spicier soup, you can add fresh Thai birds eye chilies.
+
+Remove the soup from the heat and discard the lemongrass, galangal, and kaffir lime leaves.
+
+Serve your Tom Yum Goong hot, garnished with fresh cilantro leaves.
+
+Tom Yum Goong is a fantastic and aromatic soup, and you can adjust the ingredients and seasonings to suit your preferences for spiciness and sourness. Enjoy!', GETDATE(), 'Thai-1909772648542')
+
 
 INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
  VALUES ('All Ingredients', 'allingredients', GETDATE(), 'All Ingredients-20230822194117')
