@@ -18,7 +18,7 @@ DELETE FROM [CookingMasterDB].[dbo].[Users];
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[RecipeIngredients]
+DELETE FROM [CookingMasterDB].[dbo].[IngredientNutrients]
 
 GO
 
@@ -26,9 +26,6 @@ DELETE FROM [CookingMasterDB].[dbo].[Ingredients];
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[IngredientNutrients]
-
-GO
 
 DELETE FROM [CookingMasterDB].[dbo].[IngredientCategories];
 
@@ -40,10 +37,11 @@ GO
 
 DBCC CHECKIDENT ('dbo.Ingredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.IngredientCategories', RESEED, 0);
-DBCC CHECKIDENT ('dbo.RecipeIngredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.UserIngredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.IngredientNutrients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.CuisineTypes', RESEED, 0);
+DBCC CHECKIDENT ('dbo.RecipeIngredients', RESEED, 0);
+DBCC CHECKIDENT ('dbo.CulinaryRecipe', RESEED, 0);
 DBCC CHECKIDENT ('dbo.Users', RESEED, 0);
 
 GO
@@ -139,7 +137,6 @@ Add the crispy pancetta or guanciale back to the skillet and toss to combine.
 Garnish with additional Pecorino Romano and chopped parsley if desired.
 Serve immediately while it is hot.
 Enjoy your homemade Spaghetti Carbonara! It is a classic Roman dish that is creamy, savory, and absolutely delicious.', GETDATE(), 'Italian-1909772648542')
-
 INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
 VALUES (3, 1, 'Cheese Quesadillas', 'Ingredients:
 
@@ -564,7 +561,7 @@ Serve your Pad Thai hot, garnished with crushed peanuts and lime wedges.
 
 Pad Thai is often enjoyed with additional toppings like extra crushed peanuts, chili flakes, or cilantro. Customize it to your taste and enjoy your homemade Pad Thai!', GETDATE(), 'Thai-1909772648542')
 INSERT INTO CulinaryRecipes (CuisineTypeId, UserId, RecipeName, RecipeDescription, CreateDate, Uid)
-VALUES (6, 1, 'Tom Yum Goong','ngredients:
+VALUES (6, 1, 'Tom Yum Goong','Ingredients:
 
 4 cups (1 liter) chicken or shrimp stock
 200g (about 7 oz) large shrimp, peeled and deveined
@@ -600,6 +597,8 @@ Remove the soup from the heat and discard the lemongrass, galangal, and kaffir l
 Serve your Tom Yum Goong hot, garnished with fresh cilantro leaves.
 
 Tom Yum Goong is a fantastic and aromatic soup, and you can adjust the ingredients and seasonings to suit your preferences for spiciness and sourness. Enjoy!', GETDATE(), 'Thai-1909772648542')
+
+
 
 
 INSERT INTO IngredientCategories (CategoryName, IconPath, CreateDate, Uid)
@@ -800,3 +799,12 @@ INSERT INTO Ingredients (CategoryId, IconPath, CreateDate, Uid, IngredientName, 
 VALUES (10, 'oliveoil', GETDATE(), 'Olive Oil-20237822194215', 'Olive Oil', 42, 2)
 INSERT INTO Ingredients (CategoryId, IconPath, CreateDate, Uid, IngredientName, IngredientNutrientId, UnitOfMeasure)
 VALUES (10, 'honey', GETDATE(), 'Honey-20237822194215', 'Honey', 43, 1)
+
+INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
+VALUES (1, 41, 300)
+INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
+VALUES (1, 42, 20)
+INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
+VALUES (1, 30, 10)
+INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
+VALUES (1, 28, 10)
