@@ -18,13 +18,14 @@ DELETE FROM [CookingMasterDB].[dbo].[Users];
 
 GO
 
+DELETE FROM [CookingMasterDB].[dbo].[Ingredients];
+
+GO
+
 DELETE FROM [CookingMasterDB].[dbo].[IngredientNutrients]
 
 GO
 
-DELETE FROM [CookingMasterDB].[dbo].[Ingredients];
-
-GO
 
 
 DELETE FROM [CookingMasterDB].[dbo].[IngredientCategories];
@@ -41,7 +42,7 @@ DBCC CHECKIDENT ('dbo.UserIngredients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.IngredientNutrients', RESEED, 0);
 DBCC CHECKIDENT ('dbo.CuisineTypes', RESEED, 0);
 DBCC CHECKIDENT ('dbo.RecipeIngredients', RESEED, 0);
-DBCC CHECKIDENT ('dbo.CulinaryRecipe', RESEED, 0);
+DBCC CHECKIDENT ('dbo.CulinaryRecipes', RESEED, 0);
 DBCC CHECKIDENT ('dbo.Users', RESEED, 0);
 
 GO
