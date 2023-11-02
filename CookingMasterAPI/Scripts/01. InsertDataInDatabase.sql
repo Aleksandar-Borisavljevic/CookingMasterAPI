@@ -711,6 +711,10 @@ INSERT INTO IngredientNutrients (Calories, Protein, Carbohydrates, Fat, Sugar, C
 VALUES (884, 0, 0, 100, 0, GETDATE(), 'Nut-Olive Oil-20237822194215')
 INSERT INTO IngredientNutrients (Calories, Protein, Carbohydrates, Fat, Sugar, CreateDate, Uid)
 VALUES (304, 0.3, 82.4, 0, 82.1, GETDATE(), 'Nut-Honey-20237822194215')
+INSERT INTO IngredientNutrients (Calories, Protein, Carbohydrates, Fat, Sugar, CreateDate, Uid)
+VALUES (40, 2.0, 8.0, 1, 6.0, GETDATE(), 'tomatosauce-20237822194215')
+INSERT INTO IngredientNutrients (Calories, Protein, Carbohydrates, Fat, Sugar, CreateDate, Uid)
+VALUES (110, 1.0, 30, 1, 25.0, GETDATE(), 'ketchup-20237822194215')
 
 GO
 
@@ -800,6 +804,11 @@ INSERT INTO Ingredients (CategoryId, IconPath, CreateDate, Uid, IngredientName, 
 VALUES (10, 'oliveoil', GETDATE(), 'Olive Oil-20237822194215', 'Olive Oil', 42, 2)
 INSERT INTO Ingredients (CategoryId, IconPath, CreateDate, Uid, IngredientName, IngredientNutrientId, UnitOfMeasure)
 VALUES (10, 'honey', GETDATE(), 'Honey-20237822194215', 'Honey', 43, 1)
+INSERT INTO Ingredients (CategoryId, IconPath, CreateDate, Uid, IngredientName, IngredientNutrientId, UnitOfMeasure)
+VALUES (10, 'ketchup', GETDATE(), 'Ketchup-20237822194215', 'Ketchup', 44, 1)
+INSERT INTO Ingredients (CategoryId, IconPath, CreateDate, Uid, IngredientName, IngredientNutrientId, UnitOfMeasure)
+VALUES (10, 'tomatosauce', GETDATE(), 'Tomato Sauce-20237822194215', 'Tomato Sauce', 45, 1)
+
 
 INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
 VALUES (1, 41, 300)
@@ -809,3 +818,5 @@ INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
 VALUES (1, 30, 10)
 INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
 VALUES (1, 28, 10)
+INSERT INTO RecipeIngredients (CulinaryRecipeId, IngredientId, Amount)
+VALUES (1, 45, 200)
