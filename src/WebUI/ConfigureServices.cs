@@ -19,7 +19,7 @@ public static class ConfigureServices
         services.AddHttpContextAccessor();
 
         services.AddHealthChecks()
-            .AddDbContextCheck<ApplicationDbContext>();
+            .AddDbContextCheck<CookingMasterDbContext>();
 
         services.AddControllersWithViews();
 
