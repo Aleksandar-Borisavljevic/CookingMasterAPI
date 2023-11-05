@@ -17,4 +17,9 @@
         <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CuisineTypes\Commands\CreateCuisineType\" />
+      <Folder Include="CuisineTypes\EventHandlers\" />
+    </ItemGroup>
+
 </Project>

@@ -1,5 +1,4 @@
 ﻿using CookingMasterApi.Application.Common.Interfaces;
-using CookingMasterApi.Infrastructure.Files;
 using CookingMasterApi.Infrastructure.Identity;
 using CookingMasterApi.Infrastructure.Persistence;
 using CookingMasterApi.Infrastructure.Persistence.Interceptors;
@@ -27,7 +26,6 @@ public static class ConfigureServices
                     builder => builder.MigrationsAssembly(typeof(CookingMasterDbContext).Assembly.FullName)));
         }
 
-        services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<ICookingMasterDbContext>(provider => provider.GetRequiredService<CookingMasterDbContext>());
 
         services.AddScoped<CookingMasterDbContextInitialiser>();
@@ -39,7 +37,6 @@ public static class ConfigureServices
 
 
         services.AddTransient<IIdentityService, IdentityService>();
-        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
         services.AddAuthentication();
 
