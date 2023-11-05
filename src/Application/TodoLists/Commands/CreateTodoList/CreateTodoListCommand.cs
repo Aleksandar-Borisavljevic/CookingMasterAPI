@@ -28,6 +28,6 @@ public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListComman
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.Id;
+        return 0;
     }
 }

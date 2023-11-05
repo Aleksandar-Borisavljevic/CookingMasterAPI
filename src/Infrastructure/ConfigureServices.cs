@@ -3,8 +3,6 @@ using CookingMasterApi.Infrastructure.Files;
 using CookingMasterApi.Infrastructure.Identity;
 using CookingMasterApi.Infrastructure.Persistence;
 using CookingMasterApi.Infrastructure.Persistence.Interceptors;
-using CookingMasterApi.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +37,7 @@ public static class ConfigureServices
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<CookingMasterDbContext>();
 
-        services.AddTransient<IDateTime, DateTimeService>();
+
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 

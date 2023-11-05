@@ -30,12 +30,10 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemComman
             Done = false
         };
 
-        entity.AddDomainEvent(new TodoItemCreatedEvent(entity));
-
         _context.TodoItems.Add(entity);
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity.Id;
+        return 0;
     }
 }

@@ -3,7 +3,6 @@ using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Entities;
 using CookingMasterApi.Infrastructure.Identity;
 using CookingMasterApi.Infrastructure.Persistence.Interceptors;
-using MediatR;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,8 +25,11 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
         base.OnModelCreating(builder);
+
+        builder.Entity<CulinaryRecipe>()
+               .Property(b => b.RecipeName)
+               .IsRequired();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
