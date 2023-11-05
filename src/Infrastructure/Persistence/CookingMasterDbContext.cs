@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Reflection.Emit;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Entities;
 using CookingMasterApi.Infrastructure.Identity;
@@ -26,6 +27,15 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
+
+        builder.Entity<CuisineType>().HasData(
+          new CuisineType { Id = -1, Uid = Guid.NewGuid(), CuisineName = "Italian"},
+          new CuisineType { Id = -2, Uid = Guid.NewGuid(), CuisineName = "Indian" },
+          new CuisineType { Id = -3, Uid = Guid.NewGuid(), CuisineName = "Mexican" },
+          new CuisineType { Id = -4, Uid = Guid.NewGuid(), CuisineName = "Chinese" },
+          new CuisineType { Id = -5, Uid = Guid.NewGuid(), CuisineName = "French" },
+          new CuisineType { Id = -6, Uid = Guid.NewGuid(), CuisineName = "Thai" }
+      );
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

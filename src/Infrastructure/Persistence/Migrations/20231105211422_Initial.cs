@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace CookingMasterApi.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
@@ -203,6 +205,19 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         principalTable: "CuisineTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "CuisineTypes",
+                columns: new[] { "Id", "Created", "CreatedBy", "CuisineName", "Deleted", "DeletedBy", "LastModified", "LastModifiedBy", "Uid" },
+                values: new object[,]
+                {
+                    { -6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Thai", null, null, null, null, new Guid("7eb88233-31a3-4a3e-a79b-519354391d9f") },
+                    { -5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "French", null, null, null, null, new Guid("92e8bd0c-658e-46bb-887d-9cd92b14dadd") },
+                    { -4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Chinese", null, null, null, null, new Guid("f58fcad6-d439-4482-883d-bde98f41724a") },
+                    { -3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Mexican", null, null, null, null, new Guid("00067402-037a-40b1-9aeb-c279640d06b0") },
+                    { -2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Indian", null, null, null, null, new Guid("50a6e701-0aa7-4fa2-9640-36fbb549f375") },
+                    { -1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Italian", null, null, null, null, new Guid("5b6f9e62-f040-4fcc-a835-a5b927df4352") }
                 });
 
             migrationBuilder.CreateIndex(

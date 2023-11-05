@@ -57,6 +57,50 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CuisineTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CuisineName = "Italian",
+                            Uid = new Guid("5b6f9e62-f040-4fcc-a835-a5b927df4352")
+                        },
+                        new
+                        {
+                            Id = -2,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CuisineName = "Indian",
+                            Uid = new Guid("50a6e701-0aa7-4fa2-9640-36fbb549f375")
+                        },
+                        new
+                        {
+                            Id = -3,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CuisineName = "Mexican",
+                            Uid = new Guid("00067402-037a-40b1-9aeb-c279640d06b0")
+                        },
+                        new
+                        {
+                            Id = -4,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CuisineName = "Chinese",
+                            Uid = new Guid("f58fcad6-d439-4482-883d-bde98f41724a")
+                        },
+                        new
+                        {
+                            Id = -5,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CuisineName = "French",
+                            Uid = new Guid("92e8bd0c-658e-46bb-887d-9cd92b14dadd")
+                        },
+                        new
+                        {
+                            Id = -6,
+                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CuisineName = "Thai",
+                            Uid = new Guid("7eb88233-31a3-4a3e-a79b-519354391d9f")
+                        });
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.CulinaryRecipe", b =>
