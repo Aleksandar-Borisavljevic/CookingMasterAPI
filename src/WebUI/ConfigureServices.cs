@@ -2,6 +2,7 @@
 using CookingMasterApi.Infrastructure.Persistence;
 using CookingMasterApi.WebUI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
@@ -21,7 +22,9 @@ public static class ConfigureServices
         services.AddHealthChecks()
             .AddDbContextCheck<CookingMasterDbContext>();
 
-        services.AddControllersWithViews();
+        services.AddControllers().AddOData(options =>
+                options.Select().Filter().Count().OrderBy().SetMaxTop(null).Expand()
+        );
 
 
         services.AddScoped<FluentValidationSchemaProcessor>(provider =>
