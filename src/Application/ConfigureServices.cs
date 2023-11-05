@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using CookingMasterApi.Application.Common.Behaviours;
-using CookingMasterApi.Application.Common.Exceptions;
 using FluentValidation;
 using MediatR;
 

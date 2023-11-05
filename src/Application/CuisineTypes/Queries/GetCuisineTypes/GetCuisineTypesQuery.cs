@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using CookingMasterApi.Application.Common.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterApi.Application.CuisineTypes.Queries.GetCuisineTypes;
 
@@ -22,6 +23,6 @@ public class GetCuisineTypesQueryHandler : IRequestHandler<GetCuisineTypesQuery,
 
     public async Task<IQueryable<CuisineTypeDto>> Handle(GetCuisineTypesQuery request, CancellationToken cancellationToken)
     {
-        return _context.CuisineTypes.ProjectTo<CuisineTypeDto>(_mapper.ConfigurationProvider);
+        return _context.CuisineTypes.ProjectTo<CuisineTypeDto>(_mapper.ConfigurationProvider).AsNoTracking();
     }
 }

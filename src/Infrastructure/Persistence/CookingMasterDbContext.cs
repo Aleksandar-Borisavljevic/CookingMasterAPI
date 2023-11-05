@@ -26,10 +26,6 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
-
-        builder.Entity<CulinaryRecipe>()
-               .Property(b => b.RecipeName)
-               .IsRequired();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
