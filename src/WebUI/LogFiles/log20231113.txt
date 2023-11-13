@@ -1,0 +1,39 @@
+[2023-11-13 22:48:58.878 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("49"ms) [Parameters=[""], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT 1"
+
+[2023-11-13 22:48:58.961 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("33"ms) [Parameters=[""], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT OBJECT_ID(N'[__EFMigrationsHistory]');"
+
+[2023-11-13 22:48:58.982 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("5"ms) [Parameters=[""], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT 1"
+
+[2023-11-13 22:48:59.002 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("5"ms) [Parameters=[""], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT OBJECT_ID(N'[__EFMigrationsHistory]');"
+
+[2023-11-13 22:48:59.058 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("17"ms) [Parameters=[""], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT [MigrationId], [ProductVersion]\r\nFROM [__EFMigrationsHistory]\r\nORDER BY [MigrationId];"
+
+[2023-11-13 22:48:59.531 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("46"ms) [Parameters=["@__administrator_UserName_0='?' (Size = 256)"], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT CASE\r\n    WHEN NOT EXISTS (\r\n        SELECT 1\r\n        FROM [AspNetUsers] AS [a]\r\n        WHERE [a].[UserName] = @__administrator_UserName_0 AND ([a].[UserName] IS NOT NULL)) THEN CAST(1 AS bit)\r\n    ELSE CAST(0 AS bit)\r\nEND"
+
+[2023-11-13 22:49:00.337 +01:00 INF] Microsoft.Hosting.Lifetime
+Now listening on: "https://localhost:5001"
+
+[2023-11-13 22:49:00.340 +01:00 INF] Microsoft.Hosting.Lifetime
+Now listening on: "http://localhost:5000"
+
+[2023-11-13 22:49:00.345 +01:00 INF] Microsoft.Hosting.Lifetime
+Application started. Press Ctrl+C to shut down.
+
+[2023-11-13 22:49:00.347 +01:00 INF] Microsoft.Hosting.Lifetime
+Hosting environment: "Development"
+
+[2023-11-13 22:49:00.350 +01:00 INF] Microsoft.Hosting.Lifetime
+Content root path: "C:\\Users\\Acer\\source\\repos\\CookingMasterAPI\\src\\WebUI"
+
+[2023-11-13 22:49:14.674 +01:00 INF] CookingMasterApi.Application.CuisineTypes.Queries.GetCuisineTypes.GetCuisineTypesQuery
+CookingMasterApi Request: "GetCuisineTypesQuery" "" "" {"$type":"GetCuisineTypesQuery"}
+
+[2023-11-13 22:49:14.939 +01:00 INF] Microsoft.EntityFrameworkCore.Database.Command
+Executed DbCommand ("6"ms) [Parameters=[""], CommandType='"Text"', CommandTimeout='30']"\r\n""SELECT [c].[CuisineName], [c].[Uid]\r\nFROM [CuisineTypes] AS [c]"
+

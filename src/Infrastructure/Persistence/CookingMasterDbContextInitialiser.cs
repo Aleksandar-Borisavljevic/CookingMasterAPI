@@ -29,6 +29,10 @@ public class CookingMasterDbContextInitialiser
         }
         catch (Exception ex)
         {
+            if (ex.Message.Contains("already exists. Choose a different database name"))
+            {
+                return;
+            }
             _logger.LogError(ex, "An error occurred while initialising the database.");
             throw;
         }
