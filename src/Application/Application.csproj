@@ -18,7 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Common\Models\" />
       <Folder Include="CuisineTypes\Commands\CreateCuisineType\" />
       <Folder Include="CuisineTypes\EventHandlers\" />
     </ItemGroup>

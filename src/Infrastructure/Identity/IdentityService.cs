@@ -1,5 +1,7 @@
-﻿using CookingMasterApi.Application.Common.Interfaces;
+﻿using CookingMasterApi.Application.Common.Exceptions;
+using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.Common.Models;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -77,5 +79,28 @@ public class IdentityService : IIdentityService
         var result = await _userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
+    }
+
+    public async Task<UserInfo> CheckCredentials(string username, string password)
+    {
+        var user = await _userManager.FindByEmailAsync(username);
+        if (user == null)
+        {
+            throw new NotFoundException("User does not exist");
+        }
+
+        var areCredentialsCorrect = await _userManager.CheckPasswordAsync(user, password);
+
+        if (!areCredentialsCorrect)
+        {
+            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
+
+            var errorMessage = "Wrong Email or Password";
+            validationFailureList.Add(new ValidationFailure("", errorMessage));
+            throw new ValidationException(validationFailureList);
+        }
+
+        return new UserInfo { UserId = user?.Id, Email = user?.Email };
+
     }
 }
