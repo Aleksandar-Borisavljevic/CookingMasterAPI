@@ -23,7 +23,6 @@ public class GetCuisineTypesQueryHandler : IRequestHandler<GetCuisineTypesQuery,
 
     public async Task<IQueryable<CuisineTypeDto>> Handle(GetCuisineTypesQuery request, CancellationToken cancellationToken)
     {
-        throw new Exception("Test");
         return _context.CuisineTypes.ProjectTo<CuisineTypeDto>(_mapper.ConfigurationProvider).AsNoTracking();
     }
 }

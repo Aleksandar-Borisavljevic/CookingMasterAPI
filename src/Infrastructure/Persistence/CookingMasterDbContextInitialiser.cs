@@ -1,4 +1,5 @@
-﻿using CookingMasterApi.Infrastructure.Identity;
+﻿using CookingMasterApi.Domain.Common;
+using CookingMasterApi.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,7 @@ public class CookingMasterDbContextInitialiser
         }
         catch (Exception ex)
         {
-            if (ex.Message.Contains("already exists. Choose a different database name"))
+            if (ex.Message.Contains(DatabaseExceptionTypes.DatabaseAlreadyExist))
             {
                 return;
             }

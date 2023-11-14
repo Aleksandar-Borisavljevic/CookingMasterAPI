@@ -236,3 +236,5 @@ _Pvt_Extensions
 /CookingMasterApi.ndproj
 /.mfractor
 src/WebUI/ClientApp/package-lock.json
+
+src/WebUI/LogFiles
