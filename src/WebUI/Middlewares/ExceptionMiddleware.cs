@@ -1,6 +1,5 @@
 ﻿
 using CookingMasterApi.Application.Common.Exceptions;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;

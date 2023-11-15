@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-
 using CookingMasterApi.Application.Common.Interfaces;
 
 namespace CookingMasterApi.WebUI.Services;
@@ -13,5 +12,6 @@ public class CurrentUserService : ICurrentUserService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+    public string UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+    public string Email => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Email);
 }
