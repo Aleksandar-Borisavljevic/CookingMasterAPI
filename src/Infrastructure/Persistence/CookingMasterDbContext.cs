@@ -22,8 +22,9 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     public DbSet<CuisineType> CuisineTypes => Set<CuisineType>();
 
     public DbSet<CulinaryRecipe> CulinaryRecipes => Set<CulinaryRecipe>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder builder) //TODO: separate file for seed data
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);

@@ -24,11 +24,13 @@ public class IdentityService : IIdentityService
         _authorizationService = authorizationService;
     }
 
-    public async Task<string?> GetUserNameAsync(string userId)
+    public async Task ValidateUserAsync(string userId)
     {
-        var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-
-        return user.UserName;
+        var user = await _userManager.FindByIdAsync(userId); //TODO: validate is user deleted or locked or not confirmed
+        if (user == null)
+        {
+            throw new NotFoundException("User does not exist");
+        }
     }
 
     public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)

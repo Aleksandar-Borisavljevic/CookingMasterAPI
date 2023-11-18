@@ -3,5 +3,7 @@
 namespace CookingMasterApi.Application.Common.Interfaces;
 public interface ITokenService
 {
-   string GenerateAccessToken(UserInfo user);
+    string GenerateAccessToken(UserInfo user);
+    RefreshTokenInfo GenerateRefreshToken();
+    UserInfo GetUserInfoFromAccessToken(string accessToken);
 }

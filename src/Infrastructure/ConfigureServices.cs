@@ -18,7 +18,9 @@ public static class ConfigureServices
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSettings = configuration.Read<JwtSettings>();
+        var refreshTokenSettings = configuration.Read<RefreshTokenSettings>();
         services.AddSingleton(jwtSettings);
+        services.AddSingleton(refreshTokenSettings);
 
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
@@ -46,6 +48,7 @@ public static class ConfigureServices
 
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 
         services.AddAuthentication(options =>
         {

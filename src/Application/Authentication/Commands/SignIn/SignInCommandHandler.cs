@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
+using CookingMasterApi.Domain.Entities;
 
 namespace CookingMasterApi.Application.Authentication.Commands.SignIn;
 
@@ -7,11 +8,13 @@ public class SignInCommandHandler : IRequestHandler<SignInCommand, SignInCommand
 {
     private readonly IIdentityService _identityService;
     private readonly ITokenService _tokenService;
+    private readonly IRefreshTokenService _refreshTokenService;
 
-    public SignInCommandHandler(IIdentityService identityService, ITokenService tokenService)
+    public SignInCommandHandler(IIdentityService identityService, ITokenService tokenService, IRefreshTokenService refreshTokenService)
     {
         _identityService = identityService;
         _tokenService = tokenService;
+        _refreshTokenService = refreshTokenService;
     }
 
     public async Task<SignInCommandResult> Handle(SignInCommand command, CancellationToken cancellationToken)
@@ -20,8 +23,10 @@ public class SignInCommandHandler : IRequestHandler<SignInCommand, SignInCommand
         var userInfo = await _identityService.CheckCredentials(command.Email, command.Password);
 
         var accessToken = _tokenService.GenerateAccessToken(userInfo);
+        var refreshToken = _tokenService.GenerateRefreshToken();
+        await _refreshTokenService.AddToken(new RefreshToken() { UserId = new Guid(userInfo.UserId), IsRevoked = false, Token = refreshToken.Token, ExpiryDate = refreshToken.ExpiryDate });
 
-        return new SignInCommandResult(accessToken, "refreshTokenTest");
+        return new SignInCommandResult(accessToken, refreshToken.Token);
     }
 
 }

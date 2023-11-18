@@ -1,4 +1,7 @@
-﻿using CookingMasterApi.Application.Authentication.Commands.SignIn;
+﻿using CookingMasterApi.Application.Authentication.Commands.Refresh;
+using CookingMasterApi.Application.Authentication.Commands.Revoke;
+using CookingMasterApi.Application.Authentication.Commands.SignIn;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,5 +17,23 @@ public class AuthController : ApiControllerBase
         var result = await Mediator.Send(command);
         return Ok(result);
     }
-    
+
+    [HttpPost(nameof(Refresh))]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<RefreshCommandResult>> Refresh(RefreshCommand command)
+    {
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpPost(nameof(Revoke))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult> Revoke(RevokeCommand command)
+    {
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+
 }
