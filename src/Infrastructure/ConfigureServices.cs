@@ -67,7 +67,13 @@ public static class ConfigureServices
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
                 ClockSkew = TimeSpan.Zero
             };
+        }).AddGoogle(googleOptions =>
+        {
+            googleOptions.ClientId = "593297442867-bniqrqoddkgkdmtkhjtphou5sui7kv1s.apps.googleusercontent.com";
+            googleOptions.ClientSecret = "97pj3LrCK7HTK8oE-ktZbf8H";
         });
+
+
 
         services.AddAuthorization();
 

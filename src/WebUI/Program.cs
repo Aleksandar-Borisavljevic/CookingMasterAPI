@@ -11,6 +11,8 @@ builder.Services.AddWebUIServices();
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
+builder.WebHost.UseStaticWebAssets();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,5 +53,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
