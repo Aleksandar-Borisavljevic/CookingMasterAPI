@@ -13,5 +13,6 @@ public interface IIdentityService
     Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
 
     Task<Result> DeleteUserAsync(string userId);
-    Task<UserInfo> CheckCredentials(string username, string password);
+    Task<UserInfo> CheckCredentials(string email, string password);
+    Task<UserInfo> GetUserInfo(string email);
 }

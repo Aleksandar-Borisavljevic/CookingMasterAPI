@@ -83,9 +83,9 @@ public class IdentityService : IIdentityService
         return result.ToApplicationResult();
     }
 
-    public async Task<UserInfo> CheckCredentials(string username, string password)
+    public async Task<UserInfo> CheckCredentials(string email, string password)
     {
-        var user = await _userManager.FindByEmailAsync(username);
+        var user = await _userManager.FindByEmailAsync(email);
         if (user == null)
         {
             throw new NotFoundException("User does not exist");
@@ -100,6 +100,18 @@ public class IdentityService : IIdentityService
             var errorMessage = "Wrong Email or Password";
             validationFailureList.Add(new ValidationFailure("", errorMessage));
             throw new ValidationException(validationFailureList);
+        }
+
+        return new UserInfo { UserId = user?.Id, Email = user?.Email };
+
+    }
+
+    public async Task<UserInfo> GetUserInfo(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user == null)
+        {
+            throw new NotFoundException("User does not exist");
         }
 
         return new UserInfo { UserId = user?.Id, Email = user?.Email };
