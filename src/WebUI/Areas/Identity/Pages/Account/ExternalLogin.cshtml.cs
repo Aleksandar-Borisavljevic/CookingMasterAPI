@@ -88,7 +88,7 @@ public class ExternalLoginModel : PageModel
         public string Email { get; set; }
     }
     
-    public IActionResult OnGet() => RedirectToPage("./Login");
+    public IActionResult OnGet(string provider) => OnPost(provider);
 
     public IActionResult OnPost(string provider, string returnUrl = null)
     {
