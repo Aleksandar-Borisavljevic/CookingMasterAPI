@@ -1,6 +1,6 @@
 ﻿
 namespace CookingMasterApi.Domain.Entities;
-public class CulinaryRecipe: BaseAuditableEntity
+public class CulinaryRecipe : BaseAuditableEntity
 {
     public int Id { get; set; }
     public Guid Uid { get; set; } = Guid.NewGuid();

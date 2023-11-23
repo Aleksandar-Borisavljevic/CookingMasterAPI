@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterApi.Application.CuisineTypes.Queries.GetCuisineTypes;
 
-public record GetCuisineTypesQuery : IRequest<IQueryable<CuisineTypeDto>>
+public record GetIngredientCategoryQuery : IRequest<IQueryable<CuisineTypeDto>>
 {
 }
 
-public class GetCuisineTypesQueryHandler : IRequestHandler<GetCuisineTypesQuery, IQueryable<CuisineTypeDto>>
+public class GetCuisineTypesQueryHandler : IRequestHandler<GetIngredientCategoryQuery, IQueryable<CuisineTypeDto>>
 {
     private readonly ICookingMasterDbContext _context;
     private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ public class GetCuisineTypesQueryHandler : IRequestHandler<GetCuisineTypesQuery,
         _currentUserService = currentUserService;
     }
 
-    public async Task<IQueryable<CuisineTypeDto>> Handle(GetCuisineTypesQuery request, CancellationToken cancellationToken)
+    public async Task<IQueryable<CuisineTypeDto>> Handle(GetIngredientCategoryQuery request, CancellationToken cancellationToken)
     {
         var userId = _currentUserService.UserId;
         return _context.CuisineTypes.ProjectTo<CuisineTypeDto>(_mapper.ConfigurationProvider).AsNoTracking();

@@ -8,6 +8,7 @@ public interface ICookingMasterDbContext
     DbSet<CuisineType> CuisineTypes { get; }
     DbSet<CulinaryRecipe> CulinaryRecipes { get; }
     DbSet<RefreshToken> RefreshTokens { get; }
+    DbSet<IngredientCategory> IngredientCategories { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
