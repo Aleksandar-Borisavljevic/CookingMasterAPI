@@ -188,7 +188,9 @@ public class ExternalLoginModel : PageModel
                     }
 
                     await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-                    return LocalRedirect(returnUrl);
+                    var tokens = await _mediator.Send(new ExternalSignInCommand(user.Email));
+
+                    Response.Redirect(string.Format("{0}?accessToken={1}&refreshToken={2}", returnUrl, tokens.AccessToken, tokens.RefreshToken));
                 }
             }
             foreach (var error in result.Errors)
