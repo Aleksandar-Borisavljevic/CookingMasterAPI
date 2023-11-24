@@ -1,16 +1,10 @@
 ﻿
 
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
 namespace CookingMasterApi.Domain.Entities;
 public class IngredientCategory : BaseAuditableEntity
 {
-    public int CategoryId { get; set; }
-
+    public int Id { get; set; }
+    public Guid Uid { get; set; } = Guid.NewGuid();
     public string CategoryName { get; set; } = string.Empty;
-
     public string IconPath { get; set; } = string.Empty;
-
-    public string Uid { get; set; } = string.Empty;
 }

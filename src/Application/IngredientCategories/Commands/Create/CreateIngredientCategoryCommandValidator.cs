@@ -2,7 +2,7 @@
 using FluentValidation;
 
 namespace CookingMasterApi.Application.IngredientCategories.Commands.Create;
-internal class CreateIngredientCategoryCommandValidator : AbstractValidator<CreateIngredientCategoryCommand>
+public class CreateIngredientCategoryCommandValidator : AbstractValidator<CreateIngredientCategoryCommand>
 {
     public CreateIngredientCategoryCommandValidator()
     {

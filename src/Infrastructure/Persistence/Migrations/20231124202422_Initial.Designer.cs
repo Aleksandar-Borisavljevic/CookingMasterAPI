@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingMasterApi.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CookingMasterDbContext))]
-    [Migration("20231118074549_RefreshToken")]
-    partial class RefreshToken
+    [Migration("20231124202422_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,42 +67,42 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                             Id = -1,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Italian",
-                            Uid = new Guid("144a414c-a67f-44c8-b4a5-0ac7150c9d6b")
+                            Uid = new Guid("9275b457-802e-4065-aa10-f183aa24423e")
                         },
                         new
                         {
                             Id = -2,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Indian",
-                            Uid = new Guid("ceb478d1-386e-4f40-8e12-679e0d54261e")
+                            Uid = new Guid("2cd384f9-7dde-4720-9edd-304b9b5d39b3")
                         },
                         new
                         {
                             Id = -3,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Mexican",
-                            Uid = new Guid("c065d8c6-609f-418f-a9ee-a05c7d01a4f0")
+                            Uid = new Guid("c693dd65-673c-4598-a2ea-2584f0f6a69d")
                         },
                         new
                         {
                             Id = -4,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Chinese",
-                            Uid = new Guid("d63bcc55-4d4e-4f3a-b8bf-ce820d05b139")
+                            Uid = new Guid("476a81fd-47b6-422c-bee7-57eea23a8f05")
                         },
                         new
                         {
                             Id = -5,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "French",
-                            Uid = new Guid("ae76553f-f3de-4af0-a48d-c469519f1e01")
+                            Uid = new Guid("9f33b735-59dd-4392-ada5-afb7364c273c")
                         },
                         new
                         {
                             Id = -6,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Thai",
-                            Uid = new Guid("78dda4bc-5ecf-40ae-9d3f-eabd811e2409")
+                            Uid = new Guid("2feb872c-46d5-4574-85b1-7bd7f8638300")
                         });
                 });
 
@@ -153,6 +153,50 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasIndex("CuisineTypeId");
 
                     b.ToTable("CulinaryRecipes");
+                });
+
+            modelBuilder.Entity("CookingMasterApi.Domain.Entities.IngredientCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconPath")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Uid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IngredientCategories");
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.RefreshToken", b =>

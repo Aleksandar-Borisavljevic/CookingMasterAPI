@@ -1,6 +1,6 @@
 ﻿
 namespace CookingMasterApi.Application.IngredientCategories.Commands.Create;
-internal class CreateIngredientCategoryCommandResult
+public class CreateIngredientCategoryCommandResult
 {
     public string CategoryName { get; set; }
     public string IconPath { get; set; }

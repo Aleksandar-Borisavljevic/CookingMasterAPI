@@ -73,6 +73,43 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IngredientCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Uid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IconPath = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Deleted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IngredientCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsRevoked = table.Column<bool>(type: "bit", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -212,12 +249,12 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                 columns: new[] { "Id", "Created", "CreatedBy", "CuisineName", "Deleted", "DeletedBy", "LastModified", "LastModifiedBy", "Uid" },
                 values: new object[,]
                 {
-                    { -6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Thai", null, null, null, null, new Guid("7eb88233-31a3-4a3e-a79b-519354391d9f") },
-                    { -5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "French", null, null, null, null, new Guid("92e8bd0c-658e-46bb-887d-9cd92b14dadd") },
-                    { -4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Chinese", null, null, null, null, new Guid("f58fcad6-d439-4482-883d-bde98f41724a") },
-                    { -3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Mexican", null, null, null, null, new Guid("00067402-037a-40b1-9aeb-c279640d06b0") },
-                    { -2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Indian", null, null, null, null, new Guid("50a6e701-0aa7-4fa2-9640-36fbb549f375") },
-                    { -1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Italian", null, null, null, null, new Guid("5b6f9e62-f040-4fcc-a835-a5b927df4352") }
+                    { -6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Thai", null, null, null, null, new Guid("2feb872c-46d5-4574-85b1-7bd7f8638300") },
+                    { -5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "French", null, null, null, null, new Guid("9f33b735-59dd-4392-ada5-afb7364c273c") },
+                    { -4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Chinese", null, null, null, null, new Guid("476a81fd-47b6-422c-bee7-57eea23a8f05") },
+                    { -3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Mexican", null, null, null, null, new Guid("c693dd65-673c-4598-a2ea-2584f0f6a69d") },
+                    { -2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Indian", null, null, null, null, new Guid("2cd384f9-7dde-4720-9edd-304b9b5d39b3") },
+                    { -1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Italian", null, null, null, null, new Guid("9275b457-802e-4065-aa10-f183aa24423e") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -285,6 +322,12 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "CulinaryRecipes");
+
+            migrationBuilder.DropTable(
+                name: "IngredientCategories");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
