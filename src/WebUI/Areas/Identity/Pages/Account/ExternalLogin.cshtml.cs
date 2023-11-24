@@ -88,7 +88,7 @@ public class ExternalLoginModel : PageModel
         public string Email { get; set; }
     }
     
-    public IActionResult OnGet(string provider) => OnPost(provider);
+    public IActionResult OnGet(string provider, string returnUrl) => OnPost(provider, returnUrl);
 
     public IActionResult OnPost(string provider, string returnUrl = null)
     {
@@ -119,7 +119,9 @@ public class ExternalLoginModel : PageModel
         {
             _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
 
-            return new OkObjectResult(await _mediator.Send(new ExternalSignInCommand(info.Principal.FindFirstValue(ClaimTypes.Email))));
+            var tokens = await _mediator.Send(new ExternalSignInCommand(info.Principal.FindFirstValue(ClaimTypes.Email)));
+
+            Response.Redirect(string.Format("{0}?accessToken={1}&refreshToken={2}", returnUrl, tokens.AccessToken, tokens.RefreshToken));
         }
         if (result.IsLockedOut)
         {
