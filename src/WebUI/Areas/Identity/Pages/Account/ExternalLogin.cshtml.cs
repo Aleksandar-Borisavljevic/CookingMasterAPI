@@ -121,7 +121,7 @@ public class ExternalLoginModel : PageModel
 
             var tokens = await _mediator.Send(new ExternalSignInCommand(info.Principal.FindFirstValue(ClaimTypes.Email)));
 
-            Response.Redirect(string.Format("{0}?accessToken={1}&refreshToken={2}", returnUrl, tokens.AccessToken, tokens.RefreshToken));
+            Response.Redirect(string.Format("{0}#accessToken={1}&refreshToken={2}", returnUrl, tokens.AccessToken, tokens.RefreshToken));
         }
         if (result.IsLockedOut)
         {
@@ -190,7 +190,7 @@ public class ExternalLoginModel : PageModel
                     await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
                     var tokens = await _mediator.Send(new ExternalSignInCommand(user.Email));
 
-                    Response.Redirect(string.Format("{0}?accessToken={1}&refreshToken={2}", returnUrl, tokens.AccessToken, tokens.RefreshToken));
+                    Response.Redirect(string.Format("{0}#accessToken={1}&refreshToken={2}", returnUrl, tokens.AccessToken, tokens.RefreshToken));
                 }
             }
             foreach (var error in result.Errors)

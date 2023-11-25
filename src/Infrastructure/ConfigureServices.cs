@@ -69,8 +69,8 @@ public static class ConfigureServices
             };
         }).AddGoogle(googleOptions =>
         {
-            googleOptions.ClientId = "593297442867-bniqrqoddkgkdmtkhjtphou5sui7kv1s.apps.googleusercontent.com";
-            googleOptions.ClientSecret = "97pj3LrCK7HTK8oE-ktZbf8H";
+            googleOptions.ClientId = "593297442867-b2nl4f8ddt7b4of1ill9ga0dv8mfgv64.apps.googleusercontent.com";
+            googleOptions.ClientSecret = "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";
         });
 
 

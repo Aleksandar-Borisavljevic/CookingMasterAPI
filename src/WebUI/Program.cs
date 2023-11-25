@@ -56,4 +56,10 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+//app.Use((context, next) =>
+//{
+//    context.Request.Host = new HostString("localhost:5001");
+//    return next(context);
+//});
+
 app.Run();
