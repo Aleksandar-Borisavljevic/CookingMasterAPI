@@ -20,13 +20,26 @@ public class ExternalSignInCommandHandler : IRequestHandler<ExternalSignInComman
     public async Task<ExternalSignInCommandResult> Handle(ExternalSignInCommand command, CancellationToken cancellationToken)
     {
 
-        var userInfo = await _identityService.GetUserInfo(command.Email);
+        var userInfo = await _identityService.ExternalLoginSignInAsync();
 
         var accessToken = _tokenService.GenerateAccessToken(userInfo);
         var refreshToken = _tokenService.GenerateRefreshToken();
+
         await _refreshTokenService.AddToken(new RefreshToken() { UserId = new Guid(userInfo.UserId), IsRevoked = false, Token = refreshToken.Token, ExpiryDate = refreshToken.ExpiryDate });
 
-        return new ExternalSignInCommandResult(accessToken, refreshToken.Token);
+        var paramsStartSign = "?";
+        if (!IsHttpUrl(command.ReturnUrl))
+        {
+            paramsStartSign = "#";
+        }
+
+        return new ExternalSignInCommandResult(string.Format("{0}{1}AccessToken={2}&RefreshToken={3}", command.ReturnUrl, paramsStartSign, accessToken, refreshToken));
+    }
+
+    private bool IsHttpUrl(string returnUrl)
+    {
+        return Uri.TryCreate(returnUrl, UriKind.Absolute, out Uri uriResult)
+            && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
     }
 
 }

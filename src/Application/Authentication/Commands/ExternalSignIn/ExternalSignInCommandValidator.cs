@@ -1,7 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CookingMasterApi.Application.Authentication.Commands.ExternalSignIn;
 
@@ -10,10 +7,9 @@ public class ExternalSignInCommandValidator : AbstractValidator<ExternalSignInCo
 
     public ExternalSignInCommandValidator()
     {
-        RuleFor(c => c.Email)
+        RuleFor(c => c.ReturnUrl)
            .NotNull()
-           .NotEmpty()
-           .EmailAddress();
+           .NotEmpty();
 
     }
 }

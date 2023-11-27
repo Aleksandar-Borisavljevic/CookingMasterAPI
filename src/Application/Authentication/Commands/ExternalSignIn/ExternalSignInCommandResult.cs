@@ -2,13 +2,11 @@
 
 public class ExternalSignInCommandResult
 {
-    public string AccessToken { get; set; }
-    public string RefreshToken { get; set; }
+    public string AuthReturnUrl;
 
-    public ExternalSignInCommandResult(string accessToken, string refreshToken)
+    public ExternalSignInCommandResult(string authReturnUrl)
     {
-        AccessToken = accessToken;
-        RefreshToken = refreshToken;
+        AuthReturnUrl = authReturnUrl;
     }
 
 }
