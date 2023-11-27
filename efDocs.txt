@@ -2,3 +2,5 @@ dotnet tool install --global dotnet-ef
 dotnet ef migrations add Initial --context CookingMasterDbContext --project src\Infrastructure --startup-project src\WebUI --output-dir Persistence\Migrations
 
 https://localhost:5001/Identity/Account/ExternalLogin?provider=Google&returnUrl=myCustomJocaSite//
+
+https://localhost:5001/api/ExternalAuth/SignIn?provider=Google&returnUrl=myCustomJocaSite//
