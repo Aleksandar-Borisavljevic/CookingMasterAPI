@@ -24,6 +24,8 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     public DbSet<CulinaryRecipe> CulinaryRecipes => Set<CulinaryRecipe>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<IngredientCategory> IngredientCategories => Set<IngredientCategory>();
+    public DbSet<IngredientNutrient> IngredientNutrients => Set<IngredientNutrient>();
+    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
 
     protected override void OnModelCreating(ModelBuilder builder) //TODO: separate file for seed data
     {

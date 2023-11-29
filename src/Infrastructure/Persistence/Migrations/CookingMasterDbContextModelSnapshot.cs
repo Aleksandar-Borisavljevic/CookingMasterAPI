@@ -64,42 +64,42 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                             Id = -1,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Italian",
-                            Uid = new Guid("9275b457-802e-4065-aa10-f183aa24423e")
+                            Uid = new Guid("68182175-ce37-4432-954a-22414308f401")
                         },
                         new
                         {
                             Id = -2,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Indian",
-                            Uid = new Guid("2cd384f9-7dde-4720-9edd-304b9b5d39b3")
+                            Uid = new Guid("fd846694-f76c-49e6-9502-7515c87ddc39")
                         },
                         new
                         {
                             Id = -3,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Mexican",
-                            Uid = new Guid("c693dd65-673c-4598-a2ea-2584f0f6a69d")
+                            Uid = new Guid("9eb20dff-b541-48bb-a9e2-e94e6b411dcf")
                         },
                         new
                         {
                             Id = -4,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Chinese",
-                            Uid = new Guid("476a81fd-47b6-422c-bee7-57eea23a8f05")
+                            Uid = new Guid("d840b4dc-1cb5-4f62-9321-68d13f002308")
                         },
                         new
                         {
                             Id = -5,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "French",
-                            Uid = new Guid("9f33b735-59dd-4392-ada5-afb7364c273c")
+                            Uid = new Guid("d2c99c99-2afe-4070-a07c-5e4d59995551")
                         },
                         new
                         {
                             Id = -6,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Thai",
-                            Uid = new Guid("2feb872c-46d5-4574-85b1-7bd7f8638300")
+                            Uid = new Guid("854a877a-05dd-4d76-a6ce-10b8e3ce8196")
                         });
                 });
 
@@ -152,6 +152,63 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.ToTable("CulinaryRecipes");
                 });
 
+            modelBuilder.Entity("CookingMasterApi.Domain.Entities.Ingredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconPath")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("IngredientCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IngredientName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("IngredientNutrientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Uid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<short>("UnitOfMeasure")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientCategoryId");
+
+                    b.HasIndex("IngredientNutrientId");
+
+                    b.ToTable("Ingredients");
+                });
+
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.IngredientCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -194,6 +251,55 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("IngredientCategories");
+                });
+
+            modelBuilder.Entity("CookingMasterApi.Domain.Entities.IngredientNutrient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Calories")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Carbohydrates")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Fat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Protein")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Sugar")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("Uid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IngredientNutrients");
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.RefreshToken", b =>
@@ -432,6 +538,25 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("CuisineType");
+                });
+
+            modelBuilder.Entity("CookingMasterApi.Domain.Entities.Ingredient", b =>
+                {
+                    b.HasOne("CookingMasterApi.Domain.Entities.IngredientCategory", "IngredientCategory")
+                        .WithMany()
+                        .HasForeignKey("IngredientCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CookingMasterApi.Domain.Entities.IngredientNutrient", "IngredientNutrient")
+                        .WithMany()
+                        .HasForeignKey("IngredientNutrientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IngredientCategory");
+
+                    b.Navigation("IngredientNutrient");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
