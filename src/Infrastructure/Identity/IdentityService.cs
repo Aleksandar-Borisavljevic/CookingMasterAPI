@@ -3,9 +3,9 @@ using CookingMasterApi.Application.Common.Exceptions;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.Common.Models;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using static Duende.IdentityServer.Models.IdentityResources;
 
 namespace CookingMasterApi.Infrastructure.Identity;
 
@@ -110,5 +110,10 @@ public class IdentityService : IIdentityService
         }
 
         return await GetUserInfo(email);
+    }
+
+    public AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl)
+    {
+        return _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl); ;
     }
 }

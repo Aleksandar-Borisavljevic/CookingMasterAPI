@@ -1,19 +1,16 @@
 ﻿using CookingMasterApi.Application.Authentication.Commands.ExternalSignIn;
-using CookingMasterApi.Application.Authentication.Commands.SignIn;
-using CookingMasterApi.Infrastructure.Identity;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using CookingMasterApi.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookingMasterApi.WebUI.Controllers;
 
 public class ExternalAuthController : ApiControllerBase
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IIdentityService _identityService;
 
-    public ExternalAuthController(SignInManager<ApplicationUser> signInManager)
+    public ExternalAuthController(IIdentityService identityService)
     {
-        _signInManager = signInManager;
+        _identityService = identityService;
     }
 
     [HttpGet(nameof(SignIn))]
@@ -21,7 +18,7 @@ public class ExternalAuthController : ApiControllerBase
     public IActionResult SignIn(string provider, string returnUrl)
     {
         var redirectUrl = Url.Action(nameof(SignInCallback), values: new { returnUrl });
-        var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+        var properties = _identityService.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         return new ChallengeResult(provider, properties);
     }
 

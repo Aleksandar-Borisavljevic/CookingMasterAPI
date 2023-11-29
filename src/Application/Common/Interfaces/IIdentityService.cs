@@ -1,4 +1,5 @@
 ﻿using CookingMasterApi.Application.Common.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CookingMasterApi.Application.Common.Interfaces;
 
@@ -9,4 +10,5 @@ public interface IIdentityService
     Task<UserInfo> CheckCredentials(string email, string password);
     Task<UserInfo> GetUserInfo(string email);
     Task<UserInfo> ExternalLoginSignInAsync();
+    AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
 }
