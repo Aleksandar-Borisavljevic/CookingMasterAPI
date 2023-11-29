@@ -71,7 +71,12 @@ public static class ConfigureServices
         {
             googleOptions.ClientId = "593297442867-b2nl4f8ddt7b4of1ill9ga0dv8mfgv64.apps.googleusercontent.com";
             googleOptions.ClientSecret = "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";
-        });
+        })
+        .AddFacebook(facebookOptions =>
+        {
+            facebookOptions.AppId = "239012355702801";
+            facebookOptions.AppSecret = "59e0190bfbb3b507c07510011b294263";
+        }); ;
 
 
 
