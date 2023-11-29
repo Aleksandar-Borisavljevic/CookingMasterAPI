@@ -20,7 +20,7 @@ public class SignInCommandHandler : IRequestHandler<SignInCommand, SignInCommand
     public async Task<SignInCommandResult> Handle(SignInCommand command, CancellationToken cancellationToken)
     {
 
-        var userInfo = await _identityService.CheckCredentials(command.Email, command.Password);
+        var userInfo = await _identityService.CheckCredentials(command.UsernameOrEmail, command.Password);
 
         var accessToken = _tokenService.GenerateAccessToken(userInfo);
         var refreshToken = _tokenService.GenerateRefreshToken();

@@ -25,6 +25,7 @@ public class TokenService : ITokenService
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.UserId),
+             new Claim(ClaimTypes.Name, user.Username),
             new Claim(ClaimTypes.Email, user.Email)
         };
 
@@ -68,7 +69,7 @@ public class TokenService : ITokenService
         if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals("http://www.w3.org/2001/04/xmldsig-more#hmac-sha256", StringComparison.InvariantCultureIgnoreCase))
             throw new SecurityTokenException("Invalid token");
 
-        var userInfo = new UserInfo() { UserId = principal.FindFirstValue(ClaimTypes.NameIdentifier), Email = principal.FindFirstValue(ClaimTypes.Email) };
+        var userInfo = new UserInfo() { UserId = principal.FindFirstValue(ClaimTypes.NameIdentifier), Username = principal.FindFirstValue(ClaimTypes.Name), Email = principal.FindFirstValue(ClaimTypes.Email) };
         return userInfo;
     }
 }

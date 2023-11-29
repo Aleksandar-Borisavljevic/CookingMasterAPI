@@ -1,7 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CookingMasterApi.Application.Authentication.Commands.SignIn;
 
@@ -10,10 +7,9 @@ public class SignInCommandValidator : AbstractValidator<SignInCommand>
 
     public SignInCommandValidator()
     {
-        RuleFor(c => c.Email)
+        RuleFor(c => c.UsernameOrEmail)
            .NotNull()
-           .NotEmpty()
-           .EmailAddress();
+           .NotEmpty();
 
         RuleFor(c => c.Password)
            .NotNull()

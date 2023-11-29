@@ -4,7 +4,6 @@ using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.Common.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace CookingMasterApi.Infrastructure.Identity;
@@ -13,19 +12,13 @@ public class IdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
-    private readonly IAuthorizationService _authorizationService;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager,
-        IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        SignInManager<ApplicationUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
-        _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
-        _authorizationService = authorizationService;
     }
 
     public async Task ValidateUserAsync(string userId)
@@ -37,23 +30,27 @@ public class IdentityService : IIdentityService
         }
     }
 
-    public async Task<UserInfo> CreateUserAsync(string email, string password)
+    public async Task<UserInfo> CreateUserAsync(string email, string username, string password)
     {
         var user = new ApplicationUser
         {
-            UserName = email,
+            UserName = username,
             Email = email,
         };
 
         await _userManager.CreateAsync(user, password);
 
-        return await GetUserInfo(email);
+        return await GetUserInfo(username);
     }
 
-    public async Task<UserInfo> CheckCredentials(string email, string password)
+    public async Task<UserInfo> CheckCredentials(string usernameOrEmail, string password)
     {
-        var user = await _userManager.FindByEmailAsync(email);
-        if (user == null)
+        var user = await _userManager.FindByNameAsync(usernameOrEmail);
+        if (user is null)
+        {
+            user = await _userManager.FindByEmailAsync(usernameOrEmail);
+        }
+        if (user is null)
         {
             throw new NotFoundException("User does not exist");
         }
@@ -64,24 +61,28 @@ public class IdentityService : IIdentityService
         {
             IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
 
-            var errorMessage = "Wrong Email or Password";
+            var errorMessage = "Wrong Username/Email or Password";
             validationFailureList.Add(new ValidationFailure("", errorMessage));
             throw new ValidationException(validationFailureList);
         }
 
-        return new UserInfo { UserId = user?.Id, Email = user?.Email };
+        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
 
     }
 
-    public async Task<UserInfo> GetUserInfo(string email)
+    public async Task<UserInfo> GetUserInfo(string usernameOrEmail)
     {
-        var user = await _userManager.FindByEmailAsync(email);
+        var user = await _userManager.FindByNameAsync(usernameOrEmail);
+        if (user is null)
+        {
+            user = await _userManager.FindByEmailAsync(usernameOrEmail);
+        }
         if (user == null)
         {
             throw new NotFoundException("User does not exist");
         }
 
-        return new UserInfo { UserId = user?.Id, Email = user?.Email };
+        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
 
     }
 
