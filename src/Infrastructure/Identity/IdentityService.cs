@@ -143,6 +143,25 @@ public class IdentityService : IIdentityService
         }
     }
 
+    public async Task<UserInfo> ResetPasswordAsync(string email, string code, string password)
+    {
+        var user = await GetApplicationUser(email);
+
+        var result = await _userManager.ResetPasswordAsync(user, code, password);
+
+        if (!result.Succeeded && result.Errors.Any())
+        {
+            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
+            foreach (var error in result.Errors)
+            {
+                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+            }
+            throw new ValidationException(validationFailureList);
+        }
+
+        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
+    }
+
     private async Task<ApplicationUser> GetApplicationUser(string usernameOrEmail)
     {
         var user = await _userManager.FindByNameAsync(usernameOrEmail);

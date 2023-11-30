@@ -13,4 +13,5 @@ public interface IIdentityService
     Task<UserInfo> ExternalLoginSignInAsync();
     AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
     Task ConfirmEmailAsync(string email, string code);
+    Task<UserInfo> ResetPasswordAsync(string email, string code, string password);
 }
