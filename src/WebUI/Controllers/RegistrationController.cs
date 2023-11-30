@@ -1,8 +1,5 @@
-﻿using CookingMasterApi.Application.Authentication.Commands.Refresh;
-using CookingMasterApi.Application.Authentication.Commands.Revoke;
-using CookingMasterApi.Application.Authentication.Commands.SignIn;
+﻿using CookingMasterApi.Application.Registration.Commands.ConfirmEmail;
 using CookingMasterApi.Application.Registration.Commands.Register;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,4 +16,12 @@ public class RegistrationController : ApiControllerBase
         return Ok();
     }
 
+    [HttpPost(nameof(ConfirmEmail))]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand command)
+    {
+        await Mediator.Send(command);
+        return Ok();
+    }
 }
