@@ -5,6 +5,7 @@ using CookingMasterApi.Application.Common.Models;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using static Duende.IdentityServer.Models.IdentityResources;
 
 namespace CookingMasterApi.Infrastructure.Identity;
 
@@ -69,7 +70,7 @@ public class IdentityService : IIdentityService
 
         if (!areCredentialsCorrect)
         {
-            throw new ValidationException(string.Empty, "Wrong Username/Email or Password");
+            throw new ValidationException(string.Empty, "Wrong Password");
         }
 
         var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -105,16 +106,21 @@ public class IdentityService : IIdentityService
 
         if (!result.Succeeded)
         {
-            var user = new ApplicationUser
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user is null)
             {
-                UserName = email,
-                Email = email,
-            };
+                user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                };
 
-            await CreateApplicationUser(user);
+                await CreateApplicationUser(user);
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            await _userManager.ConfirmEmailAsync(user, code);
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                await _userManager.ConfirmEmailAsync(user, code);
+            }
+
             await _userManager.AddLoginAsync(user, info);
         }
 
@@ -160,6 +166,43 @@ public class IdentityService : IIdentityService
         }
 
         return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
+    }
+
+    public async Task ChangePasswordAsync(string username, string oldPassword, string newPassword)
+    {
+        var user = await GetApplicationUser(username);
+
+        var externalLogins = await _userManager.GetLoginsAsync(user);
+
+        IdentityResult result;
+
+        if (externalLogins.Any())
+        {
+            result = await _userManager.AddPasswordAsync(user, newPassword);
+        }
+        else
+        {
+            result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+
+        if (!result.Succeeded && result.Errors.Any())
+        {
+            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
+            foreach (var error in result.Errors)
+            {
+                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+            }
+            throw new ValidationException(validationFailureList);
+        }
+    }
+
+    public async Task<bool> CheckIsExternalUser(string email)
+    {
+        var user = await GetApplicationUser(email);
+
+        var externalLogins = await _userManager.GetLoginsAsync(user);
+
+        return externalLogins.Any();
     }
 
     private async Task<ApplicationUser> GetApplicationUser(string usernameOrEmail)
