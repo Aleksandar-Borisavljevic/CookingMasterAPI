@@ -18,19 +18,13 @@ public class ValidationException : Exception
             .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
     }
 
-    public ValidationException(IEnumerable<ValidationFailure> failures, string message)
-       : base(message)
-    {
-        Errors = new Dictionary<string, string[]>();
-        Errors = failures
-            .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
-            .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
-    }
-
-    public ValidationException(string message)
+    public ValidationException(string key, string message)
    : base(message)
     {
-        Errors = new Dictionary<string, string[]>();
+        Errors = new Dictionary<string, string[]>
+        {
+            { key, new string[] { message } }
+        };
     }
 
     public IDictionary<string, string[]> Errors { get; }

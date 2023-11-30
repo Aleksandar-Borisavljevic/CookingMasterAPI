@@ -61,6 +61,9 @@ public class CookingMasterDbContextInitialiser
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
+            var user = await _userManager.FindByEmailAsync(administrator.Email);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            await _userManager.ConfirmEmailAsync(user, code);
 
         }
 

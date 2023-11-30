@@ -28,10 +28,7 @@ public class RefreshCommandHandler : IRequestHandler<RefreshCommand, RefreshComm
 
         if (refreshToken is null || refreshToken?.ExpiryDate < DateTime.UtcNow || refreshToken?.IsRevoked == true)
         {
-            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
-            var errorMessage = "Refresh token is revoked or expired";
-            validationFailureList.Add(new ValidationFailure("", errorMessage));
-            throw new ValidationException(validationFailureList);
+            throw new ValidationException(string.Empty, "Refresh token is revoked or expired");
         }
 
         var newAccessToken = _tokenService.GenerateAccessToken(userInfo);

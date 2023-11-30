@@ -41,7 +41,10 @@ public static class ConfigureServices
         services.AddScoped<CookingMasterDbContextInitialiser>();
 
         services
-            .AddDefaultIdentity<ApplicationUser>()
+            .AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<CookingMasterDbContext>();
 

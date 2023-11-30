@@ -24,13 +24,19 @@ public class IdentityService : IIdentityService
     public async Task ValidateUserAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId); //TODO: validate is user deleted or locked or not confirmed
-        if (user == null)
+        if (user is null)
         {
             throw new NotFoundException("User does not exist");
         }
+        var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+
+        if (!isEmailConfirmed)
+        {
+            throw new ValidationException(string.Empty, "Email Not Confirmed");
+        }
     }
 
-    public async Task<UserInfo> CreateUserAsync(string email, string username, string password)
+    public async Task<string> CreateUserAsync(string email, string username, string password)
     {
         var user = new ApplicationUser
         {
@@ -38,9 +44,18 @@ public class IdentityService : IIdentityService
             Email = email,
         };
 
-        await _userManager.CreateAsync(user, password);
+        var result = await _userManager.CreateAsync(user, password);
+        if (!result.Succeeded && result.Errors.Any())
+        {
+            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
+            foreach (var error in result.Errors)
+            {
+                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+            }
+            throw new ValidationException(validationFailureList);
+        }
 
-        return await GetUserInfo(username);
+        return await _userManager.GenerateEmailConfirmationTokenAsync(user);
     }
 
     public async Task<UserInfo> CheckCredentials(string usernameOrEmail, string password)
@@ -59,11 +74,14 @@ public class IdentityService : IIdentityService
 
         if (!areCredentialsCorrect)
         {
-            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
+            throw new ValidationException(string.Empty, "Wrong Username/Email or Password");
+        }
 
-            var errorMessage = "Wrong Username/Email or Password";
-            validationFailureList.Add(new ValidationFailure("", errorMessage));
-            throw new ValidationException(validationFailureList);
+        var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+
+        if (!isEmailConfirmed)
+        {
+            throw new ValidationException(string.Empty, "Email Not Confirmed");
         }
 
         return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
@@ -91,14 +109,12 @@ public class IdentityService : IIdentityService
         var info = await _signInManager.GetExternalLoginInfoAsync();
         if (info is null)
         {
-            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
-
-            var errorMessage = "Error from external provider";
-            validationFailureList.Add(new ValidationFailure("", errorMessage));
-            throw new ValidationException(validationFailureList);
+            throw new ValidationException(string.Empty, "Error from external provider");
         }
+
         var email = info.Principal.FindFirstValue(ClaimTypes.Email);
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
         if (!result.Succeeded)
         {
             var user = new ApplicationUser
@@ -106,7 +122,19 @@ public class IdentityService : IIdentityService
                 UserName = email,
                 Email = email,
             };
-            await _userManager.CreateAsync(user);
+            var newUserResult = await _userManager.CreateAsync(user);
+            if (!newUserResult.Succeeded && newUserResult.Errors.Any())
+            {
+                IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
+                foreach (var error in newUserResult.Errors)
+                {
+                    validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+                }
+                throw new ValidationException(validationFailureList);
+            }
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            await _userManager.ConfirmEmailAsync(user, code);
             await _userManager.AddLoginAsync(user, info);
         }
 
