@@ -5,7 +5,8 @@ namespace CookingMasterApi.Application.Common.Interfaces;
 
 public interface IIdentityService
 {
-    Task ValidateUserAsync(string userId);
+    Task ValidateUserByIdAsync(string userId);
+    Task<string> GetForgotPasswordCodeAsync(string email);
     Task<string> CreateUserAsync(string email, string username, string password);
     Task<UserInfo> CheckCredentials(string usernameOrEmail, string password);
     Task<UserInfo> GetUserInfo(string usernameOrEmail);

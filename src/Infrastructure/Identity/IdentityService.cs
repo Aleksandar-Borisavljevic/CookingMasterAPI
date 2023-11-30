@@ -21,7 +21,7 @@ public class IdentityService : IIdentityService
         _signInManager = signInManager;
     }
 
-    public async Task ValidateUserAsync(string userId)
+    public async Task ValidateUserByIdAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
         if (user is null)
@@ -35,6 +35,17 @@ public class IdentityService : IIdentityService
         {
             throw new ValidationException(string.Empty, "Email Not Confirmed");
         }
+    }
+
+    public async Task<string> GetForgotPasswordCodeAsync(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user is null)
+        {
+            throw new NotFoundException("User with this email does not exist");
+        }
+
+        return await _userManager.GeneratePasswordResetTokenAsync(user);
     }
 
     public async Task<string> CreateUserAsync(string email, string username, string password)

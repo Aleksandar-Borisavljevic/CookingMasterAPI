@@ -8,7 +8,6 @@ namespace CookingMasterApi.WebUI.Controllers;
 public class RegistrationController : ApiControllerBase
 {
     [HttpPost(nameof(Register))]
-    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Register(RegisterCommand command)
     {
@@ -17,7 +16,6 @@ public class RegistrationController : ApiControllerBase
     }
 
     [HttpPost(nameof(ConfirmEmail))]
-    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand command)
     {

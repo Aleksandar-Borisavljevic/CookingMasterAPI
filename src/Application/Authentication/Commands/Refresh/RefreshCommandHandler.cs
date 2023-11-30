@@ -24,7 +24,7 @@ public class RefreshCommandHandler : IRequestHandler<RefreshCommand, RefreshComm
 
         var userInfo = _tokenService.GetUserInfoFromAccessToken(command.AccessToken);
         var refreshToken = await _refreshTokenService.GetToken(new Guid(userInfo.UserId), command.RefreshToken);
-        await _identityService.ValidateUserAsync(userInfo.UserId);
+        await _identityService.ValidateUserByIdAsync(userInfo.UserId);
 
         if (refreshToken is null || refreshToken?.ExpiryDate < DateTime.UtcNow || refreshToken?.IsRevoked == true)
         {

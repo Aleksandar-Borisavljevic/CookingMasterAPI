@@ -10,7 +10,6 @@ namespace CookingMasterApi.WebUI.Controllers;
 public class AuthController : ApiControllerBase
 {
     [HttpPost(nameof(SignIn))]
-    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<SignInCommandResult>> SignIn(SignInCommand command)
     {
@@ -19,7 +18,6 @@ public class AuthController : ApiControllerBase
     }
 
     [HttpPost(nameof(Refresh))]
-    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<RefreshCommandResult>> Refresh(RefreshCommand command)
     {
