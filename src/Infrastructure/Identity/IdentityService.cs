@@ -49,7 +49,25 @@ public class IdentityService : IIdentityService
         return await _userManager.GeneratePasswordResetTokenAsync(user);
     }
 
-    public async Task<string> CreateUserAsync(string email, string username, string password)
+    public async Task<string> GetConfirmationEmailCodeAsync(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user is null)
+        {
+            throw new NotFoundException("User with this email does not exist");
+        }
+        var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+
+        if (isEmailConfirmed)
+        {
+            throw new ValidationException(string.Empty, "Email is Already Confirmed");
+        }
+
+        return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+    }
+
+    public async Task CreateUserAsync(string email, string username, string password)
     {
         var user = new ApplicationUser
         {
@@ -58,8 +76,6 @@ public class IdentityService : IIdentityService
         };
 
         await CreateApplicationUser(user, password);
-
-        return await _userManager.GenerateEmailConfirmationTokenAsync(user);
     }
 
     public async Task<UserInfo> CheckCredentials(string usernameOrEmail, string password)
