@@ -44,9 +44,16 @@ public static class ConfigureServices
             .AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.User.RequireUniqueEmail = true;
+                options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+                options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultPhoneProvider;
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<CookingMasterDbContext>();
+
+        services.Configure<DataProtectionTokenProviderOptions>(options =>
+        {
+            options.TokenLifespan = TimeSpan.FromDays(5);
+        });
 
 
         services.AddTransient<IIdentityService, IdentityService>();
