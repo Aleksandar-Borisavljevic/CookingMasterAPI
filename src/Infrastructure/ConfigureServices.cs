@@ -59,6 +59,7 @@ public static class ConfigureServices
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+        services.AddScoped<IEmailService, EmailService>();
 
         var googleSettings = configuration.Read<GoogleSettings>();
         var facebookSettings = configuration.Read<FacebookSettings>();

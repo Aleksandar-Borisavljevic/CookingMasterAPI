@@ -7,11 +7,12 @@ namespace CookingMasterApi.Application.Registration.Commands.SendConfirmationEma
 public class SendConfirmationEmailCommandHandler : IRequestHandler<SendConfirmationEmailCommand>
 {
     private readonly IIdentityService _identityService;
-    //TODO: email service;
+    private readonly IEmailService _emailService;
 
-    public SendConfirmationEmailCommandHandler(IIdentityService identityService)
+    public SendConfirmationEmailCommandHandler(IIdentityService identityService, IEmailService emailService)
     {
         _identityService = identityService;
+        _emailService = emailService;
     }
 
     public async Task Handle(SendConfirmationEmailCommand command, CancellationToken cancellationToken)
@@ -19,7 +20,9 @@ public class SendConfirmationEmailCommandHandler : IRequestHandler<SendConfirmat
 
         var code = await _identityService.GetConfirmationEmailCodeAsync(command.Email);
 
-        //Mail
+        var user = await _identityService.GetUserInfo(command.Email);
+
+        await _emailService.Send();
     }
 
 }

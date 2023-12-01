@@ -7,11 +7,12 @@ namespace CookingMasterApi.Application.Password.Commands.ForgotPassword;
 public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordCommand>
 {
     private readonly IIdentityService _identityService;
-    //TODO: email service;
+    private readonly IEmailService _emailService;
 
-    public ForgotPasswordCommandHandler(IIdentityService identityService)
+    public ForgotPasswordCommandHandler(IIdentityService identityService, IEmailService emailService)
     {
         _identityService = identityService;
+        _emailService = emailService;
     }
 
     public async Task Handle(ForgotPasswordCommand command, CancellationToken cancellationToken)
@@ -19,7 +20,9 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
 
         var code = await _identityService.GetForgotPasswordCodeAsync(command.Email);
 
-        //Mail
+        var user = await _identityService.GetUserInfo(command.Email);
+
+        await _emailService.Send();
     }
 
 }
