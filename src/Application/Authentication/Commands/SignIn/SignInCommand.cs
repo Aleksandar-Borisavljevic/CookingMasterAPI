@@ -1,9 +1,9 @@
-﻿using MediatR;
-using System;
+﻿using CookingMasterApi.Application.Common.Interfaces;
+using MediatR;
 
 namespace CookingMasterApi.Application.Authentication.Commands.SignIn;
 
-public class SignInCommand : IRequest<SignInCommandResult>
+public class SignInCommand : IRequest<SignInCommandResult>, IContainsSensitiveData
 {
     public string UsernameOrEmail { get; set; }
     public string Password { get; set; }

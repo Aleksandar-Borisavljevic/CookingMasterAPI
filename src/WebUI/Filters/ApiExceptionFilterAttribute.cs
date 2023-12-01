@@ -1,4 +1,5 @@
-﻿using CookingMasterApi.Application.Common.Exceptions;
+﻿using System.Text.Json;
+using CookingMasterApi.Application.Common.Exceptions;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -56,6 +57,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         context.Result = new BadRequestObjectResult(details);
 
         context.ExceptionHandled = true;
+
+        Serilog.Log.Error(JsonSerializer.Serialize(details));
     }
 
     private void HandleInvalidModelStateException(ExceptionContext context)

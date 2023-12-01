@@ -1,9 +1,9 @@
-﻿using MediatR;
-using System;
+﻿using CookingMasterApi.Application.Common.Interfaces;
+using MediatR;
 
 namespace CookingMasterApi.Application.Password.Commands.ResetPassword;
 
-public class ResetPasswordCommand : IRequest<ResetPasswordCommandResult>
+public class ResetPasswordCommand : IRequest<ResetPasswordCommandResult>, IContainsSensitiveData
 {
     public string Email { get; set; }
     public string Code { get; set; }

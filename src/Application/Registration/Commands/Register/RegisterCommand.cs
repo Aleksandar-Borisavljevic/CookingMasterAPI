@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using CookingMasterApi.Application.Common.Interfaces;
+using MediatR;
 
 namespace CookingMasterApi.Application.Registration.Commands.Register;
 
-public class RegisterCommand : IRequest
+public class RegisterCommand : IRequest, IContainsSensitiveData
 {
     public string Email { get; set; }
     public string Username { get; set; }
