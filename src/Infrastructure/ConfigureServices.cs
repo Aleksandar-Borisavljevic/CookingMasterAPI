@@ -1,10 +1,13 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Infrastructure.Identity;
 using CookingMasterApi.Infrastructure.Options;
 using CookingMasterApi.Infrastructure.Persistence;
 using CookingMasterApi.Infrastructure.Persistence.Interceptors;
 using CookingMasterApi.Infrastructure.Services;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -85,11 +88,25 @@ public static class ConfigureServices
         {
             googleOptions.ClientId = googleSettings.ClientId;
             googleOptions.ClientSecret = googleSettings.ClientSecret;
+            googleOptions.Events.OnCreatingTicket = (context) =>
+            {
+                var picture = context.User.GetProperty(JwtClaimTypes.Picture).GetString();
+                context.Identity.AddClaim(new Claim(JwtClaimTypes.Picture, picture));
+                return Task.CompletedTask;
+            };
         })
         .AddFacebook(facebookOptions =>
         {
-            facebookOptions.AppId = googleSettings.ClientId;
-            facebookOptions.AppSecret = googleSettings.ClientSecret;
+            facebookOptions.AppId = facebookSettings.ClientId;
+            facebookOptions.AppSecret = facebookSettings.ClientSecret;
+            facebookOptions.Fields.Add(JwtClaimTypes.Picture);
+            facebookOptions.Events.OnCreatingTicket = (context) =>
+            {
+                //Facebook need to fix this
+                var picture = context.User.GetProperty(JwtClaimTypes.Picture).GetProperty("data").GetProperty("url").GetString();
+                context.Identity.AddClaim(new Claim(JwtClaimTypes.Picture, picture));
+                return Task.CompletedTask;
+            };
         }); ;
 
 

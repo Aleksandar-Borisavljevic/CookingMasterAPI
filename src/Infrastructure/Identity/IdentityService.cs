@@ -3,6 +3,7 @@ using CookingMasterApi.Application.Common.Exceptions;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.Common.Models;
 using FluentValidation.Results;
+using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using static Duende.IdentityServer.Models.IdentityResources;
@@ -118,6 +119,7 @@ public class IdentityService : IIdentityService
         }
 
         var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+        var picture = info.Principal.FindFirstValue(JwtClaimTypes.Picture);
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
         if (!result.Succeeded)
