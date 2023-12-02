@@ -14,7 +14,7 @@ public class CreateCulinaryRecipeCommand : IRequest<CreateCulinaryRecipeCommandR
 {
     public string RecipeName { get; set; }
     public string RecipeDescription { get; set; }
-    public CuisineType CuisineType { get; set; }
+    public int CuisineTypeId { get; set; }
 
     public void Mapping(Profile profile)
     {

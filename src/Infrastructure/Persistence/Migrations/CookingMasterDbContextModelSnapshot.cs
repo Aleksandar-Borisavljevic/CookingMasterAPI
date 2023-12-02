@@ -61,45 +61,45 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Italian",
-                            Uid = new Guid("68182175-ce37-4432-954a-22414308f401")
+                            Uid = new Guid("1ba5932d-15b5-4f84-ab75-b0e43807bfd9")
                         },
                         new
                         {
-                            Id = -2,
+                            Id = 2,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Indian",
-                            Uid = new Guid("fd846694-f76c-49e6-9502-7515c87ddc39")
+                            Uid = new Guid("0accf785-71c4-4b15-96c2-d1ac29a97b34")
                         },
                         new
                         {
-                            Id = -3,
+                            Id = 3,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Mexican",
-                            Uid = new Guid("9eb20dff-b541-48bb-a9e2-e94e6b411dcf")
+                            Uid = new Guid("3249df1d-df6b-43c2-83eb-c1dc6c1f1aeb")
                         },
                         new
                         {
-                            Id = -4,
+                            Id = 4,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Chinese",
-                            Uid = new Guid("d840b4dc-1cb5-4f62-9321-68d13f002308")
+                            Uid = new Guid("c9beff56-45ba-432c-af5a-07e4663819ec")
                         },
                         new
                         {
-                            Id = -5,
+                            Id = 5,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "French",
-                            Uid = new Guid("d2c99c99-2afe-4070-a07c-5e4d59995551")
+                            Uid = new Guid("4f2e97b1-692a-4b48-828d-6df0d2f9ee32")
                         },
                         new
                         {
-                            Id = -6,
+                            Id = 6,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CuisineName = "Thai",
-                            Uid = new Guid("854a877a-05dd-4d76-a6ce-10b8e3ce8196")
+                            Uid = new Guid("77ace930-5bc4-4b2e-8d63-bd9618928388")
                         });
                 });
 

@@ -22,8 +22,18 @@ public class CreateCulinaryRecipeCommandHandler : IRequestHandler<CreateCulinary
     }
     public async Task<CreateCulinaryRecipeCommandResult> Handle(CreateCulinaryRecipeCommand request, CancellationToken cancellationToken)
     {
+        var cuisineType = await _context.CuisineTypes.FindAsync(request.CuisineTypeId);
+
+        if (cuisineType is null)
+        {
+
+        }
+
         var entity = _mapper.Map<CulinaryRecipe>(request);
+
         var result = (await _context.CulinaryRecipes.AddAsync(entity)).Entity;
+
+        result.CuisineType = cuisineType;
 
         await _context.SaveChangesAsync(cancellationToken);
 
