@@ -8,34 +8,19 @@ using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.IngredientCategories.Commands.Create;
 using CookingMasterApi.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterApi.Application.CulinaryRecipes.Commands.Create;
 public class CreateCulinaryRecipeCommandHandler : IRequestHandler<CreateCulinaryRecipeCommand, CreateCulinaryRecipeCommandResult>
 {
-    private readonly ICookingMasterDbContext _context;
-    private readonly IMapper _mapper;
-
-    public CreateCulinaryRecipeCommandHandler(ICookingMasterDbContext context, IMapper mapper)
+    readonly ICulinaryRecipeService _service;
+    public CreateCulinaryRecipeCommandHandler(ICulinaryRecipeService service)
     {
-        _context = context;
-        _mapper = mapper;
+        _service = service;
     }
     public async Task<CreateCulinaryRecipeCommandResult> Handle(CreateCulinaryRecipeCommand request, CancellationToken cancellationToken)
     {
-        var cuisineType = await _context.CuisineTypes.FindAsync(request.CuisineTypeId);
-
-        if (cuisineType is null)
-        {
-
-        }
-
-        var entity = _mapper.Map<CulinaryRecipe>(request);
-
-        var result = (await _context.CulinaryRecipes.AddAsync(entity)).Entity;
-
-        result.CuisineType = cuisineType;
-
-        await _context.SaveChangesAsync(cancellationToken);
+        var result = await _service.CreateAsync(request, cancellationToken);
 
         return new CreateCulinaryRecipeCommandResult(result.RecipeName, result.RecipeDescription, result.CuisineType);
     }

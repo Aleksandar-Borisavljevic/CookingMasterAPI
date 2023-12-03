@@ -49,6 +49,7 @@ public static class ConfigureServices
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+        services.AddScoped<ICulinaryRecipeService, CulinaryRecipeService>();
 
         services.AddAuthentication(options =>
         {

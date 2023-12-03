@@ -11,7 +11,7 @@ namespace WebUI.Controllers;
 public class CulinaryRecipeController : ApiControllerBase
 {
     [HttpPost(nameof(CreateCulinaryRecipe))]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<CreateCulinaryRecipeCommandResult>> CreateCulinaryRecipe(CreateCulinaryRecipeCommand command)
     {
         return Ok(await Mediator.Send(command));
