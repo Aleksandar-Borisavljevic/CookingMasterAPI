@@ -17,4 +17,6 @@ public interface IIdentityService
     Task<UserInfo> ResetPasswordAsync(string email, string code, string password);
     Task ChangePasswordAsync(string username, string oldPassword, string newPassword);
     Task<bool> CheckIsExternalUser(string email);
+    Task<bool> IsEmailConfirmationCodeValid(string email, string code);
+    Task<bool> IsResetPasswordCodeValid(string email, string code);
 }

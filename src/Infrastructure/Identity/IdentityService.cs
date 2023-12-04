@@ -223,6 +223,20 @@ public class IdentityService : IIdentityService
         return externalLogins.Any();
     }
 
+    public async Task<bool> IsEmailConfirmationCodeValid(string email, string code)
+    {
+        var user = await GetApplicationUser(email);
+
+        return await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.EmailConfirmationTokenProvider, "EmailConfirmation", code);
+    }
+
+    public async Task<bool> IsResetPasswordCodeValid(string email, string code)
+    {
+        var user = await GetApplicationUser(email);
+
+        return await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.PasswordResetTokenProvider, "ResetPassword", code);
+    }
+
     private async Task<ApplicationUser> GetApplicationUser(string usernameOrEmail)
     {
         var user = await _userManager.FindByNameAsync(usernameOrEmail);

@@ -1,7 +1,7 @@
 ﻿using CookingMasterApi.Application.Registration.Commands.ConfirmEmail;
 using CookingMasterApi.Application.Registration.Commands.Register;
 using CookingMasterApi.Application.Registration.Commands.SendConfirmationEmail;
-using Microsoft.AspNetCore.Authorization;
+using CookingMasterApi.Application.Registration.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookingMasterApi.WebUI.Controllers;
@@ -29,6 +29,14 @@ public class RegistrationController : ApiControllerBase
     public async Task<IActionResult> ConfirmEmail(ConfirmEmailCommand command)
     {
         await Mediator.Send(command);
+        return Ok();
+    }
+
+    [HttpGet(nameof(IsValidEmailConfirmationCode))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> IsValidEmailConfirmationCode(CheckIsValidEmailConfirmationCodeQuery query)
+    {
+        await Mediator.Send(query);
         return Ok();
     }
 }

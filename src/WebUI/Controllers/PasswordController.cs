@@ -1,6 +1,8 @@
 ﻿using CookingMasterApi.Application.Password.Commands.ChangePassword;
 using CookingMasterApi.Application.Password.Commands.ForgotPassword;
 using CookingMasterApi.Application.Password.Commands.ResetPassword;
+using CookingMasterApi.Application.Password.Queries;
+using CookingMasterApi.Application.Registration.Queries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +33,14 @@ public class PasswordController : ApiControllerBase
     public async Task<IActionResult> ChangePassword(ChangePasswordCommand command)
     {
         await Mediator.Send(command);
+        return Ok();
+    }
+
+    [HttpGet(nameof(IsValidResetPasswordCode))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> IsValidResetPasswordCode(CheckIsValidResetPasswordCodeQuery query)
+    {
+        await Mediator.Send(query);
         return Ok();
     }
 
