@@ -22,8 +22,10 @@ public static class ConfigureServices
     {
         var jwtSettings = configuration.Read<JwtSettings>();
         var refreshTokenSettings = configuration.Read<RefreshTokenSettings>();
+        var emailSettings = configuration.Read<EmailSettings>();
         services.AddSingleton(jwtSettings);
         services.AddSingleton(refreshTokenSettings);
+        services.AddSingleton(emailSettings);
 
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 

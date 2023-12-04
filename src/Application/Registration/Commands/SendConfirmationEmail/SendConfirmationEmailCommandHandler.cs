@@ -2,6 +2,7 @@
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Entities;
 using CookingMasterApi.Domain.Common;
+using CookingMasterApi.Application.Common.Models;
 
 namespace CookingMasterApi.Application.Registration.Commands.SendConfirmationEmail;
 
@@ -29,9 +30,11 @@ public class SendConfirmationEmailCommandHandler : IRequestHandler<SendConfirmat
             paramsStartSign = "#";
         }
 
-       var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
+        var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 
-        await _emailService.Send();
+        var emailData = new EmailData(command.Email, "Cooking Master Email Confiramtion", url);
+
+        await _emailService.Send(emailData);
     }
 
 }

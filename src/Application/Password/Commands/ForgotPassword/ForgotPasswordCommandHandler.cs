@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Common;
+using CookingMasterApi.Application.Common.Models;
 
 namespace CookingMasterApi.Application.Password.Commands.ForgotPassword;
 
@@ -30,7 +31,9 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
 
         var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 
-        await _emailService.Send();
+        var emailData = new EmailData(command.Email, "Forgot Password", url);
+
+        await _emailService.Send(emailData);
     }
 
 }
