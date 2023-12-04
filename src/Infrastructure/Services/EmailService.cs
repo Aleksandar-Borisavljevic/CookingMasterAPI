@@ -1,6 +1,7 @@
 ﻿using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.Common.Models;
 using CookingMasterApi.Infrastructure.Options;
+using Duende.IdentityServer.Models;
 using MailKit.Net.Smtp;
 using MimeKit;
 
@@ -24,13 +25,15 @@ public class EmailService : IEmailService
             emailMessage.To.Add(emailTo);
             emailMessage.Subject = data.EmailSubject;
             BodyBuilder emailBodyBuilder = new BodyBuilder();
-            emailBodyBuilder.HtmlBody = string.Format("<a href={0} > Register </>", data.EmailHtmlBody);
+            emailBodyBuilder.HtmlBody = $"<a href='{data.EmailHtmlBody}' > Register </>";
+            emailBodyBuilder.TextBody = "-";
             emailMessage.Body = emailBodyBuilder.ToMessageBody();
+            //emailMessage.Body = new TextPart("html") { Text = $"<a href='{data.EmailHtmlBody}' > Register </>" }
 
             using (SmtpClient mailClient = new SmtpClient())
             {
                 await mailClient.ConnectAsync(_settings.Server, _settings.Port, MailKit.Security.SecureSocketOptions.StartTls);
-                await mailClient.AuthenticateAsync(_settings.UserName, _settings.Password);
+                await mailClient.AuthenticateAsync(_settings.SenderEmail, _settings.Password);
                 await mailClient.SendAsync(emailMessage);
                 await mailClient.DisconnectAsync(true);
             }

@@ -38,9 +38,9 @@ public class PasswordController : ApiControllerBase
 
     [HttpGet(nameof(IsValidResetPasswordCode))]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> IsValidResetPasswordCode(CheckIsValidResetPasswordCodeQuery query)
+    public async Task<IActionResult> IsValidResetPasswordCode(string email, string code)
     {
-        await Mediator.Send(query);
+        await Mediator.Send(new CheckIsValidResetPasswordCodeQuery { Email = email, Code = code });
         return Ok();
     }
 

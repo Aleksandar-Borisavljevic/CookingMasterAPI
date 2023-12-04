@@ -21,14 +21,15 @@ public class SendConfirmationEmailCommandHandler : IRequestHandler<SendConfirmat
     {
 
         var code = await _identityService.GetConfirmationEmailCodeAsync(command.Email);
+        //var encodedCode = System.Net.WebUtility.UrlEncode(code);
 
         var user = await _identityService.GetUserInfo(command.Email);
 
         var paramsStartSign = "?";
-        if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
-        {
-            paramsStartSign = "#";
-        }
+        //if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
+        //{
+        //    paramsStartSign = "#";
+        //}
 
         var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 

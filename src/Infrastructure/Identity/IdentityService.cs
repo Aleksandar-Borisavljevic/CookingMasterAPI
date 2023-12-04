@@ -227,6 +227,13 @@ public class IdentityService : IIdentityService
     {
         var user = await GetApplicationUser(email);
 
+        var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+
+        if (isEmailConfirmed)
+        {
+            throw new ValidationException(string.Empty, "Email is Already Confirmed");
+        }
+
         return await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.EmailConfirmationTokenProvider, "EmailConfirmation", code);
     }
 

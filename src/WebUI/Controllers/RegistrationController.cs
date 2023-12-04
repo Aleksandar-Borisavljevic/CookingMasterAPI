@@ -34,9 +34,9 @@ public class RegistrationController : ApiControllerBase
 
     [HttpGet(nameof(IsValidEmailConfirmationCode))]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> IsValidEmailConfirmationCode(CheckIsValidEmailConfirmationCodeQuery query)
+    public async Task<IActionResult> IsValidEmailConfirmationCode(string email, string code)
     {
-        await Mediator.Send(query);
+        await Mediator.Send(new CheckIsValidEmailConfirmationCodeQuery { Email = email, Code = code });
         return Ok();
     }
 }
