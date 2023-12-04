@@ -24,14 +24,12 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
         var user = await _identityService.GetUserInfo(command.Email);
 
         var paramsStartSign = "?";
-        if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
-        {
-            paramsStartSign = "#";
-        }
 
         var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 
-        var emailData = new EmailData(command.Email, "Forgot Password", url);
+        var htmlBody = GeneralHelper.GenerateResetPasswordHtml(user.Username, url);
+
+        var emailData = new EmailData(command.Email, "Forgot Password", htmlBody);
 
         await _emailService.Send(emailData);
     }

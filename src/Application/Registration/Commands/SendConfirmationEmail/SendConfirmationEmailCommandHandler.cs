@@ -26,14 +26,12 @@ public class SendConfirmationEmailCommandHandler : IRequestHandler<SendConfirmat
         var user = await _identityService.GetUserInfo(command.Email);
 
         var paramsStartSign = "?";
-        //if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
-        //{
-        //    paramsStartSign = "#";
-        //}
 
         var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 
-        var emailData = new EmailData(command.Email, "Cooking Master Email Confiramtion", url);
+        var htmlBody = GeneralHelper.GenerateRegisterHtml(user.Username, url);
+
+        var emailData = new EmailData(command.Email, "Cooking Master Email Confiramtion", htmlBody);
 
         await _emailService.Send(emailData);
     }

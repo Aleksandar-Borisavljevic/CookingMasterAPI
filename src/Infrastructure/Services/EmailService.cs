@@ -25,7 +25,7 @@ public class EmailService : IEmailService
             emailMessage.To.Add(emailTo);
             emailMessage.Subject = data.EmailSubject;
             BodyBuilder emailBodyBuilder = new BodyBuilder();
-            emailBodyBuilder.HtmlBody = $"<a href='{data.EmailHtmlBody}' > Register </>";
+            emailBodyBuilder.HtmlBody = data.EmailHtmlBody;
             emailBodyBuilder.TextBody = "-";
             emailMessage.Body = emailBodyBuilder.ToMessageBody();
             //emailMessage.Body = new TextPart("html") { Text = $"<a href='{data.EmailHtmlBody}' > Register </>" }

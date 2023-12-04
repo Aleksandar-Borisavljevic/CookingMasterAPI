@@ -23,8 +23,7 @@ public class PasswordController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> ResetPassword(ResetPasswordCommand command)
     {
-        await Mediator.Send(command);
-        return Ok();
+        return Ok(await Mediator.Send(command));
     }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -40,8 +39,7 @@ public class PasswordController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> IsValidResetPasswordCode(string email, string code)
     {
-        await Mediator.Send(new CheckIsValidResetPasswordCodeQuery { Email = email, Code = code });
-        return Ok();
+        return Ok(await Mediator.Send(new CheckIsValidResetPasswordCodeQuery { Email = email, Code = code }));
     }
 
 }
