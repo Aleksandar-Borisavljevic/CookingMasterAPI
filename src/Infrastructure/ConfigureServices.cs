@@ -47,8 +47,14 @@ public static class ConfigureServices
             .AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.User.RequireUniqueEmail = true;
-                options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
-                options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultPhoneProvider;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+                //options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+                //options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultPhoneProvider;
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<CookingMasterDbContext>();

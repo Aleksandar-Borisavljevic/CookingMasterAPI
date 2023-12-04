@@ -25,5 +25,9 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
             .Equal(x => x.ConfirmedPassword)
             .WithMessage("Password does not match the confirm password");
 
+        RuleFor(c => c.ReturnUrl)
+          .NotNull()
+          .NotEmpty();
+
     }
 }

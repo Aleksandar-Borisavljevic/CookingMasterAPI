@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
-
+using CookingMasterApi.Domain.Entities;
+using CookingMasterApi.Domain.Common;
 
 namespace CookingMasterApi.Application.Registration.Commands.SendConfirmationEmail;
 
@@ -21,6 +22,14 @@ public class SendConfirmationEmailCommandHandler : IRequestHandler<SendConfirmat
         var code = await _identityService.GetConfirmationEmailCodeAsync(command.Email);
 
         var user = await _identityService.GetUserInfo(command.Email);
+
+        var paramsStartSign = "?";
+        if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
+        {
+            paramsStartSign = "#";
+        }
+
+       var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 
         await _emailService.Send();
     }

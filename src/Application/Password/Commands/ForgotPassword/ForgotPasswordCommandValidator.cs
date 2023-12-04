@@ -12,5 +12,9 @@ public class ForgotPasswordCommandValidator : AbstractValidator<ForgotPasswordCo
            .NotNull()
            .NotEmpty()
            .EmailAddress();
+
+        RuleFor(c => c.ReturnUrl)
+          .NotNull()
+          .NotEmpty();
     }
 }

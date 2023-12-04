@@ -6,5 +6,6 @@ namespace CookingMasterApi.Application.Registration.Commands.SendConfirmationEma
 public class SendConfirmationEmailCommand : IRequest, IContainsSensitiveData
 {
     public string Email { get; set; }
+    public string ReturnUrl { get; set; }
 
 }

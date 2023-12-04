@@ -19,7 +19,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand>
     {
         await _identityService.CreateUserAsync(command.Email, command.Username, command.Password);
 
-        await _mediator.Send(new SendConfirmationEmailCommand { Email = command.Email });
+        await _mediator.Send(new SendConfirmationEmailCommand { Email = command.Email, ReturnUrl = command.ReturnUrl });
     }
 
 }

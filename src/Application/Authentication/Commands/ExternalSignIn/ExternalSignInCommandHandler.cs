@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Entities;
+using CookingMasterApi.Domain.Common;
 
 namespace CookingMasterApi.Application.Authentication.Commands.ExternalSignIn;
 
@@ -28,18 +29,12 @@ public class ExternalSignInCommandHandler : IRequestHandler<ExternalSignInComman
         await _refreshTokenService.AddToken(new RefreshToken() { UserId = new Guid(userInfo.UserId), IsRevoked = false, Token = refreshToken.Token, ExpiryDate = refreshToken.ExpiryDate });
 
         var paramsStartSign = "?";
-        if (!IsHttpUrl(command.ReturnUrl))
+        if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
         {
             paramsStartSign = "#";
         }
 
         return new ExternalSignInCommandResult(string.Format("{0}{1}AccessToken={2}&RefreshToken={3}", command.ReturnUrl, paramsStartSign, accessToken, refreshToken));
-    }
-
-    private bool IsHttpUrl(string returnUrl)
-    {
-        return Uri.TryCreate(returnUrl, UriKind.Absolute, out Uri uriResult)
-            && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
     }
 
 }

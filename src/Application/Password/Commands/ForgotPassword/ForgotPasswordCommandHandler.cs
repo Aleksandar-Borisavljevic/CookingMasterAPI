@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
-
+using CookingMasterApi.Domain.Common;
 
 namespace CookingMasterApi.Application.Password.Commands.ForgotPassword;
 
@@ -21,6 +21,14 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
         var code = await _identityService.GetForgotPasswordCodeAsync(command.Email);
 
         var user = await _identityService.GetUserInfo(command.Email);
+
+        var paramsStartSign = "?";
+        if (!GeneralHelper.IsHttpUrl(command.ReturnUrl))
+        {
+            paramsStartSign = "#";
+        }
+
+        var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
 
         await _emailService.Send();
     }

@@ -13,5 +13,9 @@ public class SendConfirmationEmailCommandValidator : AbstractValidator<SendConfi
            .NotEmpty()
            .EmailAddress();
 
+        RuleFor(c => c.ReturnUrl)
+          .NotNull()
+          .NotEmpty();
+
     }
 }
