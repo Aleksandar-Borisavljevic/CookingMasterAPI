@@ -28,7 +28,7 @@ public class FileController : ApiControllerBase
     [HttpPost(nameof(UploadImage))]
     [ProducesResponseType(StatusCodes.Status200OK)]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> UploadImage(UploadImageCommand command)
+    public async Task<IActionResult> UploadImage([FromForm] UploadImageCommand command)
     {
         return Ok(await Mediator.Send(command));
     }
