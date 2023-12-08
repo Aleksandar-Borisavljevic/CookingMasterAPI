@@ -26,7 +26,7 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
         var refreshToken = _tokenService.GenerateRefreshToken();
         await _refreshTokenService.AddToken(new RefreshToken() { UserId = new Guid(userInfo.UserId), IsRevoked = false, Token = refreshToken.Token, ExpiryDate = refreshToken.ExpiryDate });
 
-        return new ResetPasswordCommandResult(accessToken, refreshToken.Token);
+        return new ResetPasswordCommandResult(accessToken, refreshToken.Token, userInfo.PictureUid);
     }
 
 }
