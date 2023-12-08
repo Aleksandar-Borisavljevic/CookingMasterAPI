@@ -4,6 +4,7 @@ using CookingMasterApi.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookingMasterApi.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CookingMasterDbContext))]
-    partial class CookingMasterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231208203139_FileDetails")]
+    partial class FileDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

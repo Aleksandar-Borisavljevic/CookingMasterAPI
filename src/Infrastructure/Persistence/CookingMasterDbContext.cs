@@ -20,9 +20,9 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
     public DbSet<CuisineType> CuisineTypes => Set<CuisineType>();
-
     public DbSet<CulinaryRecipe> CulinaryRecipes => Set<CulinaryRecipe>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<FileDetails> FileDetails => Set<FileDetails>();
 
     protected override void OnModelCreating(ModelBuilder builder) //TODO: separate file for seed data
     {

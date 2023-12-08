@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Runtime.Serialization.Formatters;
+using System.Security.Claims;
 using System.Text;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Infrastructure.Identity;
@@ -21,11 +22,10 @@ public static class ConfigureServices
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSettings = configuration.Read<JwtSettings>();
-        var refreshTokenSettings = configuration.Read<RefreshTokenSettings>();
-        var emailSettings = configuration.Read<EmailSettings>();
         services.AddSingleton(jwtSettings);
-        services.AddSingleton(refreshTokenSettings);
-        services.AddSingleton(emailSettings);
+        services.AddSingleton(configuration.Read<RefreshTokenSettings>());
+        services.AddSingleton(configuration.Read<EmailSettings>());
+        services.AddSingleton(configuration.Read<BlobStorageSettings>());
 
         services.AddScoped<AuditableEntitySaveChangesInterceptor>();
 
@@ -67,10 +67,11 @@ public static class ConfigureServices
         });
 
 
-        services.AddTransient<IIdentityService, IdentityService>();
+        services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IFileService, FileService>();
 
         var googleSettings = configuration.Read<GoogleSettings>();
         var facebookSettings = configuration.Read<FacebookSettings>();
