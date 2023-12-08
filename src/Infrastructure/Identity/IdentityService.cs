@@ -1,12 +1,17 @@
-﻿using System.Security.Claims;
+﻿using System.Net.NetworkInformation;
+using System.Security.Claims;
+using CookingMasterApi.Application.Common.Constants;
 using CookingMasterApi.Application.Common.Exceptions;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Application.Common.Models;
+using CookingMasterApi.Domain.Entities;
 using FluentValidation.Results;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using static Duende.IdentityServer.Models.IdentityResources;
+using Microsoft.Extensions.Logging;
+using Org.BouncyCastle.Crypto.Parameters;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CookingMasterApi.Infrastructure.Identity;
 
@@ -14,13 +19,19 @@ public class IdentityService : IIdentityService
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IFileService _fileService;
+    private readonly ILogger<IdentityService> _logger;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager)
+        SignInManager<ApplicationUser> signInManager,
+        IFileService fileService,
+        ILogger<IdentityService> logger)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _fileService = fileService;
+        _logger = logger;
     }
 
     public async Task ValidateUserByIdAsync(string userId)
@@ -119,7 +130,6 @@ public class IdentityService : IIdentityService
         }
 
         var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-        var picture = info.Principal.FindFirstValue(JwtClaimTypes.Picture);
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
         if (!result.Succeeded)
@@ -131,8 +141,11 @@ public class IdentityService : IIdentityService
                 {
                     UserName = email,
                     Email = email,
+                    PictureUid = Guid.NewGuid()
                 };
 
+                var pictureUrl = info.Principal.FindFirstValue(JwtClaimTypes.Picture);
+                await SaveExternalLoginPicture(user.PictureUid.Value, pictureUrl, email, info.ProviderDisplayName);
                 await CreateApplicationUser(user);
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -272,5 +285,24 @@ public class IdentityService : IIdentityService
             }
             throw new ValidationException(validationFailureList);
         }
+    }
+
+    private async Task SaveExternalLoginPicture(Guid pictureUid, string pictureUrl, string email, string provider)
+    {
+        try {
+            using (HttpClient c = new HttpClient())
+            {
+                using (Stream s = await c.GetStreamAsync(pictureUrl))
+                {
+                    var fileDetails = new FileDetails { FileUid = pictureUid, Container = BlobContainers.UserPictures, ContentType = "image/png", FileName = $"{provider}.png" };
+                    await _fileService.SaveFileStream(fileDetails, s);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error Saving externalLoginPicture for user: {email}");
+        }
+
     }
 }
