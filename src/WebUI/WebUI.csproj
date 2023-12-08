@@ -5,6 +5,7 @@
         <IsPackable>true</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
         <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+        <UserSecretsId>d02491a3-4507-4d37-b31b-95351d55d8a9</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

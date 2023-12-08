@@ -1,5 +1,8 @@
 ﻿using System.Net.Mime;
+using CookingMasterApi.Application.File.Images.Commands;
 using CookingMasterApi.Application.File.Images.Queries;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookingMasterApi.WebUI.Controllers;
@@ -20,6 +23,14 @@ public class FileController : ApiControllerBase
         }.ToString());
 
         return File(result.File, result.ContentType);
+    }
+
+    [HttpPost(nameof(UploadImage))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> UploadImage(UploadImageCommand command)
+    {
+        return Ok(await Mediator.Send(command));
     }
 
 }

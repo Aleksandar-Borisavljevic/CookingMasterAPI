@@ -1,5 +1,6 @@
 using CookingMasterApi.Infrastructure.Persistence;
 using Serilog;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
