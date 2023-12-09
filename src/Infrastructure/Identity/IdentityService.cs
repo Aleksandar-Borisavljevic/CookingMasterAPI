@@ -108,7 +108,7 @@ public class IdentityService : IIdentityService
             throw new ValidationException(string.Empty, "Email Not Confirmed");
         }
 
-        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
+        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email, PictureUid = user?.PictureUid };
 
     }
 
@@ -116,7 +116,7 @@ public class IdentityService : IIdentityService
     {
         var user = await GetApplicationUser(usernameOrEmail);
 
-        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
+        return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email, PictureUid = user?.PictureUid };
 
     }
 
