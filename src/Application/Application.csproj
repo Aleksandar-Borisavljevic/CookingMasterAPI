@@ -21,6 +21,7 @@
     <ItemGroup>
       <Folder Include="CuisineTypes\Commands\CreateCuisineType\" />
       <Folder Include="CuisineTypes\EventHandlers\" />
+      <Folder Include="IngredientCategories\Shared\" />
     </ItemGroup>
 
 </Project>

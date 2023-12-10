@@ -1,6 +1,12 @@
-﻿namespace CookingMasterApi.Domain.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
-public abstract class BaseAuditableEntity
+namespace CookingMasterApi.Application.Common.Models;
+public class BaseDto
 {
     public DateTime Created { get; set; }
     public string CreatedBy { get; set; }

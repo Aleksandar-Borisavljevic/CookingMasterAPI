@@ -23,6 +23,9 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     public DbSet<CulinaryRecipe> CulinaryRecipes => Set<CulinaryRecipe>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<FileDetails> FileDetails => Set<FileDetails>();
+    public DbSet<IngredientCategory> IngredientCategories => Set<IngredientCategory>();
+    public DbSet<IngredientNutrient> IngredientNutrients => Set<IngredientNutrient>();
+    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
 
     protected override void OnModelCreating(ModelBuilder builder) //TODO: separate file for seed data
     {
@@ -30,12 +33,12 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
         base.OnModelCreating(builder);
 
         builder.Entity<CuisineType>().HasData(
-          new CuisineType { Id = -1, Uid = Guid.NewGuid(), CuisineName = "Italian"},
-          new CuisineType { Id = -2, Uid = Guid.NewGuid(), CuisineName = "Indian" },
-          new CuisineType { Id = -3, Uid = Guid.NewGuid(), CuisineName = "Mexican" },
-          new CuisineType { Id = -4, Uid = Guid.NewGuid(), CuisineName = "Chinese" },
-          new CuisineType { Id = -5, Uid = Guid.NewGuid(), CuisineName = "French" },
-          new CuisineType { Id = -6, Uid = Guid.NewGuid(), CuisineName = "Thai" }
+          new CuisineType { Id = 1, Uid = Guid.NewGuid(), CuisineName = "Italian"},
+          new CuisineType { Id = 2, Uid = Guid.NewGuid(), CuisineName = "Indian" },
+          new CuisineType { Id = 3, Uid = Guid.NewGuid(), CuisineName = "Mexican" },
+          new CuisineType { Id = 4, Uid = Guid.NewGuid(), CuisineName = "Chinese" },
+          new CuisineType { Id = 5, Uid = Guid.NewGuid(), CuisineName = "French" },
+          new CuisineType { Id = 6, Uid = Guid.NewGuid(), CuisineName = "Thai" }
       );
     }
 
