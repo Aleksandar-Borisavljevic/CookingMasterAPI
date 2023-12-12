@@ -18,7 +18,7 @@ public class CulinaryRecipeController : ApiControllerBase
     }
 
     [HttpGet(nameof(GetCulinaryRecipes))]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [EnableQuery]
     public async Task<ActionResult<IQueryable<CulinaryRecipeDto>>> GetCulinaryRecipes()
     {
