@@ -26,7 +26,7 @@ public class SignInCommandHandler : IRequestHandler<SignInCommand, SignInCommand
         var refreshToken = _tokenService.GenerateRefreshToken();
         await _refreshTokenService.AddToken(new RefreshToken() { UserId = new Guid(userInfo.UserId), IsRevoked = false, Token = refreshToken.Token, ExpiryDate = refreshToken.ExpiryDate });
 
-        return new SignInCommandResult(accessToken, refreshToken.Token, userInfo.PictureUid);
+        return new SignInCommandResult(userInfo.Username, accessToken, refreshToken.Token, userInfo.PictureUid);
     }
 
 }
