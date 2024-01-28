@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Reflection.Emit;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Entities;
 using CookingMasterApi.Infrastructure.Identity;
@@ -26,20 +25,19 @@ public class CookingMasterDbContext : IdentityDbContext<ApplicationUser>, ICooki
     public DbSet<IngredientCategory> IngredientCategories => Set<IngredientCategory>();
     public DbSet<IngredientNutrient> IngredientNutrients => Set<IngredientNutrient>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
 
-    protected override void OnModelCreating(ModelBuilder builder) //TODO: separate file for seed data
+    protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
 
-        builder.Entity<CuisineType>().HasData(
-          new CuisineType { Id = 1, Uid = Guid.NewGuid(), CuisineName = "Italian"},
-          new CuisineType { Id = 2, Uid = Guid.NewGuid(), CuisineName = "Indian" },
-          new CuisineType { Id = 3, Uid = Guid.NewGuid(), CuisineName = "Mexican" },
-          new CuisineType { Id = 4, Uid = Guid.NewGuid(), CuisineName = "Chinese" },
-          new CuisineType { Id = 5, Uid = Guid.NewGuid(), CuisineName = "French" },
-          new CuisineType { Id = 6, Uid = Guid.NewGuid(), CuisineName = "Thai" }
-      );
+        SeedData.SeedCuisineTypes(builder);
+        SeedData.SeedIngredientCategories(builder);
+        SeedData.SeedIngredientNutrients(builder);
+        SeedData.SeedIngredients(builder);
+        SeedData.SeedCulinaryRecipe(builder);
+        SeedData.SeedRecipeIngredients(builder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

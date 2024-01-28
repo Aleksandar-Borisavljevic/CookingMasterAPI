@@ -62,44 +62,44 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6372),
                             CuisineName = "Italian",
-                            Uid = new Guid("d9beba0b-5e66-4f40-ab77-0578788bf8bb")
+                            Uid = new Guid("8125de54-f8fc-4d60-9d3f-cb5349fe9726")
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6428),
                             CuisineName = "Indian",
-                            Uid = new Guid("ff0c6266-22fd-4afe-9875-cc3482c665ab")
+                            Uid = new Guid("9a89ff9d-f3a6-4cff-b0a5-fa00bc393331")
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6440),
                             CuisineName = "Mexican",
-                            Uid = new Guid("80642038-845c-452d-ba40-e3487615820f")
+                            Uid = new Guid("59e0cccd-a6da-43fa-85c3-abcf33c0d2f0")
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6443),
                             CuisineName = "Chinese",
-                            Uid = new Guid("f73c7509-ce5f-45d9-b99a-d603e6b60bf3")
+                            Uid = new Guid("17107db8-e911-41b2-8d2f-ddd163008d02")
                         },
                         new
                         {
                             Id = 5,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6445),
                             CuisineName = "French",
-                            Uid = new Guid("d65ee3ab-8741-432d-818d-e8b39e7ebcd5")
+                            Uid = new Guid("6da29d71-cf69-40fa-ba71-2d74d32713ea")
                         },
                         new
                         {
                             Id = 6,
-                            Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6448),
                             CuisineName = "Thai",
-                            Uid = new Guid("6021e60b-e4a6-4ed2-95bf-1330f6854f10")
+                            Uid = new Guid("03f2c3e1-42fd-487b-b757-db6abee9f6ca")
                         });
                 });
 
@@ -150,6 +150,17 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasIndex("CuisineTypeId");
 
                     b.ToTable("CulinaryRecipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6763),
+                            CuisineTypeId = 1,
+                            RecipeDescription = "Instructions:\r\n\r\nCook the spaghetti according to package instructions. Drain and set aside.\r\n\r\nIn a large pan, heat olive oil over medium heat. Add the chopped onion and sauté until softened.\r\n\r\nAdd minced garlic to the pan and sauté for another 1-2 minutes until fragrant.\r\n\r\nAdd ground beef to the pan and cook until browned, breaking it apart with a spoon as it cooks.\r\n\r\nStir in grated carrots and chopped celery. Cook for a few minutes until the vegetables begin to soften.\r\n\r\nAdd crushed tomatoes, tomato paste, dried oregano, and dried basil to the pan. Season with salt and pepper to taste. Stir well to combine.\r\n\r\nReduce the heat to low, cover the pan, and let the sauce simmer for at least 20-30 minutes to allow the flavors to meld.\r\n\r\nTaste and adjust the seasoning if necessary.\r\n\r\nServe the Bolognese sauce over the cooked spaghetti.\r\n\r\nOptionally, garnish with grated Parmesan cheese and fresh basil or parsley.\r\n\r\nEnjoy your homemade Spaghetti Bolognese! Feel free to customize the recipe based on your preferences.",
+                            RecipeName = "Spaghetti Bolognese",
+                            Uid = new Guid("45221af4-6a80-4a27-b933-042117ec83c5")
+                        });
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.FileDetails", b =>
@@ -232,6 +243,19 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasIndex("IngredientNutrientId");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6737),
+                            IconPath = "banana",
+                            IngredientCategoryId = 1,
+                            IngredientName = "Banana",
+                            IngredientNutrientId = 1,
+                            Uid = new Guid("c5609129-5bcc-43a5-a0c9-59836d0fe6a4"),
+                            UnitOfMeasure = (short)0
+                        });
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.IngredientCategory", b =>
@@ -276,6 +300,80 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("IngredientCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryName = "Fruit",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6651),
+                            IconPath = "fruit",
+                            Uid = new Guid("3d37ed57-e8c6-4bd1-8dfd-5959129a9886")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryName = "Vegetables",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6655),
+                            IconPath = "vegetables",
+                            Uid = new Guid("de0ea465-6851-4a7f-8dcd-7b974b330ce0")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryName = "Spices",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6658),
+                            IconPath = "spices",
+                            Uid = new Guid("85670ea6-3e1b-4c99-889d-9f882b8b1553")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryName = "Meat",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6660),
+                            IconPath = "meat",
+                            Uid = new Guid("0ca4cc51-42a2-46a5-990e-483ed1c4134f")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryName = "Seafood",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6664),
+                            IconPath = "seafood",
+                            Uid = new Guid("ae7c070a-2206-4e8a-9315-6052cc162c11")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryName = "Cereals",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6667),
+                            IconPath = "cereals",
+                            Uid = new Guid("55b5d5a1-e45b-4a95-8c73-34bee3a12a2d")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryName = "Dairy Product",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6669),
+                            IconPath = "dairyproduct",
+                            Uid = new Guid("0dac3bb8-b7d3-421a-83d2-f626934f1291")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryName = "Nuts",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6672),
+                            IconPath = "nuts",
+                            Uid = new Guid("1090be03-888c-4d03-9ad9-0b6ca28fc987")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryName = "Other",
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6676),
+                            IconPath = "other",
+                            Uid = new Guid("8817fcbd-d9aa-407c-b97b-f66bb083f174")
+                        });
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.IngredientNutrient", b =>
@@ -325,6 +423,73 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("IngredientNutrients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Calories = 105m,
+                            Carbohydrates = 27m,
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6708),
+                            Fat = 1m,
+                            Protein = 1.3m,
+                            Sugar = 14m,
+                            Uid = new Guid("0715af36-1e62-40ce-91cb-955b9d921d32")
+                        });
+                });
+
+            modelBuilder.Entity("CookingMasterApi.Domain.Entities.RecipeIngredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<short>("Amount")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CulinaryRecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Deleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CulinaryRecipeId");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("RecipeIngredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = (short)0,
+                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6781),
+                            CulinaryRecipeId = 1,
+                            IngredientId = 1
+                        });
                 });
 
             modelBuilder.Entity("CookingMasterApi.Domain.Entities.RefreshToken", b =>
@@ -585,6 +750,25 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                     b.Navigation("IngredientCategory");
 
                     b.Navigation("IngredientNutrient");
+                });
+
+            modelBuilder.Entity("CookingMasterApi.Domain.Entities.RecipeIngredient", b =>
+                {
+                    b.HasOne("CookingMasterApi.Domain.Entities.CulinaryRecipe", "CulinaryRecipe")
+                        .WithMany()
+                        .HasForeignKey("CulinaryRecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CookingMasterApi.Domain.Entities.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CulinaryRecipe");
+
+                    b.Navigation("Ingredient");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

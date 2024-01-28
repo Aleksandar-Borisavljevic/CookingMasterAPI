@@ -23,6 +23,8 @@ public class GetCulinaryRecipesHandler : IRequestHandler<GetCulinaryRecipesQuery
 
     public async Task<IQueryable<CulinaryRecipeDto>> Handle(GetCulinaryRecipesQuery request, CancellationToken cancellationToken)
     {
+
+
         return _context.CulinaryRecipes.ProjectTo<CulinaryRecipeDto>(_mapper.ConfigurationProvider).AsNoTracking();
     }
 }

@@ -10,6 +10,8 @@ public interface ICookingMasterDbContext
     DbSet<RefreshToken> RefreshTokens { get; }
     DbSet<FileDetails> FileDetails { get; }
     DbSet<IngredientCategory> IngredientCategories { get; }
+    DbSet<Ingredient> Ingredients { get; }
+    DbSet<RecipeIngredient> RecipeIngredients { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
