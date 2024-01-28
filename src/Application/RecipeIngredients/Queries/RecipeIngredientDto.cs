@@ -8,5 +8,5 @@ using CookingMasterApi.Application.Ingredients.Queries;
 namespace CookingMasterApi.Application.RecipeIngredients.Queries;
 public class RecipeIngredientDto 
 {
-    public IQueryable<IngredientDto> Ingredients { get; set; }
+    public IEnumerable<IngredientDto> Ingredients { get; set; }
 }

@@ -62,44 +62,44 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6372),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2037),
                             CuisineName = "Italian",
-                            Uid = new Guid("8125de54-f8fc-4d60-9d3f-cb5349fe9726")
+                            Uid = new Guid("e18ab0bd-4889-4615-8796-363b1a1f3838")
                         },
                         new
                         {
                             Id = 2,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6428),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2091),
                             CuisineName = "Indian",
-                            Uid = new Guid("9a89ff9d-f3a6-4cff-b0a5-fa00bc393331")
+                            Uid = new Guid("27017c68-053d-4ad6-ba91-9653466462a4")
                         },
                         new
                         {
                             Id = 3,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6440),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2094),
                             CuisineName = "Mexican",
-                            Uid = new Guid("59e0cccd-a6da-43fa-85c3-abcf33c0d2f0")
+                            Uid = new Guid("a8790222-9edc-4796-bb6b-d117b2916378")
                         },
                         new
                         {
                             Id = 4,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6443),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2102),
                             CuisineName = "Chinese",
-                            Uid = new Guid("17107db8-e911-41b2-8d2f-ddd163008d02")
+                            Uid = new Guid("1edea285-089b-425d-9e73-7a4202db7127")
                         },
                         new
                         {
                             Id = 5,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6445),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2105),
                             CuisineName = "French",
-                            Uid = new Guid("6da29d71-cf69-40fa-ba71-2d74d32713ea")
+                            Uid = new Guid("5f7b9e1c-8304-416f-b5c1-24b6f5e2ed08")
                         },
                         new
                         {
                             Id = 6,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6448),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2108),
                             CuisineName = "Thai",
-                            Uid = new Guid("03f2c3e1-42fd-487b-b757-db6abee9f6ca")
+                            Uid = new Guid("60d96b46-7894-4895-b7a8-63847ec2798f")
                         });
                 });
 
@@ -155,11 +155,20 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6763),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2453),
                             CuisineTypeId = 1,
                             RecipeDescription = "Instructions:\r\n\r\nCook the spaghetti according to package instructions. Drain and set aside.\r\n\r\nIn a large pan, heat olive oil over medium heat. Add the chopped onion and sauté until softened.\r\n\r\nAdd minced garlic to the pan and sauté for another 1-2 minutes until fragrant.\r\n\r\nAdd ground beef to the pan and cook until browned, breaking it apart with a spoon as it cooks.\r\n\r\nStir in grated carrots and chopped celery. Cook for a few minutes until the vegetables begin to soften.\r\n\r\nAdd crushed tomatoes, tomato paste, dried oregano, and dried basil to the pan. Season with salt and pepper to taste. Stir well to combine.\r\n\r\nReduce the heat to low, cover the pan, and let the sauce simmer for at least 20-30 minutes to allow the flavors to meld.\r\n\r\nTaste and adjust the seasoning if necessary.\r\n\r\nServe the Bolognese sauce over the cooked spaghetti.\r\n\r\nOptionally, garnish with grated Parmesan cheese and fresh basil or parsley.\r\n\r\nEnjoy your homemade Spaghetti Bolognese! Feel free to customize the recipe based on your preferences.",
                             RecipeName = "Spaghetti Bolognese",
-                            Uid = new Guid("45221af4-6a80-4a27-b933-042117ec83c5")
+                            Uid = new Guid("c182a84c-9e35-4214-9994-5c4cd61c4d7a")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2457),
+                            CuisineTypeId = 1,
+                            RecipeDescription = "Preheat the Oven:\r\nPreheat your oven to the temperature recommended for your pizza dough (usually around 450°F or 230°C).\r\n\r\nPrepare the Pizza Dough:\r\nIf using store-bought dough, follow the instructions on the package. If making homemade dough, roll it out on a floured surface to your desired thickness.\r\n\r\nAssemble the Pizza:\r\nPlace the rolled-out pizza dough on a pizza stone or baking sheet. Drizzle a bit of olive oil over the dough. Spread a thin layer of tomato sauce over the dough, leaving a border around the edges.\r\n\r\nAdd Cheese and Basil:\r\nArrange slices of fresh mozzarella evenly over the sauce. Tear fresh basil leaves and scatter them over the cheese. Season with salt and pepper to taste. Optionally, sprinkle grated Parmesan cheese on top.\r\n\r\nBake in the Oven:\r\nTransfer the pizza to the preheated oven and bake according to the dough's instructions or until the crust is golden and the cheese is melted and bubbly.\r\n\r\nServe:\r\nOnce the pizza is out of the oven, let it cool for a few minutes before slicing. Serve hot and enjoy your homemade Margherita Pizza!\r\n\r\nFeel free to customize the recipe to your liking. Margherita Pizza is known for its simplicity and fresh flavors, making it a delicious and classic choice.",
+                            RecipeName = "Margherita Pizza",
+                            Uid = new Guid("89330a5c-24d7-4574-bcf7-bdbf179dea9a")
                         });
                 });
 
@@ -248,12 +257,56 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6737),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2418),
                             IconPath = "banana",
                             IngredientCategoryId = 1,
                             IngredientName = "Banana",
                             IngredientNutrientId = 1,
-                            Uid = new Guid("c5609129-5bcc-43a5-a0c9-59836d0fe6a4"),
+                            Uid = new Guid("9925c82c-08d6-4cda-ab78-527b905d5283"),
+                            UnitOfMeasure = (short)0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2421),
+                            IconPath = "tomato",
+                            IngredientCategoryId = 2,
+                            IngredientName = "Tomato",
+                            IngredientNutrientId = 2,
+                            Uid = new Guid("2f949a3b-1ae4-4049-9650-8789c14dd55e"),
+                            UnitOfMeasure = (short)0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2424),
+                            IconPath = "lemon",
+                            IngredientCategoryId = 1,
+                            IngredientName = "Lemon",
+                            IngredientNutrientId = 3,
+                            Uid = new Guid("a5479865-abb5-46e7-8760-434019083234"),
+                            UnitOfMeasure = (short)0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2429),
+                            IconPath = "basil",
+                            IngredientCategoryId = 3,
+                            IngredientName = "Basil",
+                            IngredientNutrientId = 4,
+                            Uid = new Guid("332880f7-b13e-40bd-934a-3023eb918f44"),
+                            UnitOfMeasure = (short)0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2432),
+                            IconPath = "redchilipapper",
+                            IngredientCategoryId = 2,
+                            IngredientName = "Red Chili Papper",
+                            IngredientNutrientId = 5,
+                            Uid = new Guid("5bc7e4d7-ed70-4e23-97d1-6f530515666b"),
                             UnitOfMeasure = (short)0
                         });
                 });
@@ -306,73 +359,73 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             CategoryName = "Fruit",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6651),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2285),
                             IconPath = "fruit",
-                            Uid = new Guid("3d37ed57-e8c6-4bd1-8dfd-5959129a9886")
+                            Uid = new Guid("94fefa39-648e-43f3-8f8b-1ec382123da5")
                         },
                         new
                         {
                             Id = 2,
                             CategoryName = "Vegetables",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6655),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2292),
                             IconPath = "vegetables",
-                            Uid = new Guid("de0ea465-6851-4a7f-8dcd-7b974b330ce0")
+                            Uid = new Guid("448f871e-063d-4bc8-bca6-27c26c326eb8")
                         },
                         new
                         {
                             Id = 3,
                             CategoryName = "Spices",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6658),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2295),
                             IconPath = "spices",
-                            Uid = new Guid("85670ea6-3e1b-4c99-889d-9f882b8b1553")
+                            Uid = new Guid("1d03cf87-a71d-42f6-8267-40c054787b27")
                         },
                         new
                         {
                             Id = 4,
                             CategoryName = "Meat",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6660),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2298),
                             IconPath = "meat",
-                            Uid = new Guid("0ca4cc51-42a2-46a5-990e-483ed1c4134f")
+                            Uid = new Guid("c13ef27e-2353-468f-9854-971cdb4afb70")
                         },
                         new
                         {
                             Id = 5,
                             CategoryName = "Seafood",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6664),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2300),
                             IconPath = "seafood",
-                            Uid = new Guid("ae7c070a-2206-4e8a-9315-6052cc162c11")
+                            Uid = new Guid("4b35a85c-1287-4253-8999-4a26dcccc82d")
                         },
                         new
                         {
                             Id = 6,
                             CategoryName = "Cereals",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6667),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2304),
                             IconPath = "cereals",
-                            Uid = new Guid("55b5d5a1-e45b-4a95-8c73-34bee3a12a2d")
+                            Uid = new Guid("e9522658-3dc0-42b5-a153-d1fd5e4dfd1f")
                         },
                         new
                         {
                             Id = 7,
                             CategoryName = "Dairy Product",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6669),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2307),
                             IconPath = "dairyproduct",
-                            Uid = new Guid("0dac3bb8-b7d3-421a-83d2-f626934f1291")
+                            Uid = new Guid("f1f9b9ef-f12a-48c2-bad2-5fb3fb0e7fde")
                         },
                         new
                         {
                             Id = 8,
                             CategoryName = "Nuts",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6672),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2310),
                             IconPath = "nuts",
-                            Uid = new Guid("1090be03-888c-4d03-9ad9-0b6ca28fc987")
+                            Uid = new Guid("161f06f0-4772-4695-8ba3-d35374fd57b1")
                         },
                         new
                         {
                             Id = 9,
                             CategoryName = "Other",
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6676),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2312),
                             IconPath = "other",
-                            Uid = new Guid("8817fcbd-d9aa-407c-b97b-f66bb083f174")
+                            Uid = new Guid("8c9b4758-c669-4246-bca2-b9958218df81")
                         });
                 });
 
@@ -430,11 +483,55 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                             Id = 1,
                             Calories = 105m,
                             Carbohydrates = 27m,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6708),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2348),
                             Fat = 1m,
                             Protein = 1.3m,
                             Sugar = 14m,
-                            Uid = new Guid("0715af36-1e62-40ce-91cb-955b9d921d32")
+                            Uid = new Guid("d8eda04a-3f98-4e65-89b4-a5cb3fad4acc")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Calories = 18m,
+                            Carbohydrates = 3.9m,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2352),
+                            Fat = 0.2m,
+                            Protein = 0.9m,
+                            Sugar = 2.6m,
+                            Uid = new Guid("925b3c5e-58c2-4c66-afc9-2629220fe0fd")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Calories = 29m,
+                            Carbohydrates = 9.3m,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2379),
+                            Fat = 0.3m,
+                            Protein = 1.1m,
+                            Sugar = 2.5m,
+                            Uid = new Guid("9c125d9b-ca69-4335-98af-2cf3185ed478")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Calories = 23m,
+                            Carbohydrates = 2.7m,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2383),
+                            Fat = 0.6m,
+                            Protein = 3.2m,
+                            Sugar = 0.3m,
+                            Uid = new Guid("0f306817-5243-47cb-bbed-fc80b67473b4")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Calories = 40m,
+                            Carbohydrates = 8.8m,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2389),
+                            Fat = 0.4m,
+                            Protein = 1.9m,
+                            Sugar = 5.3m,
+                            Uid = new Guid("209634e6-f892-4283-a850-8f9f43eb2840")
                         });
                 });
 
@@ -486,9 +583,33 @@ namespace CookingMasterApi.Infrastructure.Persistence.Migrations
                         {
                             Id = 1,
                             Amount = (short)0,
-                            Created = new DateTime(2024, 1, 28, 15, 13, 2, 825, DateTimeKind.Local).AddTicks(6781),
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2475),
                             CulinaryRecipeId = 1,
                             IngredientId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = (short)0,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2477),
+                            CulinaryRecipeId = 2,
+                            IngredientId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = (short)0,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2479),
+                            CulinaryRecipeId = 2,
+                            IngredientId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = (short)0,
+                            Created = new DateTime(2024, 1, 28, 20, 27, 45, 605, DateTimeKind.Local).AddTicks(2481),
+                            CulinaryRecipeId = 2,
+                            IngredientId = 5
                         });
                 });
 
