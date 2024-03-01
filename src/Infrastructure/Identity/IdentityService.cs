@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using CookingMasterApi.Application.Common.Constants;
 using CookingMasterApi.Application.Common.Exceptions;
 using CookingMasterApi.Application.Common.Interfaces;
@@ -10,8 +9,6 @@ using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Org.BouncyCastle.Crypto.Parameters;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CookingMasterApi.Infrastructure.Identity;
 
@@ -98,14 +95,14 @@ public class IdentityService : IIdentityService
 
         if (!areCredentialsCorrect)
         {
-            throw new ValidationException(string.Empty, "Wrong Password");
+            throw new ValidationException(ValidationExceptionKeys.Password, "Wrong Password");
         }
 
         var isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
         if (!isEmailConfirmed)
         {
-            throw new ValidationException(string.Empty, "Email Not Confirmed");
+            throw new ValidationException("Email", "Email Not Confirmed");
         }
 
         return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email, PictureUid = user?.PictureUid };
@@ -265,6 +262,7 @@ public class IdentityService : IIdentityService
         {
             user = await _userManager.FindByEmailAsync(usernameOrEmail);
         }
+
         if (user is null)
         {
             throw new NotFoundException("User does not exist");
