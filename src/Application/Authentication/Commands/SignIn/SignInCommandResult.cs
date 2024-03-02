@@ -1,5 +1,6 @@
 ﻿namespace CookingMasterApi.Application.Authentication.Commands.SignIn;
 
+//TODO: koristimo ovako nesto na vise mesta mozda da se napravi zajednicka klasa da bude unutar CommandResulta
 public class SignInCommandResult
 {
     public string Username { get; set; }

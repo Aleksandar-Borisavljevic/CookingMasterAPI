@@ -160,7 +160,7 @@ public class IdentityService : IIdentityService
         return _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl); ;
     }
 
-    public async Task ConfirmEmailAsync(string email, string code)
+    public async Task<UserInfo> ConfirmEmailAsync(string email, string code)
     {
         var isValid = await IsEmailConfirmationCodeValid(email, code);
         if (!isValid)
@@ -181,6 +181,8 @@ public class IdentityService : IIdentityService
             }
             throw new ValidationException(validationFailureList);
         }
+
+        return await GetUserInfo(email);
     }
 
     public async Task<UserInfo> ResetPasswordAsync(string email, string code, string password)

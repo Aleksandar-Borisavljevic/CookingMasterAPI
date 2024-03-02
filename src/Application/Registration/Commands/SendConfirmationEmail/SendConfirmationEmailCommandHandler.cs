@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
-using CookingMasterApi.Domain.Entities;
 using CookingMasterApi.Domain.Common;
 using CookingMasterApi.Application.Common.Models;
 

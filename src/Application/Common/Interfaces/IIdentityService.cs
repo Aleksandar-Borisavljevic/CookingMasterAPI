@@ -13,7 +13,7 @@ public interface IIdentityService
     Task<UserInfo> GetUserInfo(string usernameOrEmail);
     Task<UserInfo> ExternalLoginSignInAsync();
     AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
-    Task ConfirmEmailAsync(string email, string code);
+    Task<UserInfo> ConfirmEmailAsync(string email, string code);
     Task<UserInfo> ResetPasswordAsync(string email, string code, string password);
     Task ChangePasswordAsync(string username, string oldPassword, string newPassword);
     Task<bool> CheckIsExternalUser(string email);
