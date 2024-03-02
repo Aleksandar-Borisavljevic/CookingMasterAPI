@@ -2,7 +2,6 @@
 using CookingMasterApi.Application.Registration.Commands.ConfirmEmail;
 using CookingMasterApi.Application.Registration.Commands.Register;
 using CookingMasterApi.Application.Registration.Commands.SendConfirmationEmail;
-using CookingMasterApi.Application.Registration.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookingMasterApi.WebUI.Controllers;
