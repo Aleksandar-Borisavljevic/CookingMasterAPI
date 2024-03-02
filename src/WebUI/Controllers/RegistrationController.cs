@@ -29,14 +29,7 @@ public class RegistrationController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<SignInCommandResult>> ConfirmEmail(ConfirmEmailCommand command)
     {
-        await Mediator.Send(command);
-        return Ok();
+        return Ok(await Mediator.Send(command));
     }
 
-    [HttpGet(nameof(IsValidEmailConfirmationCode))]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> IsValidEmailConfirmationCode(string email, string code)
-    {
-        return Ok(await Mediator.Send(new CheckIsValidEmailConfirmationCodeQuery { Email = email, Code = code }));
-    }
 }
