@@ -162,6 +162,12 @@ public class IdentityService : IIdentityService
 
     public async Task ConfirmEmailAsync(string email, string code)
     {
+        var isValid = await IsEmailConfirmationCodeValid(email, code);
+        if (!isValid)
+        {
+            throw new ValidationException("Email", "Invalid Code");
+        }
+
         var user = await GetApplicationUser(email);
 
         var result = await _userManager.ConfirmEmailAsync(user, code);
@@ -241,7 +247,7 @@ public class IdentityService : IIdentityService
 
         if (isEmailConfirmed)
         {
-            throw new ValidationException(string.Empty, "Email is Already Confirmed");
+            throw new ValidationException("Email", "Email is Already Confirmed");
         }
 
         return await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.EmailConfirmationTokenProvider, "EmailConfirmation", code);
