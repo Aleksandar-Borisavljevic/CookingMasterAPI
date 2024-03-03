@@ -23,6 +23,7 @@
       <Folder Include="CuisineTypes\EventHandlers\" />
       <Folder Include="IngredientCategories\Shared\" />
       <Folder Include="RecipeIngredients\Commands\" />
+      <Folder Include="Registration\Queries\" />
     </ItemGroup>
 
 </Project>

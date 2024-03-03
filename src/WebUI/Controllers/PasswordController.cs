@@ -2,7 +2,6 @@
 using CookingMasterApi.Application.Password.Commands.ForgotPassword;
 using CookingMasterApi.Application.Password.Commands.ResetPassword;
 using CookingMasterApi.Application.Password.Queries;
-using CookingMasterApi.Application.Registration.Queries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
