@@ -36,8 +36,7 @@ public class GetRecipeIngredientsHandler : IRequestHandler<GetRecipeIngredientsQ
             .Where(i => _context.RecipeIngredients
             .Any(ri => ri.CulinaryRecipeId == recipe.Id && ri.IngredientId == i.Id))
             .ProjectTo<IngredientDto>(_mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .ToList();
+            .AsNoTracking();
 
         return ingredients;
     }
