@@ -34,11 +34,11 @@ public class PasswordController : ApiControllerBase
         return Ok();
     }
 
-    [HttpGet(nameof(IsValidResetPasswordCode))]
+    [HttpGet(nameof(CheckResetPasswordCode))]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> IsValidResetPasswordCode(string email, string code)
+    public async Task<ActionResult<CheckResetPasswordCodeQueryResult>> CheckResetPasswordCode(string email, string code)
     {
-        return Ok(await Mediator.Send(new CheckIsValidResetPasswordCodeQuery { Email = email, Code = code }));
+        return Ok(await Mediator.Send(new CheckResetPasswordCodeQuery { Email = email, Code = code }));
     }
 
 }
