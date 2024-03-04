@@ -43,7 +43,7 @@ public class IdentityService : IIdentityService
 
         if (!isEmailConfirmed)
         {
-            throw new ValidationException(string.Empty, "Email Not Confirmed");
+            throw new ValidationException(ValidationExceptionKeys.Email, "Email Not Confirmed");
         }
     }
 
@@ -69,7 +69,7 @@ public class IdentityService : IIdentityService
 
         if (isEmailConfirmed)
         {
-            throw new ValidationException(string.Empty, "Email is Already Confirmed");
+            throw new ValidationException(ValidationExceptionKeys.Email, "Email is Already Confirmed");
         }
 
         return await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -102,7 +102,7 @@ public class IdentityService : IIdentityService
 
         if (!isEmailConfirmed)
         {
-            throw new ValidationException("Email", "Email Not Confirmed");
+            throw new ValidationException(ValidationExceptionKeys.Email, "Email Not Confirmed");
         }
 
         return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email, PictureUid = user?.PictureUid };
@@ -123,7 +123,7 @@ public class IdentityService : IIdentityService
 
         if (info is null)
         {
-            throw new ValidationException(string.Empty, "Error from external provider");
+            throw new ValidationException(ValidationExceptionKeys.ExternalLogin, "Error from external provider");
         }
 
         var email = info.Principal.FindFirstValue(ClaimTypes.Email);
@@ -165,7 +165,7 @@ public class IdentityService : IIdentityService
         var isValid = await IsEmailConfirmationCodeValid(email, code);
         if (!isValid)
         {
-            throw new ValidationException("Email", "Invalid Code");
+            throw new ValidationException(ValidationExceptionKeys.Email, "Invalid Code");
         }
 
         var user = await GetApplicationUser(email);
@@ -196,7 +196,7 @@ public class IdentityService : IIdentityService
             IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
             foreach (var error in result.Errors)
             {
-                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+                validationFailureList.Add(new ValidationFailure(ValidationExceptionKeys.Password, error.Description));
             }
             throw new ValidationException(validationFailureList);
         }
@@ -226,7 +226,7 @@ public class IdentityService : IIdentityService
             IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
             foreach (var error in result.Errors)
             {
-                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+                validationFailureList.Add(new ValidationFailure(ValidationExceptionKeys.Password, error.Description));
             }
             throw new ValidationException(validationFailureList);
         }
@@ -249,7 +249,7 @@ public class IdentityService : IIdentityService
 
         if (isEmailConfirmed)
         {
-            throw new ValidationException("Email", "Email is Already Confirmed");
+            throw new ValidationException(ValidationExceptionKeys.Email, "Email is Already Confirmed");
         }
 
         return await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.EmailConfirmationTokenProvider, "EmailConfirmation", code);
@@ -287,7 +287,7 @@ public class IdentityService : IIdentityService
             IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
             foreach (var error in result.Errors)
             {
-                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
+                validationFailureList.Add(new ValidationFailure(ValidationExceptionKeys.CreateUser, error.Description));
             }
             throw new ValidationException(validationFailureList);
         }
