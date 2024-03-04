@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CookingMasterApi.Application.RecipeIngredients.Queries;
 
-public class GetRecipeIngredientsQuery : IRequest<RecipeIngredientDto>
+public class GetRecipeIngredientsQuery : IRequest<IEnumerable<IngredientDto>>
 {
     public Guid RecipeUid { get; set; }
 }
 
-public class GetRecipeIngredientsHandler : IRequestHandler<GetRecipeIngredientsQuery, RecipeIngredientDto>
+public class GetRecipeIngredientsHandler : IRequestHandler<GetRecipeIngredientsQuery, IEnumerable<IngredientDto>>
 {
     private readonly ICookingMasterDbContext _context;
     private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ public class GetRecipeIngredientsHandler : IRequestHandler<GetRecipeIngredientsQ
         _mapper = mapper;
     }
 
-    public async Task<RecipeIngredientDto> Handle(GetRecipeIngredientsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<IngredientDto>> Handle(GetRecipeIngredientsQuery request, CancellationToken cancellationToken)
     {
         var recipe = _context.CulinaryRecipes.SingleOrDefault(x => x.Uid == request.RecipeUid);
 
@@ -38,6 +38,6 @@ public class GetRecipeIngredientsHandler : IRequestHandler<GetRecipeIngredientsQ
             .ProjectTo<IngredientDto>(_mapper.ConfigurationProvider)
             .AsNoTracking();
 
-        return new RecipeIngredientDto { Ingredients = ingredients };
+        return ingredients;
     }
 }
