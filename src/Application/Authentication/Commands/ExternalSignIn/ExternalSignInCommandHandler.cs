@@ -34,8 +34,8 @@ public class ExternalSignInCommandHandler : IRequestHandler<ExternalSignInComman
             paramsStartSign = "#";
         }
 
-        return new ExternalSignInCommandResult(string.Format("{0}{1}AccessToken={2}&RefreshToken={3}&PictureUid={4}", 
-                                               command.ReturnUrl, paramsStartSign, accessToken, refreshToken, userInfo.PictureUid));
+        return new ExternalSignInCommandResult(string.Format("{0}{1}AccessToken={2}&RefreshToken={3}&PictureUid={4}&Username={5}", 
+                                               command.ReturnUrl, paramsStartSign, accessToken, refreshToken, userInfo.PictureUid, userInfo.Username));
     }
 
 }
