@@ -174,12 +174,7 @@ public class IdentityService : IIdentityService
 
         if (!result.Succeeded && result.Errors.Any())
         {
-            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
-            foreach (var error in result.Errors)
-            {
-                validationFailureList.Add(new ValidationFailure(string.Empty, error.Description));
-            }
-            throw new ValidationException(validationFailureList);
+            throw new ValidationException(ValidationExceptionKeys.Email, "Invalid Code");
         }
 
         return await GetUserInfo(email);
@@ -193,12 +188,7 @@ public class IdentityService : IIdentityService
 
         if (!result.Succeeded && result.Errors.Any())
         {
-            IList<ValidationFailure> validationFailureList = new List<ValidationFailure>();
-            foreach (var error in result.Errors)
-            {
-                validationFailureList.Add(new ValidationFailure(ValidationExceptionKeys.Password, error.Description));
-            }
-            throw new ValidationException(validationFailureList);
+            throw new ValidationException(ValidationExceptionKeys.Password, "Invalid Code");
         }
 
         return new UserInfo { UserId = user?.Id, Username = user?.UserName, Email = user?.Email };
