@@ -20,12 +20,13 @@ public class ForgotPasswordCommandHandler : IRequestHandler<ForgotPasswordComman
     {
 
         var code = await _identityService.GetForgotPasswordCodeAsync(command.Email);
+        var encodedCode = System.Net.WebUtility.UrlEncode(code);
 
         var user = await _identityService.GetUserInfo(command.Email);
 
         var paramsStartSign = "?";
 
-        var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, code);
+        var url = string.Format("{0}{1}Email={2}&Code={3}", command.ReturnUrl, paramsStartSign, command.Email, encodedCode);
 
         var htmlBody = GeneralHelper.GenerateResetPasswordHtml(user.Username, url);
 
