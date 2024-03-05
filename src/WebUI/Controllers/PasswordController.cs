@@ -1,4 +1,4 @@
-﻿using CookingMasterApi.Application.Authentication.Commands.SignIn;
+﻿using CookingMasterApi.Application.Common.Models;
 using CookingMasterApi.Application.Password.Commands.ChangePassword;
 using CookingMasterApi.Application.Password.Commands.ForgotPassword;
 using CookingMasterApi.Application.Password.Commands.ResetPassword;
@@ -21,7 +21,7 @@ public class PasswordController : ApiControllerBase
 
     [HttpPost(nameof(ResetPassword))]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SignInCommandResult>> ResetPassword(ResetPasswordCommand command)
+    public async Task<ActionResult<AuthResult>> ResetPassword(ResetPasswordCommand command)
     {
         return Ok(await Mediator.Send(command));
     }

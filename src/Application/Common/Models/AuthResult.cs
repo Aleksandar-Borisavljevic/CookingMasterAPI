@@ -1,14 +1,13 @@
-﻿namespace CookingMasterApi.Application.Authentication.Commands.SignIn;
+﻿namespace CookingMasterApi.Application.Common.Models;
 
-//TODO: koristimo ovako nesto na vise mesta mozda da se napravi zajednicka klasa da bude unutar CommandResulta
-public class SignInCommandResult
+public class AuthResult
 {
     public string Username { get; set; }
     public string AccessToken { get; set; }
     public string RefreshToken { get; set; }
     public Guid? PictureUid { get; set; }
 
-    public SignInCommandResult(string username, string accessToken, string refreshToken, Guid? pictureUid)
+    public AuthResult(string username, string accessToken, string refreshToken, Guid? pictureUid)
     {
         Username = username;
         AccessToken = accessToken;

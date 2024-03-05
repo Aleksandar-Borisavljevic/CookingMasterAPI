@@ -1,4 +1,4 @@
-﻿using CookingMasterApi.Application.Authentication.Commands.SignIn;
+﻿using CookingMasterApi.Application.Common.Models;
 using CookingMasterApi.Application.Registration.Commands.ConfirmEmail;
 using CookingMasterApi.Application.Registration.Commands.Register;
 using CookingMasterApi.Application.Registration.Commands.SendConfirmationEmail;
@@ -26,7 +26,7 @@ public class RegistrationController : ApiControllerBase
 
     [HttpPost(nameof(ConfirmEmail))]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SignInCommandResult>> ConfirmEmail(ConfirmEmailCommand command)
+    public async Task<ActionResult<AuthResult>> ConfirmEmail(ConfirmEmailCommand command)
     {
         return Ok(await Mediator.Send(command));
     }

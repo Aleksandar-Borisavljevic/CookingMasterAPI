@@ -2,6 +2,7 @@
 using CookingMasterApi.Application.Authentication.Commands.Revoke;
 using CookingMasterApi.Application.Authentication.Commands.SignIn;
 using CookingMasterApi.Application.Authentication.Queries.CheckIsExternalUser;
+using CookingMasterApi.Application.Common.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ public class AuthController : ApiControllerBase
 {
     [HttpPost(nameof(SignIn))]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SignInCommandResult>> SignIn(SignInCommand command)
+    public async Task<ActionResult<AuthResult>> SignIn(SignInCommand command)
     {
         var result = await Mediator.Send(command);
         return Ok(result);

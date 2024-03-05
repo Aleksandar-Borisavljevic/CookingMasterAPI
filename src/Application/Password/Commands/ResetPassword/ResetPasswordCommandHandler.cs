@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using CookingMasterApi.Application.Common.Interfaces;
 using CookingMasterApi.Domain.Entities;
-using CookingMasterApi.Application.Authentication.Commands.SignIn;
+using CookingMasterApi.Application.Common.Models;
 
 namespace CookingMasterApi.Application.Password.Commands.ResetPassword;
 
-public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, SignInCommandResult>
+public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, AuthResult>
 {
     private readonly IIdentityService _identityService;
     private readonly ITokenService _tokenService;
@@ -18,7 +18,7 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
         _refreshTokenService = refreshTokenService;
     }
 
-    public async Task<SignInCommandResult> Handle(ResetPasswordCommand command, CancellationToken cancellationToken)
+    public async Task<AuthResult> Handle(ResetPasswordCommand command, CancellationToken cancellationToken)
     {
 
         var userInfo = await _identityService.ResetPasswordAsync(command.Email, command.Code, command.Password);
@@ -27,7 +27,7 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
         var refreshToken = _tokenService.GenerateRefreshToken();
         await _refreshTokenService.AddToken(new RefreshToken() { UserId = new Guid(userInfo.UserId), IsRevoked = false, Token = refreshToken.Token, ExpiryDate = refreshToken.ExpiryDate });
 
-        return new SignInCommandResult(userInfo.Username, accessToken, refreshToken.Token, userInfo.PictureUid);
+        return new AuthResult(userInfo.Username, accessToken, refreshToken.Token, userInfo.PictureUid);
     }
 
 }
