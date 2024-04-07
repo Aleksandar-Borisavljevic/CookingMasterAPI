@@ -204,7 +204,7 @@ Stir in the cumin and chili powder, and cook for an additional minute.
 Add the salsa, chicken or vegetable broth, and chipotle peppers (if using). Simmer the sauce for about 10-15 minutes, stirring occasionally. Season with salt and pepper to taste.
 Cook the Eggs (Optional):
 
-In a separate skillet, cook the eggs to your preferred style (fried or scrambled). Set them aside.
+In a separate skillet, cook the eggs to your preferred style ( fried or scrambled ). Set them aside.
 Assemble the Chilaquiles:
 
 In a large pan, pour the sauce over the tortilla chips.
